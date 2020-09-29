@@ -9,7 +9,7 @@ $factory->define(Feedback::class, function (Faker $faker) {
     return [
         'feedback_name' => $faker->name,
         'feedback_email' => $faker->email,
-        'feedback_telephone' => $faker->e164PhoneNumber,
+        'feedback_telephone' => App\Services\Helper::clearPhone($faker->e164PhoneNumber),
         'feedback_message' => $faker->text(200),
     ];
 });
