@@ -157,6 +157,6 @@ trait Translation
      */
     private function getDefaultLocale(): string
     {
-        return app()->getLocale();
+        return app('localizer')->getDefaultLocale();
     }
 }
