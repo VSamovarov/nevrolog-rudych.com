@@ -43,27 +43,32 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/front/api.php'));
 
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/front/web.php'));
+            Route::localizedGroup(
+                [],
+                function () {
+                    Route::middleware('web')
+                        ->namespace($this->namespace)
+                        ->group(base_path('routes/front/web.php'));
+                }
+            );
+
 
             Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => $this->namespace], function () {
                 Route::prefix('api')
-                    ->middleware(['api', 'auth:api'])
+                    ->middleware(['api', 'auth:sanctum'])
                     ->group(base_path('routes/admin/api.php'));
 
-                Route::middleware(['web', 'auth'])
-                    ->group(base_path('routes/admin/web.php'));
+                Route::localizedGroup(
+                    [],
+                    function () {
+                        Route::middleware(['web', 'auth'])
+                            ->group(base_path('routes/admin/web.php'));
+                    }
+                );
             });
         });
     }
 
-
-    public function map()
-    {
-        //$this->mapApiRoutes();
-        $this->mapWebRoutes();
-    }
     /**
      * Configure the rate limiters for the application.
      *

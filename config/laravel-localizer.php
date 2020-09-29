@@ -15,7 +15,7 @@ return [
     // is identical with the same url with default locale.
     // For example, if `en` is default locale, then `/en/about` and `/about`
     // would be identical.
-    'hideDefaultLocaleInURL' => false,
+    'hideDefaultLocaleInURL' => true,
 
     // Имя фйала с переводами, который размещается там же
     // где и прочие языковые файлы
