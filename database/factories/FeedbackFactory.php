@@ -1,15 +1,31 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
-use App\Entity\Feedback;
-use Faker\Generator as Faker;
+use App\Entity\FeedBack\FeedBack;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(Feedback::class, function (Faker $faker) {
-    return [
-        'feedback_name' => $faker->name,
-        'feedback_email' => $faker->email,
-        'feedback_telephone' => App\Services\Helper::clearPhone($faker->e164PhoneNumber),
-        'feedback_message' => $faker->text(200),
-    ];
-});
+class FeedbackFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = FeedBack::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'feedback_name' => $this->faker->name,
+            'feedback_email' => $this->faker->email,
+            'feedback_telephone' => \App\Services\Helper::clearPhone($this->faker->e164PhoneNumber),
+            'feedback_message' => $this->faker->text(200)
+        ];
+    }
+}
