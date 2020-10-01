@@ -1,6 +1,13 @@
-@import "common/bootstrap-theme";
-@import "common/bootstrap";
-@import "common/common";
-//
 @import "../fonts/social-icons/css/social.css";
 @import "../fonts/linearicons/css/linearicons.css";
+
+@import "common/bootstrap-theme";
+@import "common/bootstrap";
+
+@import "common/colors";
+@import "common/common";
+@import "common/a";
+
+@import "common/typography";
+
+@import "parts/page-header";
