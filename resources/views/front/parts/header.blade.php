@@ -1,5 +1,5 @@
-<div class="page-header">
-    <div class="container page-header__top">
+<div id="header" class="header">
+    <div class="container header__top">
         <div class="d-flex align-items-center">
             <button class="hamburger hamburger--boring" type="button">
                 <span class="hamburger-box">
@@ -41,7 +41,7 @@
         </div>
         <div class="dots-menu-button"></div>
     </div>
-    <div class="page-header__menu">
+    <div class="header__menu">
         <div class="container main-menu-wrapper">
             <div class="main-menu">
                 @include('front.modules.main-menu')

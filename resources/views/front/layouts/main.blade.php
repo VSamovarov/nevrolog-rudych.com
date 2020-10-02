@@ -18,13 +18,13 @@
 <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-<body class="{{ $page_class ?? '' }}">
+<body class="{{ $page_class ?? '' }} main-layout">
     <div id="app">
-        @include('front.parts.page-header')
+        @include('front.parts.header')
         <main id="main">
             @yield('content')
         </main>
-        @include('front.parts.page-footer')
+        @include('front.parts.footer')
     </div>
     <!-- Scripts -->
     <script src="{{ mix('front/js/index.js') }}"></script>

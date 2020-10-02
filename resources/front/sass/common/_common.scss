@@ -1,3 +1,26 @@
+html,
+body,
+#app {
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+
+    #main {
+        box-sizing: border-box;
+        flex: 1 0 auto;
+    }
+
+    #footer {
+        box-sizing: border-box;
+        flex: 0 0 auto;
+    }
+}
+
 body {
     font-family: "Open Sans", sans-serif;
     font-size: 14px;

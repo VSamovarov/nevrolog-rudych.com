@@ -1,18 +1,18 @@
-$page-header-top-height-mobile: 58px;
-$page-header-top-height: 110px;
-$page-header-menu-height: 78px;
+$header-top-height-mobile: 58px;
+$header-top-height: 110px;
+$header-menu-height: 78px;
 
-.page-header {
+.header {
     position: relative;
     &__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: $page-header-top-height-mobile;
+        height: $header-top-height-mobile;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
         @include breakpoint(map-get($grid-breakpoints, "lg")) {
             box-shadow: none;
-            height: $page-header-top-height;
+            height: $header-top-height;
         }
 
         .contacts-wrapper {
@@ -44,7 +44,7 @@ $page-header-menu-height: 78px;
             position: relative;
             background: #f7f9f9;
             box-shadow: none;
-            height: $page-header-menu-height;
+            height: $header-menu-height;
         }
     }
 }
@@ -90,9 +90,9 @@ $page-header-menu-height: 78px;
     background: #fdf5fc;
     z-index: 1000;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-    top: $page-header-top-height-mobile;
+    top: $header-top-height-mobile;
     @include breakpoint(map-get($grid-breakpoints, "lg")) {
-        top: $page-header-top-height;
+        top: $header-top-height;
     }
     padding: 0 2rem;
     right: 0;
@@ -115,13 +115,13 @@ $page-header-menu-height: 78px;
         min-width: 690px;
         display: flex;
         padding: 0;
-        height: $page-header-menu-height;
+        height: $header-menu-height;
         // flex-direction: row-reverse;
         align-items: center;
         justify-content: space-between;
     }
 }
-.page-header {
+.header {
     .hamburger {
         padding-left: 0;
     }

@@ -1,6 +1,6 @@
-<footer id="footer" class="page-footer">
-    <div class="container page-footer__wrapper">
-        <div class="page-footer__menu">
+<footer id="footer" class="footer">
+    <div class="container footer__wrapper">
+        <div class="footer__menu">
 
             <ul class="list-nav">
                 <li><a class="active" href="index.html">Home</a></li>
@@ -14,7 +14,7 @@
             @include('front.modules.social-links')
         </div>
         <hr />
-        <div class="page-footer__footer">
+        <div class="footer__footer">
             <div class="brand">
                 <a href="index.html">
                     <img src="{{ asset('img/logo.png') }}" alt="" width="128" height="37">
