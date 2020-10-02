@@ -37,19 +37,14 @@
                 </div>
             </div>
 
-            <div class="social-links">
-                <p class="social-links__item"><a class="icon-facebook" href="#"></a></p>
-                <p class="social-links__item"><a class="icon-twitter" href="#"></a></p>
-                <p class="social-links__item"><a class="icon-linkedin-1" href="#"></a></p>
-            </div>
+            @include('front.modules.social-links')
         </div>
         <div class="dots-menu-button"></div>
     </div>
     <div class="page-header__menu">
         <div class="container main-menu-wrapper">
             <div class="main-menu">
-
-                @include('front.parts.main-menu')
+                @include('front.modules.main-menu')
             </div>
             <div class="search"></div>
         </div>

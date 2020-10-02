@@ -24,9 +24,7 @@
         <main id="main">
             @yield('content')
         </main>
-        <footer id="footer">
-
-        </footer>
+        @include('front.parts.page-footer')
     </div>
     <!-- Scripts -->
     <script src="{{ mix('front/js/index.js') }}"></script>
