@@ -14,11 +14,17 @@
     &__menu {
         .list-nav {
             margin-bottom: 25px;
+            @include breakpoint(map-get($grid-breakpoints, "lg")) {
+                margin-bottom: 0;
+            }
         }
     }
     &__footer {
         .brand {
             margin-bottom: 25px;
+            @include breakpoint(map-get($grid-breakpoints, "lg")) {
+                margin-bottom: 0;
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-.navbar {
+.main-navbar {
     padding: 0;
     margin: 0;
 
@@ -24,6 +24,8 @@
         margin-left: -$grid-gutter-width / 2;
         margin-right: -$grid-gutter-width / 2;
         @include breakpoint(map-get($grid-breakpoints, "lg")) {
+            margin-left: 0;
+            margin-right: 0;
             padding: 0;
             width: initial;
         }
@@ -77,7 +79,7 @@
 
     & > &__has-submenu {
         position: relative;
-        .navbar__sub_navbar {
+        .main-navbar__sub_navbar {
             font-size: 1rem;
             background: white;
             padding: 10px 45px;
@@ -92,7 +94,7 @@
         }
 
         &.active {
-            .navbar__sub_navbar {
+            .main-navbar__sub_navbar {
                 display: block;
             }
         }
@@ -100,7 +102,7 @@
 }
 
 @include breakpoint(map-get($grid-breakpoints, "lg")) {
-    .navbar {
+    .main-navbar {
         position: relative;
         display: flex;
         flex: 1 1 100%;
@@ -121,7 +123,7 @@
 
         & > &__has-submenu {
             position: relative;
-            .navbar__sub_navbar {
+            .main-navbar__sub_navbar {
                 position: absolute;
                 width: 290px;
                 background: #313131;
