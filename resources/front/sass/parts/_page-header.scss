@@ -1,14 +1,18 @@
+$page-header-top-height-mobile: 58px;
+$page-header-top-height: 110px;
+$page-header-menu-height: 78px;
+
 .page-header {
     position: relative;
     &__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        height: $page-header-top-height-mobile;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
         @include breakpoint(map-get($grid-breakpoints, "lg")) {
-            padding-top: 30px;
-            padding-bottom: 40px;
+            box-shadow: none;
+            height: $page-header-top-height;
         }
 
         .contacts-wrapper {
@@ -26,15 +30,21 @@
         }
     }
     &__menu {
-        background: white;
+        background: #fdf5fc;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
         min-width: 80%;
         position: absolute;
+        display: none;
+        &.active {
+            display: block;
+        }
         @include breakpoint(map-get($grid-breakpoints, "lg")) {
+            display: block;
             min-width: auto;
             position: relative;
             background: #f7f9f9;
             box-shadow: none;
+            height: $page-header-menu-height;
         }
     }
 }
@@ -74,13 +84,38 @@
     }
 }
 
+.contacts-wrapper.active {
+    position: absolute;
+    display: block;
+    background: #fdf5fc;
+    z-index: 1000;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+    top: $page-header-top-height-mobile;
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+        top: $page-header-top-height;
+    }
+    padding: 0 2rem;
+    right: 0;
+    & > * {
+        padding: 0;
+        margin: 2rem 0;
+    }
+    .contacts {
+        justify-content: left;
+    }
+    .social-links {
+        justify-content: center;
+    }
+}
+
 .main-menu {
     position: relative;
     padding: 16px 0;
-    position: relative;
     @include breakpoint(map-get($grid-breakpoints, "lg")) {
         min-width: 690px;
         display: flex;
+        padding: 0;
+        height: $page-header-menu-height;
         // flex-direction: row-reverse;
         align-items: center;
         justify-content: space-between;
@@ -89,5 +124,12 @@
 .page-header {
     .hamburger {
         padding-left: 0;
+    }
+
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+        .dots-menu-button,
+        .hamburger {
+            display: none;
+        }
     }
 }

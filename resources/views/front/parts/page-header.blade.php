@@ -1,7 +1,7 @@
 <div class="page-header">
     <div class="container page-header__top">
         <div class="d-flex align-items-center">
-            <button class="hamburger hamburger--boring is-active" type="button">
+            <button class="hamburger hamburger--boring" type="button">
                 <span class="hamburger-box">
                     <span class="hamburger-inner"></span>
                 </span>
@@ -43,6 +43,7 @@
                 <p class="social-links__item"><a class="icon-linkedin-1" href="#"></a></p>
             </div>
         </div>
+        <div class="dots-menu-button"></div>
     </div>
     <div class="page-header__menu">
         <div class="container main-menu-wrapper">

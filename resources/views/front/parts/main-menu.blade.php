@@ -1,5 +1,5 @@
 <ul class="navbar">
-    <li class="navbar__item active"><a class="" href="index.html">Home</a>
+    <li class="navbar__item"><a class="" href="index.html">Home</a>
     </li>
     <li class="navbar__item"><a class="" href="about.html">About</a>
     </li>
@@ -18,7 +18,7 @@
             </li>
         </ul>
     </li>
-    <li class="navbar__item navbar__has-submenu active"><a class="" href="#">Pages</a>
+    <li class="navbar__item navbar__has-submenu"><a class="" href="#">Pages</a>
 
         <ul class="navbar__sub_navbar">
             <li class="navbar__item"><a class="" href="careers.html">Careers</a>
