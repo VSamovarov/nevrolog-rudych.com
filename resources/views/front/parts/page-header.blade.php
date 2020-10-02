@@ -1,9 +1,18 @@
 <div class="page-header">
     <div class="container page-header__top">
-        <div class="brand">
-            <a href="index.html">
-                <img src="{{ asset('img/logo.png') }}" alt="" width="128" height="37">
-            </a>
+        <div class="d-flex align-items-center">
+            <button class="hamburger hamburger--boring is-active" type="button">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+                <span class="hamburger-label">Menu</span>
+            </button>
+
+            <div class="brand">
+                <a href="index.html">
+                    <img src="{{ asset('img/logo.png') }}" alt="" width="128" height="37">
+                </a>
+            </div>
         </div>
         <div class="contacts-wrapper">
             <div class="contacts">
