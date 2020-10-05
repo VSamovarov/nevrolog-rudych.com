@@ -485,3 +485,7 @@ html .page .text-primary {
 .text-nowrap {
     white-space: nowrap;
 }
+
+.page-title {
+    margin-bottom: map-get($spacers, 4);
+}

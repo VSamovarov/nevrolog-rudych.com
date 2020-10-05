@@ -1,0 +1,35 @@
+.pagination {
+    padding: 0;
+    margin: 0 -0.1em;
+    font-size: 1.2rem;
+
+    & > * {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: inline-block;
+        margin: 0 0.1em;
+        & > * {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2em;
+            height: 2.2em;
+            background: lighten($brand-color, 10%);
+            border-radius: 4px;
+            color: white;
+            font-family: "Garamond", "Baskerville", "Baskerville Old Face",
+                "Hoefler Text", "Times New Roman";
+        }
+        & > *:hover {
+            background: $brand-color-dark;
+            color: white;
+        }
+    }
+    .active > * {
+        background: $brand-color-dark;
+    }
+    .disabled {
+        display: none;
+    }
+}

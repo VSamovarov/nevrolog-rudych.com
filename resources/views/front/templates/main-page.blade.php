@@ -1,5 +1,6 @@
 @extends('front.layouts.main')
 
 @section('content')
-Привет
+    @include('front.parts.page-header')
+    @include('front.parts.post-listing')
 @endsection
