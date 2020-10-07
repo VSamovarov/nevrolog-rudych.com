@@ -1,6 +1,8 @@
 <?php
 
+use App\Entity\Feedback\Feedback;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,5 +20,16 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia\Inertia::render('Dashboard');
+    return Inertia::render('Dashboard');
 });
+
+
+Route::get('/feedback', function () {
+    $data = Feedback::all();
+    return Inertia::render('Feedback/Index', ['data' => $data]);
+})->name('feedback.index');
+
+
+Route::get('/test', function () {
+    return Inertia::render('Test', ['data' => ['1']]);
+})->name('test');
