@@ -17,7 +17,7 @@ class CreateFeedbackTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->nullable();
-            $table->string('telephone', 20)->nullable();
+            $table->string('phone', 20)->nullable();
             $table->string('message')->nullable();
             $table->tinyInteger('viewed')->default(0);
             $table->json('form_data')->nullable();

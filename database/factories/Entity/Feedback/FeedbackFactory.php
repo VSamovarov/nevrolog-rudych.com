@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Entity\Feedback;
 
 use App\Entity\FeedBack\Feedback;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,10 +22,10 @@ class FeedbackFactory extends Factory
     public function definition()
     {
         return [
-            'feedback_name' => $this->faker->name,
-            'feedback_email' => $this->faker->email,
-            'feedback_telephone' => \App\Services\Helper::clearPhone($this->faker->e164PhoneNumber),
-            'feedback_message' => $this->faker->text(200)
+            'name' => $this->faker->name,
+            'email' => $this->faker->email,
+            'phone' => \App\Services\Helper::clearPhone($this->faker->e164PhoneNumber),
+            'message' => $this->faker->text(200)
         ];
     }
 }
