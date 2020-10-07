@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\Translation;
+namespace App\Services\Translation;
 
 /**
  * https://github.com/Astrotomic/laravel-translatable

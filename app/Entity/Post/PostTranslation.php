@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Entity\Post;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PostTrasnlation extends Model
+class PostTranslation extends Model
 {
     public $timestamps = false;
 }

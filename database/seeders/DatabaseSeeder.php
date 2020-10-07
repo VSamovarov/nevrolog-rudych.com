@@ -14,5 +14,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Entity\User\User::factory(10)->create();
+        $this->call([
+            FeedbackSeeder::class
+        ]);
     }
 }

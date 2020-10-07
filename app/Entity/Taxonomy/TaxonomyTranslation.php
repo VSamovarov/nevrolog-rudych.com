@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Entity\Taxonomy;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaxonomyTrasnlation extends Model
+class TaxonomyTranslation extends Model
 {
     public $timestamps = false;
 }
