@@ -18,7 +18,6 @@
         "laravel/jetstream": "^1.3",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.0",
-        "tightenco/ziggy": "^0.9.4",
         "vsamovarov/laravel-localizer": "dev-master"
     },
     "require-dev": {
