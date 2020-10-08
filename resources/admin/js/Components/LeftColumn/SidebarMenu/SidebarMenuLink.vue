@@ -1,5 +1,5 @@
 <template>
-  <inertia-link class="menu-link" v-if="href" :href="route(href)">
+  <inertia-link class="menu-link" v-if="href" :href="href">
     <slot></slot>
   </inertia-link>
   <span class="menu-link" v-else>

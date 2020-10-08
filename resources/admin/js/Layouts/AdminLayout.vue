@@ -56,26 +56,26 @@ export default {
         {
           title: "Feedback",
           icon: "shop-window",
-          routeName: "admin.feedback.index",
+          href: "/admin/feedback",
           hiddenOnCollapse: true,
         },
         {
           title: "Test",
-          routeName: "admin.test",
+          href: "/admin/test",
           hiddenOnCollapse: true,
         },
         {
           title: "Акции",
           icon: "award",
           hiddenOnCollapse: true,
-          routeName: "admin.test",
+          href: "/admin/test",
           submenu: [
             {
-              routeName: "admin.test",
+              href: "admin/test",
               title: "Все акции",
             },
             {
-              routeName: "admin.test",
+              href: "/admin/test",
               title: "Добавить акцию",
             },
           ],
@@ -84,14 +84,14 @@ export default {
           title: "Свойства товаров",
           icon: "check2-square",
           hiddenOnCollapse: true,
-          routeName: "admin.test",
+          href: "/admin/test",
           submenu: [
             {
-              routeName: "admin.test",
+              href: "/admin/test",
               title: "Все свойства",
             },
             {
-              routeName: "admin.test",
+              href: "/admin/test",
               title: "Добавить свойство",
             },
           ],
@@ -99,15 +99,15 @@ export default {
         {
           title: "Комментарии",
           icon: "chat-quote",
-          routeName: "admin.test",
+          href: "/admin/test",
           hiddenOnCollapse: true,
           submenu: [
             {
-              routeName: "admin.test",
+              href: "/admin/test",
               title: "Все комментарии",
             },
             {
-              routeName: "admin.test",
+              href: "/admin/test",
               title: "Неотмодерированные",
             },
           ],

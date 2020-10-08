@@ -1,7 +1,7 @@
 <template>
   <ul class="menu">
     <li class="item-menu" v-for="(menu, id) of menuData" :key="id">
-      <SidebarMenuLink :href="menu.submenu ? '' : menu.routeName">
+      <SidebarMenuLink :href="menu.submenu ? '' : menu.href">
         <SidebarMenuIco :icon="menu.icon"></SidebarMenuIco>
         <span class="item-menu-text">{{ menu.title }}</span>
       </SidebarMenuLink>
@@ -11,7 +11,7 @@
           v-for="(submenu, id_submenu) of menu.submenu"
           :key="id_submenu"
         >
-          <SidebarMenuLink :href="submenu.routeName">
+          <SidebarMenuLink :href="submenu.href">
             <span class="item-menu-text">{{ submenu.title }}</span
             >&nbsp;
             <span
