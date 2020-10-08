@@ -26,7 +26,10 @@ Route::get('/dashboard', function () {
 
 Route::get('/feedback', function () {
     $data = Feedback::all();
-    return Inertia::render('Feedback/Index', ['data' => $data]);
+    return Inertia::render(
+        'Feedback/Index',
+        ['data' => $data]
+    );
 })->name('feedback.index');
 
 
