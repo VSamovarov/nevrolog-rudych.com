@@ -58,13 +58,9 @@ class RouteServiceProvider extends ServiceProvider
                     ->middleware(['api', 'auth:sanctum'])
                     ->group(base_path('routes/admin/api.php'));
 
-                Route::localizedGroup(
-                    [],
-                    function () {
-                        Route::middleware(['web', 'auth'])
-                            ->group(base_path('routes/admin/web.php'));
-                    }
-                );
+
+                Route::middleware(['web', 'auth'])
+                    ->group(base_path('routes/admin/web.php'));
             });
         });
     }

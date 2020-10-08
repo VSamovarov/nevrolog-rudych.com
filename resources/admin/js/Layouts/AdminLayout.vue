@@ -115,6 +115,9 @@ export default {
       ],
     };
   },
+  mounted: function () {
+    console.log(this.$page);
+  },
 };
 </script>
 <style>

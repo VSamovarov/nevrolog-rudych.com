@@ -2,6 +2,8 @@ require("./bootstrap");
 
 import Vue from "vue";
 
+Vue.prototype.$route = (...args) => route(...args).url(); //Ziggy
+
 import { InertiaApp } from "@inertiajs/inertia-vue";
 import { InertiaForm } from "laravel-jetstream";
 import PortalVue from "portal-vue";
