@@ -14,11 +14,19 @@ Vue.use(PortalVue);
 
 /** */
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
-import { NavbarPlugin, BootstrapVueIcons, ButtonPlugin } from "bootstrap-vue";
+import {
+    NavbarPlugin,
+    BootstrapVueIcons,
+    ButtonPlugin,
+    LayoutPlugin,
+    TablePlugin
+} from "bootstrap-vue";
 Vue.use(NavbarPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(BootstrapVueIcons);
 Vue.use(ButtonPlugin);
+Vue.use(LayoutPlugin);
+Vue.use(TablePlugin);
 
 const app = document.getElementById("app");
 

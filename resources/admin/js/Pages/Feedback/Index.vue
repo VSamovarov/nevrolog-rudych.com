@@ -1,15 +1,18 @@
 <template>
-  <AdminLayout> Я тут </AdminLayout>
+  <AdminLayout>
+    <FeedbackList></FeedbackList>
+  </AdminLayout>
 </template>
 
 <script>
 import AdminLayout from "./../../Layouts/AdminLayout";
+import FeedbackList from "./../../Components/Content/Feedback/List";
 
 export default {
-  components: { AdminLayout },
-  props: ["data"],
+  components: { AdminLayout, FeedbackList },
+  props: ["items"],
   mounted: function () {
-    console.log(this.data);
+    console.log(this.items);
   },
 };
 </script>
