@@ -5,7 +5,7 @@ namespace App\Entity\Feedback;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Services\Filters\Filterable;
+use App\Services\Filters\Filterable;
 
 class Feedback extends Model
 {

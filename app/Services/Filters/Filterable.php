@@ -1,7 +1,10 @@
 <?php
 
-namespace Services\Filters;
+namespace App\Services\Filters;
 
+/**
+ * Добавляет фильтры к Модели
+ */
 trait Filterable
 {
     /**

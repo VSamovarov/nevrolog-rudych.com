@@ -1,6 +1,6 @@
 <?php
 
-namespace Services\Filters;
+namespace App\Services\Filters;
 
 use Str;
 
