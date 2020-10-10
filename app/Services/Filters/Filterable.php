@@ -2,6 +2,8 @@
 
 namespace App\Services\Filters;
 
+use ReflectionClass;
+
 /**
  * Добавляет фильтры к Модели
  */
@@ -32,6 +34,11 @@ trait Filterable
      */
     public function getModelFilterClassName(): string
     {
-        return $this->ModelFilterClassName ?? __NAMESPACE__ . '\\Filters\\' . class_basename(get_class($this)) . 'Filters';
+        if (empty($this->ModelFilterClassName)) {
+            $class = new ReflectionClass($this);
+            return $class->getNamespaceName() . '\\' . 'Filters' . '\\' . $class->getShortName() . 'Filters';
+        } else {
+            return $this->ModelFilterClassName;
+        }
     }
 }

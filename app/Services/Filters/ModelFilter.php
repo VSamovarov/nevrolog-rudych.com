@@ -61,7 +61,6 @@ abstract class ModelFilter
 
         // Run input filters
         $this->filterInput();
-
         return $this->query;
     }
 

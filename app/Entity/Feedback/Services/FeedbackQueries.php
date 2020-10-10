@@ -18,6 +18,7 @@ class FeedbackQueries
 
     public function index(array $values = [], int $per_page = 0)
     {
-        return $this->model::filters($values)->pagination($per_page);
+        if (empty($values))  $values = $this->request->all();
+        return $this->model::filter($values)->paginate($per_page);
     }
 }
