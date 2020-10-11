@@ -16,6 +16,7 @@ class TestController extends Controller
      */
     public function __invoke(FeedbackQueries $serves)
     {
+        dump($serves->count());
         dd($serves->index());
     }
 }
