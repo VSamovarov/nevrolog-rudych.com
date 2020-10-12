@@ -2,6 +2,7 @@
 
 namespace App\Services\Filters;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Str;
 
 /**
@@ -58,7 +59,6 @@ abstract class ModelFilter
      */
     public function handle()
     {
-
         // Run input filters
         $this->filterInput();
         return $this->query;

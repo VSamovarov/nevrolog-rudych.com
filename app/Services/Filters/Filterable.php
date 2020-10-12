@@ -10,7 +10,7 @@ use ReflectionClass;
 trait Filterable
 {
     /**
-     * Создает локальный scope.
+     * Создает локальный scope фильтров
      *
      * @param $query
      * @param array $input
@@ -21,7 +21,7 @@ trait Filterable
     {
         $filterClassName = $this->getModelFilterClassName();
         // Create the model filter instance
-        $modelFilter = new $filterClassName($query, $input);
+        $modelFilter = new $filterClassName($query, $this->getFilterableParameters($input));
         return $modelFilter->handle();
     }
 
@@ -40,5 +40,24 @@ trait Filterable
         } else {
             return $this->ModelFilterClassName;
         }
+    }
+
+
+    /**
+     * Только разрешенные для фильтрации параметры
+     *
+     * @param array $input
+     * @return void
+     */
+    public function getFilterableParameters($input = [])
+    {
+        $filterableParameters = $this->filterableParameters;
+        return array_filter(
+            $input,
+            function ($param) use ($filterableParameters) {
+                return in_array($param, $filterableParameters);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }

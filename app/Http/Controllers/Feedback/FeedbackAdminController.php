@@ -19,7 +19,7 @@ class FeedbackAdminController extends Controller
         $data = $services->index();
 
         return Inertia::render(
-            'Feedback/Index',
+            'Feedback/IndexFeedback',
             [
                 'feedback' => $data,
                 'indexMenu' => $services->getAdminMenuIndex()

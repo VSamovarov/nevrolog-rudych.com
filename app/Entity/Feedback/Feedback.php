@@ -15,4 +15,11 @@ class Feedback extends Model
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['feedback_name', 'feedback_email', 'feedback_telephone', 'feedback_message', 'form_data'];
+
+    /**
+     * Параметры запроса, которые участвуют в фильтрации
+     *
+     * @var array
+     */
+    protected $filterableParameters = ['viewed'];
 }
