@@ -1,6 +1,7 @@
 <?php
 
 use App\Entity\Feedback\Feedback;
+use App\Http\Controllers\Feedback\FeedbackAdminController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,24 +16,13 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-});
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// });
 
-
-Route::get('/feedback', function () {
-    $data = Feedback::paginate();
-    return Inertia::render(
-        'Feedback/Index',
-        ['items' => $data]
-    );
-})->name('feedback.index');
-
-
-Route::get('/test', function () {
-    return Inertia::render('Test', ['data' => ['1']]);
-})->name('test');
+Route::get('/', [FeedbackAdminController::class, 'index']);
+Route::resource('/feedback', FeedbackAdminController::class);

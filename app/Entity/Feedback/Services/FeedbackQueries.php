@@ -5,7 +5,11 @@ namespace App\Entity\Feedback\Services;
 use App\Entity\Feedback\Feedback;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
+/**
+ * Различные выборки
+ */
 class FeedbackQueries
 {
     private $model;
@@ -39,9 +43,9 @@ class FeedbackQueries
      *
      * @param array $values - значения фильтра
      * @param integer $per_page - количество на одой странице
-     * @return void
+     * @return object
      */
-    public function index(array $values = [], $per_page = 0)
+    public function index(array $values = [], $per_page = 0): object
     {
         $builder = $this->queryBuilder($values);
         return $builder->paginate($per_page);
@@ -57,5 +61,38 @@ class FeedbackQueries
     {
         $builder = $this->queryBuilder($values);
         return $builder->count();
+    }
+
+    /**
+     * Данные для меню на странице списка сущностей (INDEX)
+     *
+     * @param array $values - значения фильтра
+     * @return array
+     */
+    public function getAdminMenuIndex(array $values = []): array
+    {
+        return [
+            [
+                'name' => __('admin.all'),
+                'count' => $this->count()
+            ],
+            [
+                'name' => __('admin.viewed'),
+                'label' => 'viewed',
+                'value' => 1,
+                'count' => $this->count(Arr::add($values, 'viewed', 1))
+            ],
+            [
+                'name' => __('admin.not-viewed'),
+                'label' => 'viewed',
+                'value' => 0,
+                'count' => $this->count(Arr::add($values, 'viewed', 0))
+            ],
+            [
+                'name' => __('admin.deleted'),
+                'label' => 'deleted',
+                'count' => $this->count(Arr::add($values, 'deleted', ''))
+            ],
+        ];
     }
 }

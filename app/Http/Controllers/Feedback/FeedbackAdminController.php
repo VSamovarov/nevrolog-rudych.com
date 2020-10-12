@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Feedback;
 
+use App\Entity\Feedback\Services\FeedbackQueries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FeedbackAdminController extends Controller
 {
@@ -12,9 +14,17 @@ class FeedbackAdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, FeedbackQueries $services)
     {
-        //
+        $data = $services->index();
+
+        return Inertia::render(
+            'Feedback/Index',
+            [
+                'feedback' => $data,
+                'indexMenu' => $services->getAdminMenuIndex()
+            ]
+        );
     }
 
     /**

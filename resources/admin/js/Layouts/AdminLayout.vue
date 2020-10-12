@@ -116,7 +116,7 @@ export default {
     };
   },
   mounted: function () {
-    console.log(this.$page);
+    // console.log(this.$page);
   },
 };
 </script>

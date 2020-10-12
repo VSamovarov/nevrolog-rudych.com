@@ -1,10 +1,15 @@
 <template>
   <!-- Вывод таблицы -->
-  <b-container fluid></b-container>
+  <b-container fluid>
+
+  </b-container>
 </template>
 
 <script>
-export default {};
+
+export default {
+
+};
 </script>
 
 <style>
