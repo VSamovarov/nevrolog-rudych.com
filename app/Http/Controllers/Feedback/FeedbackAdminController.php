@@ -16,13 +16,13 @@ class FeedbackAdminController extends Controller
      */
     public function index(Request $request, FeedbackQueries $services)
     {
-        $data = $services->index();
+        $data = $services->index($request->all());
 
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
                 'feedback' => $data,
-                'indexMenu' => $services->getAdminMenuIndex()
+                'indexMenu' => $services->getAdminMenuIndex($request->all())
             ]
         );
     }

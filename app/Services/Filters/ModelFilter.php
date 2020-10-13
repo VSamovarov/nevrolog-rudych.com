@@ -44,13 +44,16 @@ abstract class ModelFilter
      * ModelFilter constructor.
      *
      * @param $query
-     * @param array $input
-     * @param bool $relationsEnabled
+     * @param array $input - входные параметры.
+     * Должны приходить уже очищенными.
+     *
      */
     public function __construct($query, array $input = [])
     {
         $this->query = $query;
         $this->input = $input;
+
+        $this->registerMacros();
     }
     /**
      * Handle all filters.
@@ -101,5 +104,33 @@ abstract class ModelFilter
     public function methodIsCallable($method)
     {
         return  method_exists($this, $method) && !method_exists(ModelFilter::class, $method);
+    }
+
+
+    /**
+     * Register paginate and simplePaginate macros on relations
+     * BelongsToMany overrides the QueryBuilder's paginate to append the pivot.
+     */
+    private function registerMacros()
+    {
+        if (
+            method_exists(Relation::class, 'hasMacro') &&
+            method_exists(Relation::class, 'macro') &&
+            !Relation::hasMacro('paginateFilter') &&
+            !Relation::hasMacro('simplePaginateFilter')
+        ) {
+            Relation::macro('paginateFilter', function () {
+                $paginator = call_user_func_array([$this, 'paginate'], func_get_args());
+                $paginator->appends($this->input);
+
+                return $paginator;
+            });
+            Relation::macro('simplePaginateFilter', function () {
+                $paginator = call_user_func_array([$this, 'simplePaginate'], func_get_args());
+                $paginator->appends($this->input);
+
+                return $paginator;
+            });
+        }
     }
 }

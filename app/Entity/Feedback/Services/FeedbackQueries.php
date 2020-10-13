@@ -63,34 +63,39 @@ class FeedbackQueries
         return $builder->count();
     }
 
+
     /**
      * Данные для меню на странице списка сущностей (INDEX)
      *
-     * @param array $values - значения фильтра
+     * @param array $values
+     * @param string $route_name
      * @return array
      */
-    public function getAdminMenuIndex(array $values = []): array
+    public function getAdminMenuIndex(array $values, string $route_name): array
     {
+        /**
+         * Оставляем только те параметры, которые определены в $this->model->filterableParameters
+         */
+        $values = $this->model->getFilterableParameters($values);
         return [
             [
                 'name' => __('admin.all'),
-                'count' => $this->count()
+                'count' => $this->count(),
+                'url' => route($route_name)
             ],
             [
                 'name' => __('admin.viewed'),
-                'label' => 'viewed',
-                'value' => 1,
+                'url' => route($route_name, Arr::add($values, 'viewed', 1)),
                 'count' => $this->count(Arr::add($values, 'viewed', 1))
             ],
             [
                 'name' => __('admin.not-viewed'),
-                'label' => 'viewed',
-                'value' => 0,
+                'url' => route($route_name, Arr::add($values, 'viewed', 0)),
                 'count' => $this->count(Arr::add($values, 'viewed', 0))
             ],
             [
                 'name' => __('admin.deleted'),
-                'label' => 'deleted',
+                'url' => route($route_name, Arr::add($values, 'deleted', '')),
                 'count' => $this->count(Arr::add($values, 'deleted', ''))
             ],
         ];
