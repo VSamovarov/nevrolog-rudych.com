@@ -1,8 +1,8 @@
 <template>
   <ul class="list-group list-group-horizontal">
-    <li v-for="(item, key) in items" :key="key" class="list-group-item">
+    <li v-for="(item, i) in items" :key="i" class="list-group-item">
       <inertia-link v-if="item.url" :href="item.url" class="page-link">
-        {{item.label}}
+        {{item.name}}
       </inertia-link>
     </li>
   </ul>

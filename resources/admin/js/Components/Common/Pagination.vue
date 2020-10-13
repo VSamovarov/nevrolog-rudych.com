@@ -2,8 +2,8 @@
   <ul class="pagination">
     <li
       class="page-item"
-      v-for="item in links"
-      :key="item.url"
+      v-for="(item,i) in links"
+      :key="i"
       :class="{active:item.active,disabled:!item.url}"
     >
       <inertia-link v-if="item.url" :href="item.url" class="page-link">

@@ -14,9 +14,9 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(FeedbackQueries $serves)
+    public function __invoke(Request  $request)
     {
-        dump($serves->getAdminMenuIndex());
-        dd($serves->index());
+
+        dump(empty(null));
     }
 }

@@ -7,8 +7,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+use App\Services\AdminIndexMenu;
+
 class FeedbackAdminController extends Controller
 {
+
+    public $indexMenuItems = [
+        [
+            'name' => 'admin.all'
+        ],
+        [
+            'name' => 'admin.viewed',
+            'parameter' => 'viewed',
+            'value' =>  1,
+        ],
+        [
+            'name' => 'admin.not-viewed',
+            'parameter' => 'viewed',
+            'value' =>  0,
+        ],
+        [
+            'name' => 'admin.deleted',
+            'parameter' => 'deleted'
+        ]
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -16,13 +39,11 @@ class FeedbackAdminController extends Controller
      */
     public function index(Request $request, FeedbackQueries $services)
     {
-        $data = $services->index($request->all());
-
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
-                'feedback' => $data,
-                'indexMenu' => $services->getAdminMenuIndex($request->all())
+                'feedback' => $services->index($request->all()),
+                'indexMenu' => (new AdminIndexMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index')
             ]
         );
     }

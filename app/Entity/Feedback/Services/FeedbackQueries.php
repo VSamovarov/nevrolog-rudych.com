@@ -3,14 +3,14 @@
 namespace App\Entity\Feedback\Services;
 
 use App\Entity\Feedback\Feedback;
+use App\Services\Contracts\ServiceQueries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 
 /**
  * Различные выборки
  */
-class FeedbackQueries
+class FeedbackQueries implements ServiceQueries
 {
     private $model;
     private $request;
@@ -61,43 +61,5 @@ class FeedbackQueries
     {
         $builder = $this->queryBuilder($values);
         return $builder->count();
-    }
-
-
-    /**
-     * Данные для меню на странице списка сущностей (INDEX)
-     *
-     * @param array $values
-     * @param string $route_name
-     * @return array
-     */
-    public function getAdminMenuIndex(array $values, string $route_name): array
-    {
-        /**
-         * Оставляем только те параметры, которые определены в $this->model->filterableParameters
-         */
-        $values = $this->model->getFilterableParameters($values);
-        return [
-            [
-                'name' => __('admin.all'),
-                'count' => $this->count(),
-                'url' => route($route_name)
-            ],
-            [
-                'name' => __('admin.viewed'),
-                'url' => route($route_name, Arr::add($values, 'viewed', 1)),
-                'count' => $this->count(Arr::add($values, 'viewed', 1))
-            ],
-            [
-                'name' => __('admin.not-viewed'),
-                'url' => route($route_name, Arr::add($values, 'viewed', 0)),
-                'count' => $this->count(Arr::add($values, 'viewed', 0))
-            ],
-            [
-                'name' => __('admin.deleted'),
-                'url' => route($route_name, Arr::add($values, 'deleted', '')),
-                'count' => $this->count(Arr::add($values, 'deleted', ''))
-            ],
-        ];
     }
 }
