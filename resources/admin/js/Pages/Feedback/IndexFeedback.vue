@@ -1,7 +1,7 @@
 <template>
   <AdminLayout>
     <b-container fluid>
-    <AdminMenuIndex :items="indexMenu"></AdminMenuIndex>
+    <AdminIndexMenu :items="indexMenu"></AdminIndexMenu>
     </b-container>
     <FeedbackList :items="feedback.items"></FeedbackList>
     <b-container fluid>
@@ -13,11 +13,11 @@
 <script>
 import AdminLayout from "./../../Layouts/AdminLayout";
 import FeedbackList from "./../../Components/Content/Feedback/List";
-import AdminMenuIndex from "./../../Components/Common/AdminMenuIndex";
+import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
 import Pagination from "./../../Components/Common/Pagination";
 
 export default {
-  components: { AdminLayout, FeedbackList, AdminMenuIndex, Pagination },
+  components: { AdminLayout, FeedbackList, AdminIndexMenu, Pagination },
   props: ['feedback', 'indexMenu'],
   mounted: function () {
     console.log(this.feedback.links);

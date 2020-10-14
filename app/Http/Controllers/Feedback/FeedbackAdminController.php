@@ -39,11 +39,18 @@ class FeedbackAdminController extends Controller
      */
     public function index(Request $request, FeedbackQueries $services)
     {
+        // dd((new AdminIndexMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index'));
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
                 'feedback' => $services->index($request->all()),
-                'indexMenu' => (new AdminIndexMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index')
+                'indexMenu' => (new AdminIndexMenu(
+                    $services,
+                    $request,
+                    $this->indexMenuItems,
+                    'admin.feedback.index',
+                    []
+                ))->get()
             ]
         );
     }

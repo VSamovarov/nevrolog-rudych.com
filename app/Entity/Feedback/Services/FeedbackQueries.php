@@ -27,9 +27,9 @@ class FeedbackQueries implements ServiceQueries
      * @param array $values - значения фильтра
      * @return Builder
      */
-    private function queryBuilder(array $values = []): Builder
+
+    private function queryBuilder(array $values): Builder
     {
-        if (empty($values)) $values = $this->request->all();
         if (isset($values['deleted'])) {
             $builder = $this->model::onlyTrashed()->filter($values);
         } else {

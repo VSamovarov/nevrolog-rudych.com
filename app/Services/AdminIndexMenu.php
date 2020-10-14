@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Services\Contracts\ServiceQueries;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 /**
  * Формируем данные для вывода меню списка сущностей на странице
@@ -17,34 +18,36 @@ class AdminIndexMenu
     /**
      * @param ServiceQueries $service - нужен метод count()
      * @param Request $request
+     * @param array $menuItems
+     * @param string $routeName
+     * @param array $allowedParameters
      */
-    public function __construct(ServiceQueries $service, Request $request)
+    public function __construct(ServiceQueries $service, Request $request, array $menuItems, string $routeName, array $allowedParameters = [])
     {
         $this->service = $service;
         $this->request = $request;
+        $this->menuItems = $menuItems;
+        $this->routeName = $routeName;
+        $this->allowedParameters = $allowedParameters;
     }
 
     /**
      * Все данные для меню
      *
-     * @param array $menuItems
-     * @param string $routeName
-     * @param array $allowedParameters
      * @return array
      */
-    public function get(array $menuItems, string $routeName, array $allowedParameters = []): array
+    public function get(): array
     {
         $menu = [];
-        foreach ($menuItems as $item) {
-            $active = $this->isActive($item['parameter'] ?? null, $item['value'] ?? null);
-            $url = $this->url($item['parameter'] ?? null, $item['value'] ?? null, $routeName, $allowedParameters);
-            $count = $this->count($item['parameter'] ?? null, $item['value'] ?? null);
+        foreach ($this->menuItems as $item) {
+            $parameter = $item['parameter'] ?? null;
+            $value = $item['value'] ?? null;
 
             $menu[] = [
                 'name' => __($item['name']),
-                'url' => $url,
-                'active' => $active,
-                'count' => $count,
+                'url' => $this->url($parameter, $value),
+                'active' => $this->isActive($parameter, $value),
+                'count' => $this->count($parameter, $value),
             ];
         }
         return $menu;
@@ -57,13 +60,13 @@ class AdminIndexMenu
      * @param string|null $value
      * @return boolean
      */
-    public function isActive(?string $parameter = null, ?string $value = null): bool
+    public function isActive(?string $parameter, ?string $value): bool
     {
         $active = false;
         if (empty($parameter)) {
             $active = empty($this->request->all());
         } elseif ($this->request->has($parameter)) {
-            $active = $this->request->input($parameter) === strval($value) || ($this->request->input($parameter) === null && empty($value));
+            $active = strval($this->request->input($parameter)) === strval($value);
         }
         return $active;
     }
@@ -73,23 +76,13 @@ class AdminIndexMenu
      *
      * @param string|null $parameter
      * @param string|null $value
-     * @param string $routeName
-     * @param array $allowedParameters
      * @return string
      */
-    public function url(?string $parameter, ?string $value, string $routeName, array $allowedParameters = []): string
+    public function url(?string $parameter, ?string $value): string
     {
-
-        if (empty($parameter)) return route($routeName);
-
-        $parameters = $this->clearParameters($this->request->all(), $allowedParameters);
-
-        if ($this->isActive($parameter, $value) && isset($parameters[$parameter])) {
-            unset($parameters[$parameter]);
-        } else {
-            $parameters = array_merge($parameters, [$parameter => $value]);
-        }
-        return route($routeName, $parameters);
+        if (empty($parameter)) return route($this->routeName);
+        $parameters = array_merge($this->getParameters(), [$parameter => strval($value)]);
+        return route($this->routeName, $parameters);
     }
 
     /**
@@ -101,28 +94,18 @@ class AdminIndexMenu
      */
     public function count(?string $parameter, ?string $value): int
     {
-        return $this->service->count(array_merge($this->request->all(), [$parameter => $value]));
+        $parameters = array_merge($this->getParameters(), $parameter ? [$parameter => strval($value)] : []);
+        return $this->service->count($parameters);
     }
 
-    /**
-     * Оставляем только разрешенные параметры в запросе
-     *
-     * @param array $parameters
-     * @param array $allowedParameters
-     * @return array
-     */
-    public function clearParameters(array $parameters, array $allowedParameters): array
+
+    public function getParameters()
     {
-        if (empty($allowedParameters)) {
-            return $parameters;
-        } else {
-            return array_filter(
-                $parameters,
-                function ($param) use ($allowedParameters) {
-                    return in_array($param, $allowedParameters);
-                },
-                ARRAY_FILTER_USE_KEY
-            );
+        $parameters = $this->request->except(Arr::pluck($this->menuItems, 'parameter'));
+
+        if (!empty($this->allowedParameters)) {
+            $parameters = Arr::only($parameters, $this->allowedParameters);
         }
+        return $parameters;
     }
 }
