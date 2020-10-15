@@ -1,13 +1,13 @@
 <template>
-  <div>
-    <Header :main_menu="main_menu"></Header>
+  <div id="page-wrapper">
+    <Header :main_menu="main_menu" id="header"></Header>
     <div id="body" class="d-flex">
       <LeftColumn :sidebar_menu="sidebar_menu"></LeftColumn>
       <div class="main-content">
         <slot></slot>
       </div>
     </div>
-    <Footer></Footer>
+    <Footer id="footer"></Footer>
   </div>
 </template>
 <script>
@@ -128,10 +128,11 @@ html,
 body,
 #__nuxt,
 #__layout,
-#app {
+#app,
+#page-wrapper {
   height: 100%;
 }
-#app {
+#page-wrapper {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

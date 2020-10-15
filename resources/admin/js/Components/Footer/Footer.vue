@@ -1,6 +1,6 @@
 
 <template>
-  <footer id="footer">
+  <footer>
     <div class="container-fluid">Produktoff {{ new Date().getFullYear() }}</div>
   </footer>
 </template>

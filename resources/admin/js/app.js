@@ -12,6 +12,10 @@ Vue.use(InertiaApp);
 Vue.use(InertiaForm);
 Vue.use(PortalVue);
 
+import { InertiaProgress } from "@inertiajs/progress";
+
+InertiaProgress.init();
+
 /** */
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
 import {
