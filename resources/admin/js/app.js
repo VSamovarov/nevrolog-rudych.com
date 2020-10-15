@@ -23,14 +23,21 @@ import {
     BootstrapVueIcons,
     ButtonPlugin,
     LayoutPlugin,
-    TablePlugin
+    TablePlugin,
+    FormCheckboxPlugin,
+    FormSelectPlugin,
+    FormInputPlugin
 } from "bootstrap-vue";
+
+Vue.use(FormInputPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(BootstrapVueIcons);
 Vue.use(ButtonPlugin);
 Vue.use(LayoutPlugin);
 Vue.use(TablePlugin);
+Vue.use(FormCheckboxPlugin);
+Vue.use(FormSelectPlugin);
 
 const app = document.getElementById("app");
 

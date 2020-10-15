@@ -1,5 +1,5 @@
 <template>
-  <ul class="pagination">
+  <ul class="mb-0 pagination">
     <li
       class="page-item"
       v-for="(item,i) in links"
