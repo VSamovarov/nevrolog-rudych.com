@@ -24,5 +24,5 @@ use Inertia\Inertia;
 //     return Inertia::render('Dashboard');
 // });
 
-Route::get('/', [FeedbackAdminController::class, 'index']);
+Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
 Route::resource('/feedback', FeedbackAdminController::class);
