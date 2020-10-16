@@ -10,24 +10,24 @@
       :items="items"
       :fields="tableFields"
     >
-         <template v-slot:head(id)>
-          <span class="text-info">
-            <!-- Выбор всех строк -->
-            <b-form-checkbox @change="selectAllRows"></b-form-checkbox>
-          </span>
-        </template>
-        <template v-slot:cell(id)="data">
-          <!-- Выбор строки -->
-          <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index, $event)"></b-form-checkbox>
-        </template>
-        <template v-slot:cell(created_at)="data">
-          {{data.item.created_at}}
-        </template>
-        <template v-slot:cell(name)="data">
-            <!-- <inertia-link :href="data.item.id" class="nav-link"> -->
-              {{data.item.name}}
-            <!-- </inertia-link> -->
-        </template>
+      <template v-slot:head(id)>
+        <span class="text-info">
+          <!-- Выбор всех строк -->
+          <b-form-checkbox @change="selectAllRows"></b-form-checkbox>
+        </span>
+      </template>
+      <template v-slot:cell(id)="data">
+        <!-- Выбор строки -->
+        <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index, $event)"></b-form-checkbox>
+      </template>
+      <template v-slot:cell(created_at)="data">
+        {{data.item.created_at}}
+      </template>
+      <template v-slot:cell(name)="data">
+        <!-- <inertia-link :href="data.item.id" class="nav-link"> -->
+          {{data.item.name}}
+        <!-- </inertia-link> -->
+      </template>
     </b-table>
   </b-container>
 </template>
@@ -66,7 +66,6 @@ export default {
       } else {
         this.$refs.selectableTable.unselectRow(index);
       }
-      console.log(this.selectedItems);
     },
     selectAllRows(checked) {
       if (checked) {
