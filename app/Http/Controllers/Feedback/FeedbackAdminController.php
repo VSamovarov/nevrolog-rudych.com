@@ -43,6 +43,7 @@ class FeedbackAdminController extends Controller
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
+                'pageTitle' => __('admin.feedback.title'),
                 'feedback' => $services->index($request->all()),
                 'indexMenu' => (new AdminIndexMenu(
                     $services,
