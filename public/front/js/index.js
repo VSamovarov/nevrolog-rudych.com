@@ -12443,8 +12443,8 @@ console.log("Привет!");
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/resources/front/js/index.js */"./resources/front/js/index.js");
-module.exports = __webpack_require__(/*! /var/www/resources/front/sass/index.scss */"./resources/front/sass/index.scss");
+__webpack_require__(/*! /root/Projects/nevrolog-rudych.com/resources/front/js/index.js */"./resources/front/js/index.js");
+module.exports = __webpack_require__(/*! /root/Projects/nevrolog-rudych.com/resources/front/sass/index.scss */"./resources/front/sass/index.scss");
 
 
 /***/ })
