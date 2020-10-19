@@ -14,6 +14,7 @@ class AdminIndexMenu
 
     private $service;
     private $request;
+    private $forbiddenParameters = ['page'];
 
     /**
      * @param ServiceQueries $service - нужен метод count()
@@ -28,7 +29,7 @@ class AdminIndexMenu
         $this->request = $request;
         $this->menuItems = $menuItems;
         $this->routeName = $routeName;
-        $this->allowedParameters = $allowedParameters;
+        $this->allowedParameters = array_merge($allowedParameters);
     }
 
     /**
@@ -42,7 +43,6 @@ class AdminIndexMenu
         foreach ($this->menuItems as $item) {
             $parameter = $item['parameter'] ?? null;
             $value = $item['value'] ?? null;
-
             $menu[] = [
                 'name' => __($item['name']),
                 'url' => $this->url($parameter, $value),
@@ -101,7 +101,7 @@ class AdminIndexMenu
 
     public function getParameters()
     {
-        $parameters = $this->request->except(Arr::pluck($this->menuItems, 'parameter'));
+        $parameters = $this->request->except(array_merge(Arr::pluck($this->menuItems, 'parameter'), $this->forbiddenParameters));
 
         if (!empty($this->allowedParameters)) {
             $parameters = Arr::only($parameters, $this->allowedParameters);

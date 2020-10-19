@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entity\Feedback\Services\FeedbackQueries;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class TestController extends Controller
 {
@@ -16,7 +17,10 @@ class TestController extends Controller
      */
     public function __invoke(Request  $request)
     {
-
-        dump(empty(null));
+        try {
+            dd(Carbon::parse('10-2020-05'));
+        } catch (\Exception $e) {
+            echo 'invalid date, enduser understands the error message';
+        }
     }
 }

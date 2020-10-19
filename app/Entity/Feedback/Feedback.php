@@ -21,5 +21,5 @@ class Feedback extends Model
      *
      * @var array
      */
-    protected $filterableParameters = ['viewed'];
+    protected $filterableParameters = ['viewed', 'date_to', 'date_from', 'name', 'phone', 'email'];
 }

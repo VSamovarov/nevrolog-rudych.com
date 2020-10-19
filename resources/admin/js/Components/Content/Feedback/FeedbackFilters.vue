@@ -28,7 +28,9 @@
       </div>
     </div>
     <div class="text-right">
-      <inertia-link :href="$route('admin.feedback.index',filters)" preserve-state>Search</inertia-link>
+      <inertia-link
+        :href="$route('admin.feedback.index',filters)"
+        preserve-state>Search</inertia-link>
     </div>
   </div>
 </template>
