@@ -24,12 +24,12 @@ services:
     volumes:
       - ../:/var/www
     tty: true
-  node:
-    image: node:alpine
-    volumes:
-      - ../:/var/www
-    working_dir: /var/www
-    tty: true
+  # node:
+  #   image: node:alpine
+  #   volumes:
+  #     - ../:/var/www
+  #   working_dir: /var/www
+  #   tty: true
   db:
     image: mariadb
     restart: always

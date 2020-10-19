@@ -1,0 +1,36 @@
+.footer {
+    &__wrapper > * {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        margin-top: 25px;
+    }
+    &__wrapper > hr {
+        margin: 0;
+    }
+
+    &__menu {
+        .list-nav {
+            margin-bottom: 25px;
+            @include breakpoint(map-get($grid-breakpoints, "lg")) {
+                margin-bottom: 0;
+            }
+        }
+    }
+    &__footer {
+        .brand {
+            margin-bottom: 25px;
+            @include breakpoint(map-get($grid-breakpoints, "lg")) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+        &__wrapper > * {
+            flex-direction: row;
+        }
+    }
+}

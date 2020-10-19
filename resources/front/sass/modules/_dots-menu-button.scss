@@ -1,0 +1,26 @@
+.dots-menu-button {
+    position: relative;
+    font-size: 2rem;
+    display: inline-block;
+
+    width: 1em;
+    height: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transform: rotate(-90deg);
+    transition: all 0.15s ease-in-out;
+    &.is-active {
+        transform: rotate(0);
+    }
+    &:after {
+        content: "\2026";
+        display: inline;
+    }
+
+    &:hover {
+        background-color: $gray-100;
+        border-radius: 3px;
+        color: $gray-900;
+    }
+}

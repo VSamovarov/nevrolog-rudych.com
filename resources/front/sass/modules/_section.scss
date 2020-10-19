@@ -1,0 +1,10 @@
+.section.bg-image {
+    background-size: cover;
+    background-position: center center;
+    background: $brand-color-dark;
+    & * {
+        color: white;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        // text-shadow: 1px 1px 2px black;
+    }
+}
