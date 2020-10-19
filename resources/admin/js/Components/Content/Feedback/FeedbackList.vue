@@ -40,7 +40,7 @@ export default {
     return {
       tableFields: [
         { key: "id", label: "", class: "id" },
-        { key: "created_at", label: "Дата", class: "created_at" },
+        { key: "date_add", label: "Дата", class: "date_add text-nowrap" },
         { key: "name", label: "Имя", class: "name" },
         { key: "phone", label: "Телефон", class: "phone" },
         { key: "email", label: "Email", class: "email" },

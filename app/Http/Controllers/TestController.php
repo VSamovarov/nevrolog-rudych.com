@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entity\Feedback\Feedback;
 use App\Entity\Feedback\Services\FeedbackQueries;
 
 use Illuminate\Http\Request;
@@ -15,12 +16,9 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request  $request)
+    public function __invoke(Request  $request, Feedback $feedback)
     {
-        try {
-            dd(Carbon::parse('10-2020-05'));
-        } catch (\Exception $e) {
-            echo 'invalid date, enduser understands the error message';
-        }
+        $f = $feedback::find(1);
+        dd($f);
     }
 }
