@@ -55,6 +55,17 @@ class FeedbackQueries implements ServiceQueries
     }
 
     /**
+     * Все данные сущности по ID
+     *
+     * @param integer $id
+     * @return Feedback
+     */
+    public function byId(int $id): Feedback
+    {
+        return Feedback::findOrFail($id);
+    }
+
+    /**
      * Количество сущностей
      *
      * @param array $values - значения фильтра

@@ -22,11 +22,13 @@ import {
     NavbarPlugin,
     BootstrapVueIcons,
     ButtonPlugin,
+    FormTextareaPlugin,
     LayoutPlugin,
     TablePlugin,
     FormCheckboxPlugin,
     FormSelectPlugin,
-    FormInputPlugin
+    FormInputPlugin,
+    FormGroupPlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -38,6 +40,8 @@ Vue.use(LayoutPlugin);
 Vue.use(TablePlugin);
 Vue.use(FormCheckboxPlugin);
 Vue.use(FormSelectPlugin);
+Vue.use(FormGroupPlugin);
+Vue.use(FormTextareaPlugin);
 
 const app = document.getElementById("app");
 

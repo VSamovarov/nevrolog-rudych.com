@@ -145,4 +145,7 @@ body,
   box-sizing: border-box;
   flex: 0 0 auto;
 }
+#body > .main-content {
+  width: 100%;
+}
 </style>

@@ -78,25 +78,19 @@ class FeedbackAdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show($id, FeedbackQueries $services)
     {
-        //
+        return Inertia::render(
+            'Feedback/EditFeedback',
+            [
+                'feedback' => $services->byId($id)
+            ]
+        );
     }
 
     /**
@@ -108,7 +102,8 @@ class FeedbackAdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dump($id);
+        dd($request->all());
     }
 
     /**

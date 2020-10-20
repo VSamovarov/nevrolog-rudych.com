@@ -31,7 +31,9 @@ class Feedback extends Model
     /**
      * Аксессоры
      */
-
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+    ];
     public function getDateAddAttribute($value)
     {
         return $this->created_at->format('m-d-Y');
