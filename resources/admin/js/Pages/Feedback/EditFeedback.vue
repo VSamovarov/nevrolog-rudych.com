@@ -6,12 +6,15 @@
         <h1>Редактировать</h1>
       </b-col>
       <b-col md="2" class="d-flex align-items-center justify-content-end">
-        <b-button>К списку</b-button>
+
+      <inertia-link :href="$route('admin.feedback.index')" class="btn btn-secondary">
+        Вернутся к списку
+      </inertia-link>
       </b-col>
     </b-row>
   </b-container>
 
-  <FeedbackEditForm :feedback="feedback"></FeedbackEditForm>
+  <FeedbackEditForm :feedback="feedback" :errors="errors"></FeedbackEditForm>
 
 </AdminLayout>
 </template>
@@ -21,7 +24,7 @@ import AdminLayout from "./../../Layouts/AdminLayout";
 import FeedbackEditForm from "./../../Components/Content/Feedback/FeedbackEditForm";
 export default {
   components: { AdminLayout, FeedbackEditForm },
-  props: ['feedback'],
+  props: ['feedback','errors'],
   mounted: function() {
     console.log(this.feedback)
   }

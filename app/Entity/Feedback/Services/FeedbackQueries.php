@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 /**
  * Различные выборки
  */
-class FeedbackQueries implements ServiceQueries
+final class FeedbackQueries implements ServiceQueries
 {
     private $model;
     private $request;

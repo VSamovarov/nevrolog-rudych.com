@@ -20,20 +20,30 @@
         <!-- Выбор строки -->
         <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index, $event)"></b-form-checkbox>
       </template>
-      <template v-slot:cell(created_at)="data">
-        {{data.item.created_at}}
+      <template v-slot:cell(date_add)="data">
+        <inertia-link :href="$route('admin.feedback.show',data.item.id)">
+          {{data.item.date_add}}
+        </inertia-link>
+
       </template>
       <template v-slot:cell(name)="data">
-        <!-- <inertia-link :href="data.item.id" class="nav-link"> -->
           {{data.item.name}}
-        <!-- </inertia-link> -->
+      </template>
+      <template v-slot:cell(action)="data">
+        <div class="d-flex justify-content-around">
+          <inertia-link class="btn btn-secondary btn-sm mx-1" :href="$route('admin.feedback.edit',data.item.id)">
+            <b-icon  icon="pencil-fill"></b-icon>
+          </inertia-link>
+          <inertia-link class="btn btn-secondary btn-sm mx-1" :href="$route('admin.feedback.destroy', data.item.id)" method="DELETE">
+            <b-icon icon="trash-fill"></b-icon>
+          </inertia-link>
+        </div>
       </template>
     </b-table>
   </b-container>
 </template>
 
 <script>
-
 export default {
   props: ['items'],
   data() {
@@ -45,6 +55,7 @@ export default {
         { key: "phone", label: "Телефон", class: "phone" },
         { key: "email", label: "Email", class: "email" },
         { key: "message", label: "Сообщение", class: "email" },
+        { key: "action", label: "Действие", class: "action" },
       ],
       selectedItems: [], // Выбранные итемы
     };

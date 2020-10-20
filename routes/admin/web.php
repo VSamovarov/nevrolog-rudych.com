@@ -25,4 +25,4 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
-Route::resource('/feedback', FeedbackAdminController::class)->except(['edit']);
+Route::resource('/feedback', FeedbackAdminController::class);

@@ -14,7 +14,7 @@ class Feedback extends Model
     use Filterable;
 
     protected $dates = ['deleted_at'];
-    protected $fillable = ['feedback_name', 'feedback_email', 'feedback_telephone', 'feedback_message', 'form_data'];
+    protected $fillable = ['name', 'email', 'phone', 'message', 'form_data'];
 
     // protected $appends = ['date'];
 
@@ -36,6 +36,6 @@ class Feedback extends Model
     ];
     public function getDateAddAttribute($value)
     {
-        return $this->created_at->format('m-d-Y');
+        return empty($this->created_at) ? null : $this->created_at->format('m-d-Y');
     }
 }

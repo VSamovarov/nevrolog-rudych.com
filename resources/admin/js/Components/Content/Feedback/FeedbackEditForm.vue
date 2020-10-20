@@ -8,6 +8,7 @@
           label-for="name"
           label-cols-sm="2"
           label-align-sm="right"
+          description="Обязательное поле. Больше 4-х символов"
           :invalid-feedback="invalidNameFeedback"
           :state="stateName"
         >
@@ -18,6 +19,7 @@
           label-for="email"
           label-cols-sm="2"
           label-align-sm="right"
+          description="Больше 4-х символов и содержать знак @"
           :invalid-feedback="invalidEmailFeedback"
           :state="stateEmail"
         >
@@ -28,6 +30,7 @@
           label-for="phone"
           label-cols-sm="2"
           label-align-sm="right"
+          description="Больше 10-ти цифр"
           :invalid-feedback="invalidPhoneFeedback"
           :state="statePhone"
         >
@@ -69,10 +72,10 @@ const defautData = {
       'phone': null,
       'message': null,
       'form_data': null,
-      'created_at' : null,
+      'created_at' : null
 };
 export default {
-  props: ['feedback'],
+  props: ['feedback','errors'],
   data() {
     return {
       form: {
@@ -82,34 +85,40 @@ export default {
     }
   },
   computed: {
+    /**
+     * Name
+     */
     stateName() {
-      return this.form.name.length >= 4
+      if(!!this.errors.name || this.form.name.length < 4) return false;
     },
     invalidNameFeedback() {
-      if (this.form.name.length > 0) {
-        return 'Enter at least 4 characters.'
+      if(!!this.errors.name) {
+        return this.errors.name
       }
-      return 'Please enter something.'
     },
+    /**
+     * Email
+     */
     stateEmail() {
-      return  this.form.email.length === 0 || (this.form.email.length > 4 && this.form.email.indexOf('@') > -1)
+      if(!!this.errors.email || (this.form.email.length > 0 && this.form.email.length < 4) || this.form.email.indexOf('@') < 0) {
+        return false;
+      }
     },
     invalidEmailFeedback() {
-      if(this.form.email.indexOf('@') === -1 ) {
-        return 'Email должен содержать символ @';
+      if(!!this.errors.email) {
+        return this.errors.email;
       }
-      return 'Email должен содержать больше 4-х символов';
     },
     statePhone() {
       const re = /[^\d\s-]/i;
-      return this.form.phone.length === 0 || (this.form.phone.length >= 10 && !re.test(this.form.phone))
+      if( !!this.errors.phone || re.test(this.form.phone) || (this.form.phone.length > 0 && this.form.phone.length < 10)) {
+        return false
+      }
     },
     invalidPhoneFeedback() {
-      const re = /[^\d\s-]/i;
-      if (re.test(this.form.phone)) {
-        return 'Телефон может содержать только цифры';
+      if(!!this.errors.phone) {
+        return this.errors.phone;
       }
-      return 'Телефон должен содержать 10 цифры';
     }
   },
 
@@ -117,8 +126,7 @@ export default {
     submit() {
       this.$inertia.put(this.$route('admin.feedback.show',this.form.id), {...this.form})
     },
-  },
-
+  }
 }
 </script>
 

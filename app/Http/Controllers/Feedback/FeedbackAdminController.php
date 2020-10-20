@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Feedback;
 
+use App\Entity\Feedback\Requests\FeedbackRequestForm;
+use App\Entity\Feedback\Services\FeedbackCommands;
 use App\Entity\Feedback\Services\FeedbackQueries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -83,12 +85,12 @@ class FeedbackAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, FeedbackQueries $services)
+    public function show($id, FeedbackQueries $queries)
     {
         return Inertia::render(
             'Feedback/EditFeedback',
             [
-                'feedback' => $services->byId($id)
+                'feedback' => $queries->byId($id)
             ]
         );
     }
@@ -100,10 +102,17 @@ class FeedbackAdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FeedbackRequestForm $request, $id, FeedbackCommands $commands, FeedbackQueries $queries)
     {
-        dump($id);
-        dd($request->all());
+
+        $commands->update($id, $request->getDto());
+
+        return Inertia::render(
+            'Feedback/EditFeedback',
+            [
+                'feedback' => $queries->byId($id)
+            ]
+        );
     }
 
     /**
