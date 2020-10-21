@@ -21,10 +21,12 @@
         <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index, $event)"></b-form-checkbox>
       </template>
       <template v-slot:cell(date_add)="data">
-        <inertia-link :href="$route('admin.feedback.show',data.item.id)">
+        <!-- <inertia-link :href="$route('admin.feedback.show',data.item.id)">
           {{data.item.date_add}}
-        </inertia-link>
-
+        </inertia-link> -->
+        <a @click="showFeedback(data.item.id)" v-b-modal.modal-center href="#">
+          {{data.item.date_add}}
+        </a>
       </template>
       <template v-slot:cell(name)="data">
           {{data.item.name}}
@@ -40,14 +42,20 @@
         </div>
       </template>
     </b-table>
+    <FeedbackShowItem v-if="feedbackShowId" :feedbackId="feedbackShowId"></FeedbackShowItem>
   </b-container>
 </template>
 
 <script>
+import FeedbackShowItem from './FeedbackShowItem'
 export default {
+  components: {
+    FeedbackShowItem
+  },
   props: ['items'],
   data() {
     return {
+      feedbackShowId: false,
       tableFields: [
         { key: "id", label: "", class: "id" },
         { key: "date_add", label: "Дата", class: "date_add text-nowrap" },
@@ -64,6 +72,9 @@ export default {
 
   },
   methods: {
+    showFeedback(id) {
+      this.feedbackShowId = id;
+    },
     /**
      * Выбор строк таблицы-->
      */

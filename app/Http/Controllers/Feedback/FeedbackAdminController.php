@@ -88,7 +88,7 @@ class FeedbackAdminController extends Controller
     public function show($id, FeedbackQueries $queries)
     {
         return Inertia::render(
-            'Feedback/EditFeedback',
+            'Feedback/ShowFeedback',
             [
                 'feedback' => $queries->byId($id)
             ]

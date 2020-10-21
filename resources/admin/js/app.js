@@ -28,7 +28,9 @@ import {
     FormCheckboxPlugin,
     FormSelectPlugin,
     FormInputPlugin,
-    FormGroupPlugin
+    FormGroupPlugin,
+    ModalPlugin,
+    SkeletonPlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -42,6 +44,9 @@ Vue.use(FormCheckboxPlugin);
 Vue.use(FormSelectPlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormTextareaPlugin);
+Vue.use(FormTextareaPlugin);
+Vue.use(ModalPlugin);
+Vue.use(SkeletonPlugin);
 
 const app = document.getElementById("app");
 
