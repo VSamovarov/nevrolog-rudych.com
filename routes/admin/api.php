@@ -19,8 +19,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/feedback/{id}', '\App\Http\Controllers\Feedback\FeedbackAdminApiController@show')->name('feedback.show');
+Route::get('/feedback/{id}', [FeedbackAdminApiController::class, 'show'])->name('feedback.show');
 
+Route::patch('/feedback/{id}/viewed-status', [FeedbackAdminApiController::class, 'viewedStatus'])->name('feedback.viewed-status');
 
 /**
  * Ошибка .если неправильный роутер

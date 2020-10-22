@@ -5,11 +5,14 @@
       class="orders-table index-table"
       ref="selectableTable"
       selectable
+      responsive
       no-select-on-click
       @row-selected="onRowSelected"
-      :items="items"
+      :items="feedbackData"
       :fields="tableFields"
+      :tbody-tr-class="rowClass"
     >
+
       <template v-slot:head(id)>
         <span class="text-info">
           <!-- Выбор всех строк -->
@@ -24,7 +27,7 @@
         <!-- <inertia-link :href="$route('admin.feedback.show',data.item.id)">
           {{data.item.date_add}}
         </inertia-link> -->
-        <a @click="showFeedback(data.item.id)" v-b-modal.modal-center href="#">
+        <a @click="showFeedback(data.item.id)" v-b-modal.modal-feedback-show-item href="#">
           {{data.item.date_add}}
         </a>
       </template>
@@ -65,15 +68,28 @@ export default {
         { key: "message", label: "Сообщение", class: "email" },
         { key: "action", label: "Действие", class: "action" },
       ],
+      feedbackData: [...this.items],
       selectedItems: [], // Выбранные итемы
     };
   },
-  mounted: function () {
-
-  },
   methods: {
+    /**
+     * Добовляем стиль строкам
+     */
+    rowClass(item, type) {
+      if (!item || type !== 'row') return
+      if (item.viewed) return 'viewed'
+    },
+    /**
+     * просматриваемый feedback
+     */
     showFeedback(id) {
       this.feedbackShowId = id;
+      this.feedbackData.forEach((item) => {
+        if(item.id === id)  {
+          item.viewed = 1;
+        }
+      })
     },
     /**
      * Выбор строк таблицы-->
