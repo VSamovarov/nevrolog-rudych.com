@@ -1,5 +1,5 @@
 <template>
-  <AdminLayout>
+  <AdminLayout :query="query" class="index-feedback" :class="classPage">
     <b-container fluid class="my-5">
       <b-row>
         <b-col md="10" class="d-flex align-items-center justify-content-between">
@@ -16,12 +16,20 @@
     <b-container fluid class="mb-4">
       <FeedbackFilters :query="query"></FeedbackFilters>
     </b-container>
-    <FeedbackList :items="feedback.data" class="flex-row mb-4"></FeedbackList>
+    <FeedbackList :items="feedback.data" @rowSelected="rowSelected" class="flex-row mb-4"></FeedbackList>
     <b-container fluid class="mb-4 d-flex align-items-center justify-content-between">
       <div class="d-flex align-items-center justify-content-between">
-        <b-form-select  v-model="massActionSelected" :options="massActionOptions" class="mr-2">
+        <b-form-select  v-model="massActionName" :options="massActionOptions" class="mr-2">
         </b-form-select>
-        <b-button>Применить</b-button>
+        <inertia-link
+          :href="$route('admin.feedback.mass-actions')"
+          method="post"
+          class="btn btn-secondary"
+          :data="{ name: massActionName, data: selectedItems }"
+          >
+            Применить
+          </inertia-link>
+
       </div>
       <Pagination :links="feedback.links"></Pagination>
     </b-container>
@@ -40,23 +48,41 @@ export default {
   props: ['feedback', 'indexMenu','query'],
   data() {
     return {
-      massActionSelected: null,
+      massActionName: null,
+      selectedItems: {},
       massActionOptions: [
-        { value: null, text: 'Please select an option' },
-        { value: 'a', text: 'This is First option' },
-        { value: 'b', text: 'Selected Option', disabled: true },
+        { value: null, text: 'Выберите действие' },
+        { value: 'delete', text: 'Удалить' },
+        { value: 'restore', text: 'Восстановить' },
         {
-          label: 'Grouped options',
+          label: 'Применить статус',
           options: [
-            { value: { C: '3PO' }, text: 'Option with object value' },
-            { value: { R: '2D2' }, text: 'Another option with object value' }
+            { value: 'viewed', text: 'Просмотренные' },
+            { value: 'not-viewed', text: 'Не просмотренные' }
           ]
         }
       ]
+    }
+  },
+  computed: {
+    classPage: function () {
+      let classPage = [];
+      if(('viewed' in this.query) && this.query.viewed === "0") classPage.push('not-viewed');
+      if(('viewed' in this.query) && this.query.viewed === "1") classPage.push('viewed');
+      if('deleted' in this.query) classPage.push('deleted');
+      if(classPage.length === 0) classPage.push('all');
+      return classPage.join(' ');
+    }
+  },
+  methods: {
+    rowSelected: function (items) {
+      this.selectedItems = items.map(item=>item.id);
     }
   },
 
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

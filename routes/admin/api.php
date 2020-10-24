@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/feedback/{id}', [FeedbackAdminApiController::class, 'show'])->name('feedback.show');
 
 Route::patch('/feedback/{id}/viewed-status', [FeedbackAdminApiController::class, 'viewedStatus'])->name('feedback.viewed-status');
+Route::delete('/feedback/{id}/delete', [FeedbackAdminApiController::class, 'destroy'])->name('feedback.destroy');
+Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'restore'])->name('feedback.restore');
 
 /**
  * Ошибка .если неправильный роутер

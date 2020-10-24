@@ -30,4 +30,46 @@ final class FeedbackCommands
         $feedback->created_at = $dto->getCreated_at();
         return $feedback->save();
     }
+
+    /**
+     * Массово удаляем
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function massDelete(array $ids)
+    {
+        /**
+         * Удаленные, удаляем окончательно
+         */
+        $this->model::onlyTrashed()->whereIn('id', $ids)->forceDelete();
+        /**
+         * Soft Deleted
+         */
+        $this->model::whereIn('id', $ids)->delete();
+    }
+
+    /**
+     * Массово восстанавливаем
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function massRestore(array $ids)
+    {
+        $this->model::onlyTrashed('id', $ids)->restore();
+    }
+
+    /**
+     * Массово изменяем статус
+     *
+     * @param array $ids
+     * @param boolean $status
+     * @return void
+     */
+    public function massViewedStatus(array $ids, bool $status)
+    {
+        $status = $status ? 1 : 0;
+        $this->model::whereIn('id', $ids)->update(['viewed' => $status]);
+    }
 }

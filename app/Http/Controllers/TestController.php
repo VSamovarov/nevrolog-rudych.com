@@ -18,7 +18,7 @@ class TestController extends Controller
      */
     public function __invoke(Request  $request, Feedback $feedback)
     {
-        $f = $feedback::find(5555555555555555);
-        dd($f);
+        $f = $feedback::select('id')->withTrashed()->whereIn('id', [26, 30, 36, 38])->pluck('id');
+        dump($f);
     }
 }

@@ -30,7 +30,7 @@ final class FeedbackQueries implements ServiceQueries
 
     private function queryBuilder(array $values): Builder
     {
-        if (isset($values['deleted'])) {
+        if (array_key_exists('deleted', $values)) {
             $builder = $this->model::onlyTrashed()->filter($values);
         } else {
             $builder = $this->model::filter($values);
@@ -47,10 +47,11 @@ final class FeedbackQueries implements ServiceQueries
      */
     public function index(array $values = [], $per_page = 0): object
     {
+
         $builder = $this->queryBuilder($values);
         $paginator = $builder->paginate($per_page);
         //Так makeHidden работает нормально
-        $paginator->data = $paginator->makeHidden(['form_data', 'deleted_at']);
+        $paginator->data = $paginator->makeHidden(['form_data']);
         return $paginator;
     }
 
@@ -58,11 +59,18 @@ final class FeedbackQueries implements ServiceQueries
      * Все данные сущности по ID
      *
      * @param integer $id
+     * @param boolean $withTrashed
      * @return Feedback
      */
-    public function byId(int $id): Feedback
+    public function byId(int $id, bool $withTrashed = false): Feedback
     {
-        return Feedback::findOrFail($id);
+
+        if ($withTrashed) {
+            $feedback = Feedback::withTrashed()->findOrFail($id);
+        } else {
+            $feedback = Feedback::findOrFail($id);
+        }
+        return $feedback;
     }
 
     /**

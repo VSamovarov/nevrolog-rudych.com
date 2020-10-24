@@ -25,4 +25,5 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
-Route::resource('/feedback', FeedbackAdminController::class);
+Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
+Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');

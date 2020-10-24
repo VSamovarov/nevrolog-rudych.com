@@ -21,13 +21,13 @@
       </template>
       <template v-slot:cell(id)="data">
         <!-- Выбор строки -->
-        <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index, $event)"></b-form-checkbox>
+        <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index,$event)"></b-form-checkbox>
       </template>
       <template v-slot:cell(date_add)="data">
         <!-- <inertia-link :href="$route('admin.feedback.show',data.item.id)">
           {{data.item.date_add}}
         </inertia-link> -->
-        <a @click="showFeedback(data.item.id)" v-b-modal.modal-feedback-show-item href="#">
+        <a @click.prevent="showFeedback(data.item.id)" href="#">
           {{data.item.date_add}}
         </a>
       </template>
@@ -36,12 +36,33 @@
       </template>
       <template v-slot:cell(action)="data">
         <div class="d-flex justify-content-around">
-          <inertia-link class="btn btn-secondary btn-sm mx-1" :href="$route('admin.feedback.edit',data.item.id)">
-            <b-icon  icon="pencil-fill"></b-icon>
+          <b-btn
+            class="mx-1"
+            v-if="!data.item.deleted_at"
+            @click="feedbackViewStatusChange(data.item.id, data.item.viewed?0:1)"
+          >
+            <b-icon v-if="data.item.viewed" icon="envelope-open-fill"></b-icon>
+            <b-icon v-else icon="envelope-fill"></b-icon>
+          </b-btn>
+          <inertia-link
+            class="btn btn-sm mx-1 edit-button  btn-secondary"
+            v-if="!data.item.deleted_at"
+            :href="$route('admin.feedback.edit',data.item.id)"
+            >
+            <b-icon icon="pencil-fill"></b-icon>
           </inertia-link>
-          <inertia-link class="btn btn-secondary btn-sm mx-1" :href="$route('admin.feedback.destroy', data.item.id)" method="DELETE">
+          <b-btn
+            class="mx-1"
+            v-if="data.item.deleted_at"
+            @click="feedbackRestore(data.item.id)"
+          >
+            <b-icon icon="shift-fill"></b-icon>
+          </b-btn>
+          <b-btn
+            class="mx-1"
+            @click="feedbackDelete(data.item.id)">
             <b-icon icon="trash-fill"></b-icon>
-          </inertia-link>
+          </b-btn>
         </div>
       </template>
     </b-table>
@@ -69,7 +90,6 @@ export default {
         { key: "action", label: "Действие", class: "action" },
       ],
       feedbackData: [...this.items],
-      selectedItems: [], // Выбранные итемы
     };
   },
   methods: {
@@ -77,28 +97,100 @@ export default {
      * Добовляем стиль строкам
      */
     rowClass(item, type) {
-      if (!item || type !== 'row') return
-      if (item.viewed) return 'viewed'
+      let rowClass = [];
+      if (!item || type !== 'row') return;
+
+      if (item.viewed) rowClass.push('viewed');
+      if (!!item.deleted_at) rowClass.push('deleted');
+      return rowClass.join(' ');
+    },
+    /**
+     * Изменяем статус просмотра
+     *
+     */
+    feedbackViewStatusChange(id, status) {
+        status = status ? 1 : 0;
+        axios.patch( this.$route('admin.api.feedback.viewed-status',id), {status:status})
+        .then(response => {
+          console.log(response)
+
+          this.feedbackData.forEach((item) => {
+            if(item.id === id)  {
+              item.viewed = status;
+            }
+          })
+        });
     },
     /**
      * просматриваемый feedback
      */
     showFeedback(id) {
+      if(!id) return false;
       this.feedbackShowId = id;
-      this.feedbackData.forEach((item) => {
-        if(item.id === id)  {
-          item.viewed = 1;
+    //this.feedbackViewStatusChange(id, 1)
+      this.$bvModal.show('modal-feedback-show-item')
+    },
+    /**
+     * Удаление строки
+     */
+    feedbackDelete(id) {
+      this.confirmModal('Удалить сообщение?')
+      .then(value => {
+        if(value) {
+          axios.delete(this.$route('admin.api.feedback.destroy',id))
+          .then(
+            response => {
+              this.feedbackData.forEach((item) => {
+                if(item.id === id)  {
+                  item.deleted_at = true;
+                }
+              });
+            }
+          );
         }
+      });
+    },
+    feedbackRestore(id) {
+          axios.patch(this.$route('admin.api.feedback.restore',id))
+          .then(
+            response => {
+              this.feedbackData.forEach((item) => {
+                if(item.id === id)  {
+                  item.deleted_at = false;
+                }
+              });
+            }
+          );
+    },
+    /**
+     * Окно подтверждения
+     */
+    confirmModal(msg) {
+      return this.$bvModal.msgBoxConfirm( msg, {
+        title: 'Подтвердите',
+        size: 'sm',
+        buttonSize: 'sm',
+        okVariant: 'danger',
+        okTitle: 'Да',
+        cancelTitle: 'Нет',
+        footerClass: 'p-2',
+        hideHeaderClose: true,
+        centered: true
+      })
+      .then(value => {
+        return value;
+      })
+      .catch(err => {
+        // An error occurred
       })
     },
     /**
      * Выбор строк таблицы-->
      */
     onRowSelected(items) {
-      this.selectedItems = items;
+      this.$emit('rowSelected', items);
     },
     selectRow(index, checked) {
-
       if (checked) {
         this.$refs.selectableTable.selectRow(index);
       } else {
@@ -122,4 +214,16 @@ export default {
 </script>
 
 <style>
+  .index-feedback tbody tr.deleted, .index-feedback.deleted tbody tr {
+    display: none;
+  }
+  .index-feedback.deleted tr.deleted {
+    display: table-row;
+  }
+  .index-feedback.all tbody tr {
+    font-weight: bold;
+  }
+  .index-feedback.all tbody tr.viewed {
+    font-weight: normal;
+  }
 </style>

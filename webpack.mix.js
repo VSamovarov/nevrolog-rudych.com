@@ -1,5 +1,5 @@
 const mix = require("laravel-mix");
-
+require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manifest.json, а только обновлял данные
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,10 +11,19 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.js(
-    "resources/admin/js/app.js",
-    "public/admin/js"
-).postCss("resources/admin/css/app.css", "public/admin/css", [
-    require("postcss-import"),
-    require("tailwindcss")
-]);
+mix.js("resources/admin/js/app.js", "public/admin/js")
+    .postCss("resources/admin/css/app.css", "public/admin/css", [
+        require("postcss-import"),
+        require("tailwindcss"),
+        require("cssnano")({
+            preset: [
+                "default",
+                {
+                    discardComments: {
+                        removeAll: true
+                    }
+                }
+            ]
+        })
+    ])
+    .mergeManifest();

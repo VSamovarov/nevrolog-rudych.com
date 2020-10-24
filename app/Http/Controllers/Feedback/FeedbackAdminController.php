@@ -10,10 +10,13 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 use App\Services\AdminIndexMenu;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
 
 class FeedbackAdminController extends Controller
 {
 
+    const MASS_ACTIONS_ALLOWED = ['delete', 'restore', 'viewed', 'not-viewed'];
     public $indexMenuItems = [
         [
             'name' => 'admin.all'
@@ -105,5 +108,32 @@ class FeedbackAdminController extends Controller
     public function destroy($id, FeedbackCommands $commands)
     {
         //
+    }
+
+    public function massActions(Request $request, FeedbackCommands $commands, FeedbackQueries $queries)
+    {
+
+        $this->validate($request, [
+            'name' => 'required|in:' . implode(',', self::MASS_ACTIONS_ALLOWED),
+            'data' => 'required|array',
+            'data.*' => 'integer'
+        ]);
+        $ids = $request->input('data');
+        switch ($request->input('name')) {
+            case 'delete':
+                $commands->massDelete($ids);
+                break;
+            case 'restore':
+                $commands->massRestore($ids);
+                break;
+            case 'viewed':
+                $commands->massViewedStatus($ids, true);
+                break;
+            case 'not-viewed':
+                $commands->massViewedStatus($ids, false);
+                break;
+        }
+
+        return Redirect::route('admin.feedback.index');
     }
 }
