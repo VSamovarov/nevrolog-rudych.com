@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Entity\Feedback\Feedback;
 use App\Entity\Feedback\Services\FeedbackQueries;
-
+use App\Entity\Post\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -16,9 +16,8 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request  $request, Feedback $feedback)
+    public function __invoke(Request  $request, Post $post)
     {
-        $f = $feedback::select('id')->withTrashed()->whereIn('id', [26, 30, 36, 38])->pluck('id');
-        dump($f);
+        dump($post->getTypes());
     }
 }

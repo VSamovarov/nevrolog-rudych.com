@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Entity\User\User::factory(10)->create();
         $this->call([
+            UserSeeder::class,
             FeedbackSeeder::class
         ]);
     }

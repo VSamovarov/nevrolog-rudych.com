@@ -1,9 +1,8 @@
 <?php
 
-use App\Entity\Feedback\Feedback;
 use App\Http\Controllers\Feedback\FeedbackAdminController;
+use App\Http\Controllers\Post\PostAdminController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
