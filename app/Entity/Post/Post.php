@@ -20,6 +20,8 @@ class Post extends Model
 
     protected $appends = ['date_add'];
 
+    protected $filterableParameters = ['date_to', 'date_from', 'status'];
+
     /**
      * Аксессоры
      */

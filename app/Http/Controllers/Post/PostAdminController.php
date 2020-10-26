@@ -25,15 +25,15 @@ class PostAdminController extends Controller
     public function index(Request $request, PostQueries $services)
     {
         return Inertia::render(
-            'Feedback/IndexFeedback',
+            'Post/IndexPost',
             [
-                'pageTitle' => __('admin.feedback.title'),
+                'pageTitle' => __('admin.post.title'),
                 'posts' => $services->index($request->all()),
                 'indexMenu' => (new AdminIndexMenu(
                     $services,
                     $request,
                     $this->indexMenuItems,
-                    'admin.feedback.index',
+                    'admin.post.index',
                     []
                 ))->get()
             ]

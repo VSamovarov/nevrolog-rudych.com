@@ -112,17 +112,7 @@ trait Translatable
      */
     private function getTranslationModelName(): string
     {
-        if ($this->translationModel) {
-            return $this->getTranslationModelNameDefault();
-        } else {
-            $modelName = get_class($this);
-
-            if ($namespace = $this->getTranslationModelNamespace()) {
-                $modelName = $namespace . '\\' . class_basename(get_class($this));
-            }
-
-            return `{$modelName}_translations`;
-        }
+        return get_class($this) . 'Translation';
     }
 
     /**
@@ -132,10 +122,6 @@ trait Translatable
      */
     private function getTranslationRelationKey(): string
     {
-        if ($this->translationForeignKey) {
-            return $this->translationForeignKey;
-        }
-
         return $this->getForeignKey(); //из Illuminate\Database\Eloquent\Model
     }
 

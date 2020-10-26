@@ -1,4 +1,5 @@
 const mix = require("laravel-mix");
+require("laravel-mix-bundle-analyzer");
 require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manifest.json, а только обновлял данные
 /*
  |--------------------------------------------------------------------------
@@ -27,3 +28,15 @@ mix.js("resources/admin/js/app.js", "public/admin/js")
         })
     ])
     .mergeManifest();
+
+if (mix.isWatching()) {
+    mix.bundleAnalyzer();
+}
+if (mix.inProduction()) {
+} else {
+    mix.sourceMaps(true, "source-map")
+        .webpackConfig({
+            devtool: "inline-source-map"
+        })
+        .disableNotifications();
+}

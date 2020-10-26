@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Entity\Feedback\Feedback;
 use App\Entity\Feedback\Services\FeedbackQueries;
 use App\Entity\Post\Post;
+use App\Entity\Post\Services\PostQueries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -16,8 +17,8 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request  $request, Post $post)
+    public function __invoke(Request  $request, PostQueries $post)
     {
-        dump($post->getTypes());
+        dump($post->index());
     }
 }
