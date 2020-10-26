@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 
-trait Translation
+trait Translatable
 {
     /**
      * Возвращаем модель переводов для данной локали
