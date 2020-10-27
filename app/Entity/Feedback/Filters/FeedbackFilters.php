@@ -17,7 +17,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (in_array($value, ["0", "1"])) {
             $this->query
-                ->where('viewed', '=', $value);
+                ->where('feedback.viewed', '=', $value);
         }
     }
 
@@ -31,7 +31,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('name', 'like', "%{$value}%");
+                ->where('feedback.name', 'like', "%{$value}%");
         }
     }
 
@@ -45,7 +45,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('phone', 'like', "%{$value}%");
+                ->where('feedback.phone', 'like', "%{$value}%");
         }
     }
 
@@ -59,7 +59,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('email', 'like', "%{$value}%");
+                ->where('feedback.email', 'like', "%{$value}%");
         }
     }
 
@@ -74,7 +74,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('created_at	', '<=', Carbon::parse($value)->toDateString());
+                ->whereDate('feedback.created_at', '<=', Carbon::parse($value)->toDateString());
         }
     }
 
@@ -88,7 +88,7 @@ class FeedbackFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('created_at	', '>=', Carbon::parse($value)->toDateString());
+                ->whereDate('feedback.created_at', '>=', Carbon::parse($value)->toDateString());
         }
     }
 }

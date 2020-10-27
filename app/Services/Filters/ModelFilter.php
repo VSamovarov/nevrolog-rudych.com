@@ -3,7 +3,7 @@
 namespace App\Services\Filters;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Str;
+use Illuminate\Support\Str;
 
 /**
  * Фильтр для моделей

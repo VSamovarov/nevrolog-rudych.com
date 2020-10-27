@@ -17,7 +17,7 @@ class PostFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('created_at	', '<=', Carbon::parse($value)->toDateString());
+                ->whereDate('posts.created_at', '<=', Carbon::parse($value)->toDateString());
         }
     }
 
@@ -31,7 +31,7 @@ class PostFilters extends ModelFilter
     {
         if (!empty($value)) {
             $this->query
-                ->where('created_at	', '>=', Carbon::parse($value)->toDateString());
+                ->whereDate('posts.created_at', '>=', Carbon::parse($value)->toDateString());
         }
     }
 }

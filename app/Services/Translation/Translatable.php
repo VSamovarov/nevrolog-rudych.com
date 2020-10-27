@@ -23,10 +23,12 @@ namespace App\Services\Translation;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Services\Translation\Scopes;
 
 trait Translatable
 {
+    use Scopes;
     /**
      * Возвращаем модель переводов для данной локали
      *
@@ -85,7 +87,8 @@ trait Translatable
         return $translation;
     }
     /**
-     * Связываем таблицы
+     * Связываем модели
+     * Все языки
      *
      * @return HasMany
      */
@@ -95,18 +98,31 @@ trait Translatable
     }
 
     /**
+     * Связываем модели
+     * Один язык
+     *
+     * @return HasOne
+     */
+    public function translation(): HasOne
+    {
+        return $this
+            ->hasOne($this->getTranslationModelName(), $this->getTranslationRelationKey())
+            ->where($this->getLocaleKey(), $this->getLocale());
+    }
+
+    /**
      * Название поля язык в базе
      *
      * @return string
      */
     public function getLocaleKey(): string
     {
-        return $this->localeKey ?: 'locale';
+        return $this->localeKey ?: 'lang';
     }
 
     /**
-     * Название таблицы с переводами
-     * Указываем в моделе или генерим по имени класса
+     * Название Модели с переводами
+     * Генерим по имени класса
      *
      * @return string
      */
@@ -130,7 +146,7 @@ trait Translatable
      *
      * @return string
      */
-    private function getLocale(): string
+    public function getLocale(): string
     {
         return app()->getLocale();
     }
@@ -141,7 +157,7 @@ trait Translatable
      *
      * @return string
      */
-    private function getDefaultLocale(): string
+    public function getDefaultLocale(): string
     {
         return app('localizer')->getDefaultLocale();
     }

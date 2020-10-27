@@ -17,8 +17,8 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request  $request, PostQueries $post)
+    public function __invoke(Request  $request, Post $post)
     {
-        dump($post->index());
+        dump($post->whereTranslationLike('title', '%uk%')->orderByTranslation('title')->orderByTranslation('content', 'desc')->get());
     }
 }
