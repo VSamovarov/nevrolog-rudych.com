@@ -16,11 +16,17 @@ services:
   php-fpm:
     build:
       context: ./develop/php-frm
+      args:
+        user: www
+        uid: 1000
     volumes:
       - ../:/var/www
   php-cli:
     build:
       context: ./develop/php-cli
+      args:
+        user: www
+        uid: 1000
     volumes:
       - ../:/var/www
     tty: true

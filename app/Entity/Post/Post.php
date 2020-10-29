@@ -9,12 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\Filters\Filterable;
 use App\Services\Translation\Translatable;
 
-class Post extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+
+class Post extends Model implements HasMedia
 {
     use HasFactory;
     use SoftDeletes;
     use Filterable;
     use Translatable;
+    use InteractsWithMedia;
 
     protected $dates = ['deleted_at'];
 
