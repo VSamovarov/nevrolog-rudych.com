@@ -7,7 +7,11 @@
 <script>
 import MainMenu from "./../Header/MainMenu";
 export default {
-  props: ["main_menu"],
+  data() {
+    return {
+      main_menu: []
+    }
+  },
   components: {
     MainMenu,
   },

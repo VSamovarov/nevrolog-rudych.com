@@ -1,5 +1,5 @@
 <template>
-  <AdminLayout :query="query" class="index-feedback" :class="classPage" :adminSidebarMenu="adminSidebarMenu">
+  <AdminLayout :query="query" class="index-feedback" :class="classPage">
     <b-container fluid class="my-5">
       <b-row>
         <b-col md="10" class="d-flex align-items-center justify-content-between">
@@ -45,7 +45,7 @@ import Pagination from "./../../Components/Common/Pagination";
 
 export default {
   components: { AdminLayout, FeedbackList, AdminIndexMenu, Pagination, FeedbackFilters },
-  props: ['feedback', 'adminSidebarMenu', 'indexMenu', 'query', 'pageTitle'],
+  props: ['feedback', 'indexMenu', 'query', 'pageTitle'],
   data() {
     return {
       massActionName: null,

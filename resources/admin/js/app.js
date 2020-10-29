@@ -31,7 +31,8 @@ import {
     FormInputPlugin,
     FormGroupPlugin,
     ModalPlugin,
-    SkeletonPlugin
+    SkeletonPlugin,
+    AlertPlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -46,6 +47,7 @@ Vue.use(FormGroupPlugin);
 Vue.use(FormTextareaPlugin);
 Vue.use(ModalPlugin);
 Vue.use(SkeletonPlugin);
+Vue.use(AlertPlugin);
 
 const app = document.getElementById("app");
 

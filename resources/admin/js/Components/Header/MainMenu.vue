@@ -3,14 +3,14 @@
     <b-navbar-brand href="#">Nevrolog-Rudych</b-navbar-brand>
     <b-navbar-toggle target="main-menu-collapse"></b-navbar-toggle>
     <b-collapse id="main-menu-collapse" is-nav>
-      <!-- <b-navbar-nav>
+      <b-navbar-nav v-if="items">
         <MainMenuItem
           v-for="(item, i) of items"
           :href="`/` + item.href"
           :title="item.title"
           :key="i"
         />
-      </b-navbar-nav> -->
+      </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown text="User" right>

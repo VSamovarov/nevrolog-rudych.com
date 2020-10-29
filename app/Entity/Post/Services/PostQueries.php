@@ -48,8 +48,7 @@ final class PostQueries implements ServiceQueries
     public function index(array $values = [], $per_page = 0): object
     {
         $builder = $this->queryBuilder($values);
-        $paginator = $builder->paginate($per_page);
-        $paginator = $paginator->load('translations');
+        $paginator = $builder->paginate($per_page)->load('translations');
         return $paginator;
     }
 

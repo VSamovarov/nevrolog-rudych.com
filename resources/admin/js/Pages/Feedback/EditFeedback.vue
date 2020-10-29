@@ -1,5 +1,5 @@
 <template>
-<AdminLayout :adminSidebarMenu="adminSidebarMenu">
+<AdminLayout>
   <b-container fluid class="my-5">
     <b-row>
       <b-col md="10" class="d-flex align-items-center justify-content-between">
@@ -24,7 +24,7 @@ import AdminLayout from "./../../Layouts/AdminLayout";
 import FeedbackEditForm from "./../../Components/Content/Feedback/FeedbackEditForm";
 export default {
   components: { AdminLayout, FeedbackEditForm },
-  props: ['feedback','errors','adminSidebarMenu'],
+  props: ['feedback','errors'],
   mounted: function() {
     console.log(this.feedback)
   }

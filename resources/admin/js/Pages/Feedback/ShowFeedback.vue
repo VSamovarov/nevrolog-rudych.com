@@ -29,7 +29,7 @@
 import AdminLayout from "./../../Layouts/AdminLayout";
 export default {
   components: { AdminLayout},
-  props: ['feedback','adminSidebarMenu'],
+  props: ['feedback'],
 }
 </script>
 
