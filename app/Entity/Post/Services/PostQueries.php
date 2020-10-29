@@ -22,6 +22,16 @@ final class PostQueries implements ServiceQueries
     }
 
     /**
+     * Все статусы
+     *
+     * @return array
+     */
+    public function getStatuses(): array
+    {
+        return $this->model->getStatuses();
+    }
+
+    /**
      * Формируем запрос
      *
      * @param array $values - значения фильтра

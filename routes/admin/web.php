@@ -26,4 +26,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
 Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
 Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');
-Route::resource('/post', PostAdminController::class)->except('destroy');
+
+Route::resource('/post', PostAdminController::class)->except('destroy')->middleware(['check-type-post']);

@@ -40,6 +40,7 @@ class IndexAdminMenu
     public function get(): array
     {
         $menu = [];
+
         foreach ($this->menuItems as $item) {
             $parameter = $item['parameter'] ?? null;
             $value = $item['value'] ?? null;

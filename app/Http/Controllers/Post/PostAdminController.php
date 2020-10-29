@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Entity\Post\Services\IndexAdminMenuItems;
 use App\Entity\Post\Services\PostQueries;
 use App\Http\Controllers\Controller;
 use App\Services\Menu\IndexAdminMenu;
@@ -12,21 +13,9 @@ class PostAdminController extends Controller
 {
 
     const MASS_ACTIONS_ALLOWED = ['delete', 'restore'];
-    public $indexMenuItems = [
-        [
-            'name' => 'admin.all'
-        ],
-        [
-            'name' => 'admin.deleted',
-            'parameter' => 'deleted'
-        ]
-    ];
 
     public function index(Request $request, PostQueries $services)
     {
-        $this->validate($request, [
-            'type' => 'required|in:' . implode(',', array_keys($services->getTypes()))
-        ]);
         return Inertia::render(
             'Post/IndexPost',
             [
@@ -35,7 +24,7 @@ class PostAdminController extends Controller
                 'indexMenu' => (new IndexAdminMenu(
                     $services,
                     $request,
-                    $this->indexMenuItems,
+                    (new IndexAdminMenuItems)($services),
                     'admin.post.index',
                     []
                 ))->get()
