@@ -1,6 +1,18 @@
 <template>
-<AdminLayout :query="query" class="index-post" :class="classPage">
-  {{posts}}
+<AdminLayout :query="query" class="index-post" :class="classPage" :adminSidebarMenu="adminSidebarMenu">
+      <b-container fluid class="my-5">
+      <b-row>
+        <b-col md="10" class="d-flex align-items-center justify-content-between">
+          <h1>{{ pageTitle }}</h1>
+        </b-col>
+        <b-col md="2" class="d-flex align-items-center justify-content-end">
+          <b-button>Добавить</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
+    <b-container fluid class="mb-4">
+      <AdminIndexMenu :items="indexMenu"></AdminIndexMenu>
+    </b-container>
 </AdminLayout>
 </template>
 
@@ -10,7 +22,7 @@ import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
 import Pagination from "./../../Components/Common/Pagination";
 export default {
   components: { AdminLayout, AdminIndexMenu, Pagination },
-  props: ['posts', 'indexMenu','query'],
+  props: ['posts', 'indexMenu','query','adminSidebarMenu','pageTitle'],
   computed: {
     classPage: function () {
       let classPage = [];

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Post;
 
 use App\Entity\Post\Services\PostQueries;
 use App\Http\Controllers\Controller;
-use App\Services\AdminIndexMenu;
+use App\Services\Menu\IndexAdminMenu;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -24,12 +24,15 @@ class PostAdminController extends Controller
 
     public function index(Request $request, PostQueries $services)
     {
+        $this->validate($request, [
+            'type' => 'required|in:' . implode(',', array_keys($services->getTypes()))
+        ]);
         return Inertia::render(
             'Post/IndexPost',
             [
                 'pageTitle' => __('admin.post.title'),
                 'posts' => $services->index($request->all()),
-                'indexMenu' => (new AdminIndexMenu(
+                'indexMenu' => (new IndexAdminMenu(
                     $services,
                     $request,
                     $this->indexMenuItems,

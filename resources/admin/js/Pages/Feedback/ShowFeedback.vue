@@ -1,5 +1,5 @@
 <template>
-  <AdminLayout>
+  <AdminLayout :adminSidebarMenu="adminSidebarMenu">
     <b-container fluid class="my-5">
       <b-row>
         <b-col md="10" class="d-flex align-items-center justify-content-between">
@@ -29,7 +29,7 @@
 import AdminLayout from "./../../Layouts/AdminLayout";
 export default {
   components: { AdminLayout},
-  props: ['feedback'],
+  props: ['feedback','adminSidebarMenu'],
 }
 </script>
 

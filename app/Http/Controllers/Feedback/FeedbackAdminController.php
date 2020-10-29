@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-use App\Services\AdminIndexMenu;
+use App\Services\Menu\IndexAdminMenu;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
@@ -40,13 +40,13 @@ class FeedbackAdminController extends Controller
 
     public function index(Request $request, FeedbackQueries $services)
     {
-        // dd((new AdminIndexMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index'));
+        // dd((new indexAdminMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index'));
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
                 'pageTitle' => __('admin.feedback.title'),
                 'feedback' => $services->index($request->all()),
-                'indexMenu' => (new AdminIndexMenu(
+                'indexMenu' => (new IndexAdminMenu(
                     $services,
                     $request,
                     $this->indexMenuItems,

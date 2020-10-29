@@ -1,17 +1,34 @@
 <template>
   <ul class="menu">
-    <li class="item-menu" v-for="(menu, id) of menuData" :key="id">
-      <SidebarMenuLink :href="menu.submenu ? '' : menu.href">
-        <SidebarMenuIco :icon="menu.icon"></SidebarMenuIco>
+    <template v-for="(menu, id) of menuData">
+      <SidebarMenuItem :class="{active:menu.active}" :key="id">
+        <LinkMenu :href="menu.submenu ? '' : menu.href">
+            <Icon :icon="menu.icon"></Icon>
+            <span class="item-menu-text">{{ menu.title }}</span>
+        </LinkMenu>
+        <ul v-if="menu.submenu" class="sub-menu">
+          <template v-for="(submenu, id_submenu) of menu.submenu">
+            <SidebarMenuItem :class="{active:menu.active}" :key="`${id}-${id_submenu}`">
+              <LinkMenu :href="submenu.href">
+                  <span class="item-menu-text">{{ submenu.title }}</span>
+              </LinkMenu>
+            </SidebarMenuItem>
+          </template>
+        </ul>
+      </SidebarMenuItem>
+    </template>
+    <!-- <li class="item-menu" v-for="(menu, id) of menuData" :class="{active:menu.active}":key="id">
+      <SidebarMenuItem :href="menu.submenu ? '' : menu.href">
+        <Icon :icon="menu.icon"></Icon>
         <span class="item-menu-text">{{ menu.title }}</span>
-      </SidebarMenuLink>
+      </SidebarMenuItem>
       <ul v-if="menu.submenu" class="sub-menu">
         <li
           class="item-menu"
           v-for="(submenu, id_submenu) of menu.submenu"
           :key="id_submenu"
         >
-          <SidebarMenuLink :href="submenu.href">
+          <SidebarMenuItem :href="submenu.href">
             <span class="item-menu-text">{{ submenu.title }}</span
             >&nbsp;
             <span
@@ -19,20 +36,22 @@
               class="item-menu-ban badge badge-light"
               >{{ submenu.count }}</span
             >
-          </SidebarMenuLink>
+          </SidebarMenuItem>
         </li>
       </ul>
-    </li>
+    </li> -->
   </ul>
 </template>
 
 <script>
-import SidebarMenuLink from "./SidebarMenuLink";
-import SidebarMenuIco from "./SidebarMenuIco";
+import SidebarMenuItem from "./SidebarMenuItem";
+import LinkMenu from "./LinkMenu";
+import Icon from "../../Common/Icon";
 export default {
   components: {
-    SidebarMenuLink,
-    SidebarMenuIco,
+    SidebarMenuItem,
+    LinkMenu,
+    Icon,
   },
   data() {
     return {};

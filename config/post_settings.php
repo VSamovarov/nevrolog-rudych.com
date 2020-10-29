@@ -2,9 +2,21 @@
 
 return [
     'types' => [
-        'pages' => [],
-        'news' => [],
-        'blogs' => []
+        'pages' => [
+            'name' => 'post.type.pages',
+            'taxonomy' => [],
+            'icon' => 'bookmark',
+        ],
+        'news' => [
+            'name' => 'post.type.news',
+            'taxonomy' => [],
+            'icon' => 'newspaper',
+        ],
+        'blogs' => [
+            'name' => 'post.type.blogs',
+            'taxonomy' => [],
+            'icon' => 'journal',
+        ]
     ],
 
     'statuses' => [

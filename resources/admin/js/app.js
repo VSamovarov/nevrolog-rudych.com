@@ -18,6 +18,7 @@ InertiaProgress.init();
 
 /** */
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
+
 import {
     NavbarPlugin,
     BootstrapVueIcons,
@@ -35,7 +36,6 @@ import {
 
 Vue.use(FormInputPlugin);
 Vue.use(NavbarPlugin);
-Vue.use(NavbarPlugin);
 Vue.use(BootstrapVueIcons);
 Vue.use(ButtonPlugin);
 Vue.use(LayoutPlugin);
@@ -43,7 +43,6 @@ Vue.use(TablePlugin);
 Vue.use(FormCheckboxPlugin);
 Vue.use(FormSelectPlugin);
 Vue.use(FormGroupPlugin);
-Vue.use(FormTextareaPlugin);
 Vue.use(FormTextareaPlugin);
 Vue.use(ModalPlugin);
 Vue.use(SkeletonPlugin);

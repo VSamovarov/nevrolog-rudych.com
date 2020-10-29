@@ -64,11 +64,11 @@ final class PostQueries implements ServiceQueries
     {
 
         if ($withTrashed) {
-            $feedback = Post::withTrashed()->findOrFail($id);
+            $post = $this->model->withTrashed()->findOrFail($id);
         } else {
-            $feedback = Post::findOrFail($id);
+            $post = $this->model->findOrFail($id);
         }
-        return $feedback;
+        return $post;
     }
 
     /**
@@ -81,5 +81,15 @@ final class PostQueries implements ServiceQueries
     {
         $builder = $this->queryBuilder($values);
         return $builder->count();
+    }
+
+    /**
+     * типы
+     *
+     * @return array|null
+     */
+    public function getTypes(): ?array
+    {
+        return $this->model->getTypes();
     }
 }

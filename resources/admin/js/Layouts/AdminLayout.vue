@@ -2,7 +2,7 @@
   <div id="page-wrapper">
     <Header :main_menu="main_menu" id="header"></Header>
     <div id="body" class="d-flex">
-      <LeftColumn :sidebar_menu="sidebar_menu"></LeftColumn>
+      <LeftColumn :sidebar_menu="adminSidebarMenu"></LeftColumn>
       <div class="main-content">
         <slot></slot>
       </div>
@@ -16,6 +16,7 @@ import Footer from "./../Components/Footer/Footer";
 import LeftColumn from "./../Components/LeftColumn/LeftColumn";
 export default {
   components: { Header, Footer, LeftColumn },
+  props: ['adminSidebarMenu'],
   data() {
     return {
       main_menu: [
@@ -52,69 +53,72 @@ export default {
           title: "Касса",
         },
       ],
-      sidebar_menu: [
-        {
-          title: "Feedback",
-          icon: "shop-window",
-          href: "/admin/feedback",
-          hiddenOnCollapse: true,
-        },
-        {
-          title: "Test",
-          href: "/admin/test",
-          hiddenOnCollapse: true,
-        },
-        {
-          title: "Акции",
-          icon: "award",
-          hiddenOnCollapse: true,
-          href: "/admin/test",
-          submenu: [
-            {
-              href: "admin/test",
-              title: "Все акции",
-            },
-            {
-              href: "/admin/test",
-              title: "Добавить акцию",
-            },
-          ],
-        },
-        {
-          title: "Свойства товаров",
-          icon: "check2-square",
-          hiddenOnCollapse: true,
-          href: "/admin/test",
-          submenu: [
-            {
-              href: "/admin/test",
-              title: "Все свойства",
-            },
-            {
-              href: "/admin/test",
-              title: "Добавить свойство",
-            },
-          ],
-        },
-        {
-          title: "Комментарии",
-          icon: "chat-quote",
-          href: "/admin/test",
-          hiddenOnCollapse: true,
-          submenu: [
-            {
-              href: "/admin/test",
-              title: "Все комментарии",
-            },
-            {
-              href: "/admin/test",
-              title: "Неотмодерированные",
-            },
-          ],
-        },
-      ],
+
+      // sidebar_menu: [
+      //   {
+      //     title: "Feedback",
+      //     icon: "shop-window",
+      //     href: "/admin/feedback",
+      //     hiddenOnCollapse: true,
+      //   },
+      //   {
+      //     title: "Test",
+      //     href: "/admin/test",
+      //     hiddenOnCollapse: true,
+      //   },
+      //   {
+      //     title: "Акции",
+      //     icon: "award",
+      //     hiddenOnCollapse: true,
+      //     href: "/admin/test",
+      //     submenu: [
+      //       {
+      //         href: "admin/test",
+      //         title: "Все акции",
+      //       },
+      //       {
+      //         href: "/admin/test",
+      //         title: "Добавить акцию",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: "Свойства товаров",
+      //     icon: "check2-square",
+      //     hiddenOnCollapse: true,
+      //     href: "/admin/test",
+      //     submenu: [
+      //       {
+      //         href: "/admin/test",
+      //         title: "Все свойства",
+      //       },
+      //       {
+      //         href: "/admin/test",
+      //         title: "Добавить свойство",
+      //       },
+      //     ],
+      //   },
+      //   {
+      //     title: "Комментарии",
+      //     icon: "chat-quote",
+      //     href: "/admin/test",
+      //     hiddenOnCollapse: true,
+      //     submenu: [
+      //       {
+      //         href: "/admin/test",
+      //         title: "Все комментарии",
+      //       },
+      //       {
+      //         href: "/admin/test",
+      //         title: "Неотмодерированные",
+      //       },
+      //     ],
+      //   },
+      // ],
     };
-  },
+
+
+ },
   mounted: function () {
     // console.log(this.$page);
 
