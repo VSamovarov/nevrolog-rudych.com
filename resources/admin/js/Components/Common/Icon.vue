@@ -1,5 +1,5 @@
 <template>
-  <b-icon class="item-menu-icon" :icon="icon"></b-icon>
+  <b-icon :icon="icon"></b-icon>
 </template>
 
 

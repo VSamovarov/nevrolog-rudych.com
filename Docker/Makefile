@@ -61,5 +61,5 @@ assets-watch:
 # 	sudo sysctl -w vm.max_map_count=262144
 
 perm:
-	sudo chgrp -R www-data ../storage ../bootstrap/cache
-	sudo chmod -R ug+rwx ../storage ../bootstrap/cache
+	sudo chgrp -R www-data ../storage ../bootstrap/cache ../app
+	sudo chmod -R ug+rwx ../storage ../bootstrap/cache ../app

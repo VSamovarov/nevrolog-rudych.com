@@ -23,6 +23,7 @@ import {
     NavbarPlugin,
     BootstrapVueIcons,
     ButtonPlugin,
+    ButtonGroupPlugin,
     FormTextareaPlugin,
     LayoutPlugin,
     TablePlugin,
@@ -39,6 +40,7 @@ Vue.use(FormInputPlugin);
 Vue.use(NavbarPlugin);
 Vue.use(BootstrapVueIcons);
 Vue.use(ButtonPlugin);
+Vue.use(ButtonGroupPlugin);
 Vue.use(LayoutPlugin);
 Vue.use(TablePlugin);
 Vue.use(FormCheckboxPlugin);

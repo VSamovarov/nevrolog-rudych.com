@@ -3,7 +3,7 @@
     <template v-for="(menu, id) of menuData">
       <SidebarMenuItem :class="{active:menu.active}" :key="id">
         <LinkMenu :href="menu.submenu ? '' : menu.href">
-            <Icon :icon="menu.icon"></Icon>
+            <Icon class="item-menu-icon" :icon="menu.icon"></Icon>
             <span class="item-menu-text">{{ menu.title }}</span>
         </LinkMenu>
         <ul v-if="menu.submenu" class="sub-menu">

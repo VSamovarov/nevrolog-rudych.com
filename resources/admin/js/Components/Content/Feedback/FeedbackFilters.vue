@@ -51,9 +51,6 @@ export default {
       serchFilter: "",
     };
   },
-  mounted: function() {
-    console.log(this.filters)
-  }
 }
 </script>
 

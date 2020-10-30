@@ -20,7 +20,8 @@ class PostAdminController extends Controller
             'Post/IndexPost',
             [
                 'pageTitle' => __('admin.post.title'),
-                'posts' => $services->index($request->all()),
+                'locales' => app('localizer')->getSupportedLocales(),
+                'locale' => app('localizer')->getLocale(),
                 'indexMenu' => (new IndexAdminMenu(
                     $services,
                     $request,

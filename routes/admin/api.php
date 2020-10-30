@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Feedback\FeedbackAdminApiController;
+use App\Http\Controllers\Post\PostIndexApiAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,10 @@ Route::patch('/feedback/{id}/viewed-status', [FeedbackAdminApiController::class,
 Route::delete('/feedback/{id}/delete', [FeedbackAdminApiController::class, 'destroy'])->name('feedback.destroy');
 Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'restore'])->name('feedback.restore');
 
+
+Route::get('/post', PostIndexApiAdminController::class)->name('post.index');
 /**
- * Ошибка .если неправильный роутер
+ * Ошибка, если неправильный роутер
  * Должен быть в конце
  */
 Route::fallback(function () {
