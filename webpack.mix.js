@@ -12,8 +12,10 @@ require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manife
  |
  */
 
-mix.js("resources/admin/js/app.js", "public/admin/js")
-    .postCss("resources/admin/css/app.css", "public/admin/css", [
+mix.js("resources/admin/js/app.js", "public/admin/js").postCss(
+    "resources/admin/css/app.css",
+    "public/admin/css",
+    [
         require("postcss-import"),
         require("tailwindcss"),
         require("cssnano")({
@@ -26,8 +28,8 @@ mix.js("resources/admin/js/app.js", "public/admin/js")
                 }
             ]
         })
-    ])
-    .mergeManifest();
+    ]
+);
 
 if (mix.isWatching()) {
     mix.bundleAnalyzer();
@@ -40,3 +42,5 @@ if (mix.inProduction()) {
         })
         .disableNotifications();
 }
+
+mix.mergeManifest();

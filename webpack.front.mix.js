@@ -5,9 +5,10 @@ let sourcePath = "resources/front/";
 mix.config.fileLoaderDirs.fonts = "front/fonts";
 
 require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manifest.json, а только обновлял данные
-mix.sass(sourcePath + "sass/index.scss", distPath + "css")
-    .js(sourcePath + "js/index.js", distPath + "js")
-    .mergeManifest();
+mix.sass(sourcePath + "sass/index.scss", distPath + "css").js(
+    sourcePath + "js/index.js",
+    distPath + "js"
+);
 
 if (mix.inProduction()) {
     mix.options({
@@ -35,3 +36,4 @@ if (mix.inProduction()) {
         })
         .disableNotifications();
 }
+mix.mergeManifest();
