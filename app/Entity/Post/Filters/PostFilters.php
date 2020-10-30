@@ -43,7 +43,7 @@ class PostFilters extends ModelFilter
      */
     public function status(?string $value)
     {
-        if (empty($value)) {
+        if (!empty($value)) {
             $this->query->status($value);
         }
     }
