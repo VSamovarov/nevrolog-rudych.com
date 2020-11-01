@@ -22,6 +22,7 @@ class PostAdminController extends Controller
                 'pageTitle' => __('admin.post.title'),
                 'locales' => app('localizer')->getSupportedLocales(),
                 'locale' => app('localizer')->getLocale(),
+                'per_page' => $services->getPerPage(),
                 'indexMenu' => (new IndexAdminMenu(
                     $services,
                     $request,

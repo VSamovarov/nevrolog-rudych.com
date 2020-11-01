@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     'types' => [
         'pages' => [
             'name' => 'post.type.pages',
@@ -24,5 +25,7 @@ return [
         'publish' => 'admin.statuses.publish', #Опубликован
         'off' => 'admin.statuses.off', #Отключен
     ],
+
+    'per_page' => 15
 
 ];

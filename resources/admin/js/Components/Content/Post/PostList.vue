@@ -112,8 +112,6 @@ export default {
         status = status ? 1 : 0;
         axios.patch( this.$route('admin.api.feedback.viewed-status',id), {status:status})
         .then(response => {
-          console.log(response)
-
           this.feedbackData.forEach((item) => {
             if(item.id === id)  {
               item.viewed = status;

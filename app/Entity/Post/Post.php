@@ -81,4 +81,14 @@ class Post extends Model implements HasMedia
     {
         return config('post_settings.statuses');
     }
+
+    /**
+     * Количество Постов на странице
+     *
+     * @return integer
+     */
+    public function getPerPage(): int
+    {
+        return config('post_settings.per_page');
+    }
 }

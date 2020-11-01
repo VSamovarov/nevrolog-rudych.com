@@ -6,6 +6,7 @@ use App\Entity\Post\Post;
 use App\Services\Contracts\ServiceQueries;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use VSamovarov\LaravelLocalizer\Localizer;
 
 /**
  * Различные выборки
@@ -13,12 +14,14 @@ use Illuminate\Http\Request;
 final class PostQueries implements ServiceQueries
 {
     private $model;
+    private $locale;
     private $request;
 
-    public function __construct(Request $request, Post $model)
+    public function __construct(Request $request, Post $model, Localizer $localizer)
     {
         $this->model = $model;
         $this->request = $request;
+        $this->locale = $localizer->getLocale();
     }
 
     /**
@@ -55,11 +58,11 @@ final class PostQueries implements ServiceQueries
      * @param integer $per_page - количество на одой странице
      * @return object
      */
-    public function index(array $values = [], $per_page = 0): object
+    public function index(array $values = [], ?int $per_page = null): object
     {
-        $builder = $this->queryBuilder($values);
-        $paginator = $builder->paginate($per_page)->load('translations');
-        return $paginator;
+
+        if (empty($per_page)) $per_page = $this->model->getPerPage();
+        return $this->queryBuilder($values)->with('translation')->paginate($per_page);
     }
 
     /**
@@ -100,5 +103,15 @@ final class PostQueries implements ServiceQueries
     public function getTypes(): ?array
     {
         return $this->model->getTypes();
+    }
+
+    /**
+     * Количество Постов на странице
+     *
+     * @return integer
+     */
+    public function getPerPage(): int
+    {
+        return $this->model->getPerPage();
     }
 }

@@ -12,7 +12,7 @@ interface ServiceQueries
      * @param integer $per_page - количество на одной странице
      * @return object
      */
-    public function index(array $values = [], $per_page = 0): object;
+    public function index(array $values = [], ?int $per_page = null): object;
 
     /**
      * Количество сущностей

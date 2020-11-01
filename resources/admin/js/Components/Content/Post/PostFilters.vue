@@ -16,7 +16,7 @@
       </div>
       <div class="mr-2 filters">
         <div class="filters__title">Название</div>
-        <b-input v-model="filters.name"></b-input>
+        <b-input v-model="filters.title"></b-input>
       </div>
     </div>
     <div class="align-self-end mb-2">
@@ -48,10 +48,10 @@ export default {
   },
   methods: {
     setFilters() {
-      this.$emit('setFilters', this.filters)
+      this.$emit('setQuery', this.filters)
     },
     clearFilters() {
-      this.$emit('setFilters', {...this.filters,...this.filters})
+      this.$emit('setQuery', {...this.filters,...defaultFilters})
     }
   }
 }

@@ -16,14 +16,15 @@
           <AdminIndexMenu :items="indexMenu" :query="query"></AdminIndexMenu>
         </b-col>
         <b-col md='1'>
-          <Locales></Locales>
+          <Locales :locale="query.locale" @setLocale="setLocale"></Locales>
         </b-col>
       </b-row>
     </b-container>
     <b-container fluid class="mb-4">
-        <PostFilters :query="query" @setFilters="getItems"></PostFilters>
+        <PostFilters :query="query" @setQuery="setQuery"></PostFilters>
     </b-container>
     {{posts}}
+    <Pagination></Pagination>
   </AdminLayout>
 </template>
 
@@ -38,7 +39,8 @@ export default {
   props: ['indexMenu', 'pageTitle'],
   data() {
     return {
-      query: {...this.$page.query},
+      query: {...this.$page.query, locale: this.$page.locale},
+      perPage: 15,
       posts: []
     }
   },
@@ -55,7 +57,7 @@ export default {
   },
   watch: {
     async query (query) {
-      await getItems(query);
+      await this.getItems(query);
     }
   },
   methods: {
@@ -63,7 +65,10 @@ export default {
       this.selectedItems = items.map(item=>item.id);
     },
     setQuery(query) {
-      this.query = {...this.query,...query};
+      this.query = {...this.query, ...query};
+    },
+    setLocale(locale) {
+      this.setQuery({locale});
     },
     async getItems(query) {
 

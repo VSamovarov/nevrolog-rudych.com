@@ -27,7 +27,7 @@ Route::delete('/feedback/{id}/delete', [FeedbackAdminApiController::class, 'dest
 Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'restore'])->name('feedback.restore');
 
 
-Route::get('/post', PostIndexApiAdminController::class)->name('post.index');
+Route::get('/post', PostIndexApiAdminController::class)->middleware(['localizer-api'])->name('post.index');
 /**
  * Ошибка, если неправильный роутер
  * Должен быть в конце

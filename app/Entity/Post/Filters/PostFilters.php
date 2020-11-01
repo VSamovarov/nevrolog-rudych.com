@@ -62,9 +62,9 @@ class PostFilters extends ModelFilter
         }
         if (!empty($value)) {
             $this->query
-                ->orWhereTranslationLike('title', "%${$value}%", $locale)
-                ->orWhereTranslationLike('content', "%${$value}%", $locale)
-                ->orWhereTranslationLike('metakeys', "%${$value}%", $locale);
+                ->orWhereTranslationLike('title', "%{$value}%", $locale)
+                ->orWhereTranslationLike('content', "%{$value}%", $locale)
+                ->orWhereTranslationLike('metakeys', "%{$value}%", $locale);
         }
     }
 
@@ -81,7 +81,7 @@ class PostFilters extends ModelFilter
             $locale = app()->getLocale();
         }
         if (!empty($value)) {
-            $this->query->whereTranslationLike('title', "%${$value}%", $locale);
+            $this->query->whereTranslationLike('title', "%{$value}%", $locale);
         }
     }
 
@@ -98,7 +98,7 @@ class PostFilters extends ModelFilter
             $locale = app()->getLocale();
         }
         if (!empty($value)) {
-            $this->query->whereTranslationLike('content', "%${$value}%", $locale);
+            $this->query->whereTranslationLike('content', "%{$value}%", $locale);
         }
     }
 }
