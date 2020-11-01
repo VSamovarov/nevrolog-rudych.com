@@ -29,7 +29,7 @@ class IndexAdminMenu
         $this->request = $request;
         $this->menuItems = $menuItems;
         $this->routeName = $routeName;
-        $this->allowedParameters = array_merge($allowedParameters);
+        $this->allowedParameters = $allowedParameters;
     }
 
     /**
@@ -81,8 +81,11 @@ class IndexAdminMenu
      */
     public function url(?string $parameter, ?string $value): string
     {
-        if (empty($parameter)) return route($this->routeName);
-        $parameters = array_merge($this->getParameters(), [$parameter => strval($value)]);
+        if (empty($parameter)) {
+            $parameters = $this->getParameters();
+        } else {
+            $parameters = array_merge($this->getParameters(), [$parameter => strval($value)]);
+        }
         return route($this->routeName, $parameters);
     }
 

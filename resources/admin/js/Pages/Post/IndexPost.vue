@@ -24,12 +24,14 @@
         <PostFilters :query="query" @setQuery="setQuery"></PostFilters>
     </b-container>
     {{posts}}
-    <b-pagination
-      :total-rows="total"
-      :per-page="perPage"
-      @change="setPage"
-      aria-controls="my-table"
-    ></b-pagination>
+    <b-container fluid class="mb-4" v-if="total>perPage">
+      <b-pagination
+        :total-rows="total"
+        :per-page="perPage"
+        @change="setPage"
+        aria-controls="my-table"
+      ></b-pagination>
+    </b-container>
   </AdminLayout>
 </template>
 
@@ -38,8 +40,7 @@ import AdminLayout from "./../../Layouts/AdminLayout";
 import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
 import Locales from "./../../Components/Common/Locales";
 import PostFilters from './../../Components/Content/Post/PostFilters';
-import setUrl from './../../Helpers/setUrl';
-
+import {setUrl} from './../../Helpers/Url';
 
 export default {
   components: { AdminLayout, AdminIndexMenu, Locales, PostFilters },

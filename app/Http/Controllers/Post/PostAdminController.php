@@ -27,8 +27,7 @@ class PostAdminController extends Controller
                     $services,
                     $request,
                     (new IndexAdminMenuItems)($services),
-                    'admin.post.index',
-                    []
+                    'admin.post.index'
                 ))->get()
             ]
         );
