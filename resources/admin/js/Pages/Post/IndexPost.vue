@@ -37,7 +37,10 @@
 import AdminLayout from "./../../Layouts/AdminLayout";
 import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
 import Locales from "./../../Components/Common/Locales";
-import PostFilters from './../../Components/Content/Post/PostFilters'
+import PostFilters from './../../Components/Content/Post/PostFilters';
+import setUrl from './../../Helpers/setUrl';
+
+
 export default {
   components: { AdminLayout, AdminIndexMenu, Locales, PostFilters },
   props: ['indexMenu', 'pageTitle'],
@@ -85,7 +88,7 @@ export default {
         this.posts = data.items;
         this.perPage = data.perPage;
         this.total = data.total;
-        // window.history.pushState({ ...query },'');
+        setUrl( this.$route('admin.post.index'), query );
       } catch {
 
       } finally {
