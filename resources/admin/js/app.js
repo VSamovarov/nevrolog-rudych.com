@@ -24,6 +24,7 @@ import {
     BootstrapVueIcons,
     ButtonPlugin,
     ButtonGroupPlugin,
+    PaginationPlugin,
     FormTextareaPlugin,
     LayoutPlugin,
     TablePlugin,
@@ -41,6 +42,7 @@ Vue.use(NavbarPlugin);
 Vue.use(BootstrapVueIcons);
 Vue.use(ButtonPlugin);
 Vue.use(ButtonGroupPlugin);
+Vue.use(PaginationPlugin);
 Vue.use(LayoutPlugin);
 Vue.use(TablePlugin);
 Vue.use(FormCheckboxPlugin);

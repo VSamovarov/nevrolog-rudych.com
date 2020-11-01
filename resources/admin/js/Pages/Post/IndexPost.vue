@@ -24,23 +24,28 @@
         <PostFilters :query="query" @setQuery="setQuery"></PostFilters>
     </b-container>
     {{posts}}
-    <Pagination></Pagination>
+    <b-pagination
+      :total-rows="total"
+      :per-page="perPage"
+      @change="setPage"
+      aria-controls="my-table"
+    ></b-pagination>
   </AdminLayout>
 </template>
 
 <script>
 import AdminLayout from "./../../Layouts/AdminLayout";
 import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
-import Pagination from "./../../Components/Common/Pagination";
 import Locales from "./../../Components/Common/Locales";
 import PostFilters from './../../Components/Content/Post/PostFilters'
 export default {
-  components: { AdminLayout, AdminIndexMenu, Pagination, Locales, PostFilters },
+  components: { AdminLayout, AdminIndexMenu, Locales, PostFilters },
   props: ['indexMenu', 'pageTitle'],
   data() {
     return {
       query: {...this.$page.query, locale: this.$page.locale},
       perPage: 15,
+      total: 0,
       posts: []
     }
   },
@@ -70,11 +75,17 @@ export default {
     setLocale(locale) {
       this.setQuery({locale});
     },
+    setPage(page) {
+      this.setQuery({page});
+    },
     async getItems(query) {
 
       try {
         const {data} = await axios.get(this.$route('admin.api.post.index', query));
-        this.posts = data;
+        this.posts = data.items;
+        this.perPage = data.perPage;
+        this.total = data.total;
+        // window.history.pushState({ ...query },'');
       } catch {
 
       } finally {
