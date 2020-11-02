@@ -7,22 +7,27 @@
       </b-col>
       <b-col md="2" class="d-flex align-items-center justify-content-end">
 
-      <inertia-link :href="$route('admin.post.index', { type: data.type })" class="btn btn-secondary">
+      <inertia-link :href="$route('admin.post.index', { type: main.type })" class="btn btn-secondary">
         Вернутся к списку
       </inertia-link>
       </b-col>
     </b-row>
-    {{data}}
   </b-container>
+
+  <PostTranslatesForm v-if="main.translations" :translates="main.translations"></PostTranslatesForm>
 </AdminLayout>
 </template>
 
 <script>
 import AdminLayout from "./../../Layouts/AdminLayout";
+import PostTranslatesForm from './../../Components/Content/Post/PostTranslatesForm';
 export default {
-  props: ['data'],
-  components: { AdminLayout },
-
+  components: { AdminLayout, PostTranslatesForm},
+  data() {
+    return {
+      main: {...this.$page.data}
+    }
+  },
 }
 </script>
 

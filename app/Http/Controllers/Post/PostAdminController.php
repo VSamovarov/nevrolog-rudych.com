@@ -20,8 +20,6 @@ class PostAdminController extends Controller
             'Post/IndexPost',
             [
                 'pageTitle' => __('admin.post.title'),
-                'locales' => app('localizer')->getSupportedLocales(),
-                'locale' => app('localizer')->getLocale(),
                 'per_page' => $services->getPerPage(),
                 'indexMenu' => (new IndexAdminMenu(
                     $services,
@@ -54,7 +52,6 @@ class PostAdminController extends Controller
             'Post/EditPost',
             [
                 'pageTitle' => __('admin.post-edit.title'),
-                'locales' => app('localizer')->getSupportedLocales(),
                 'data' => $services->byId($id)
             ]
         );

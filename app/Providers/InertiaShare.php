@@ -38,6 +38,8 @@ class InertiaShare extends ServiceProvider
         });
         Inertia::share('query', request()->all());
         Inertia::share('adminSidebarMenu', (new MainAdminMenu())->getItems());
+        Inertia::share('locales', app('localizer')->getSupportedLocales());
+        Inertia::share('locale', app('localizer')->getLocale());
         Inertia::share([
             'flash' => function () {
                 return [
