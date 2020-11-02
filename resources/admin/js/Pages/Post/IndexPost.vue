@@ -23,15 +23,20 @@
     <b-container fluid class="mb-4">
         <PostFilters :query="query" @setQuery="setQuery"></PostFilters>
     </b-container>
-    {{posts}}
-    <b-container fluid class="mb-4" v-if="total>perPage">
+
+    <b-container fluid class="mb-4">
+      <b-overlay variant="white" blur="0" :show="listOverlay" rounded="sm">
+      {{posts}}
       <b-pagination
+        v-if="total>perPage"
         :total-rows="total"
         :per-page="perPage"
         @change="setPage"
         aria-controls="my-table"
       ></b-pagination>
-    </b-container>
+      </b-overlay>
+  </b-container>
+
   </AdminLayout>
 </template>
 
@@ -50,7 +55,8 @@ export default {
       query: {...this.$page.query, locale: this.$page.locale},
       perPage: 15,
       total: 0,
-      posts: []
+      posts: [],
+      listOverlay: false
     }
   },
   async mounted() {
@@ -83,7 +89,7 @@ export default {
       this.setQuery({page});
     },
     async getItems(query) {
-
+      this.listOverlay = true;
       try {
         const {data} = await axios.get(this.$route('admin.api.post.index', query));
         this.posts = data.items;
@@ -93,7 +99,7 @@ export default {
       } catch {
 
       } finally {
-
+        this.listOverlay = false;
       }
     }
   },
