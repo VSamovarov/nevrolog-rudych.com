@@ -50,13 +50,6 @@ class Post extends Model implements HasMedia
     protected static function boot()
     {
         parent::boot();
-
-        /**
-         * Глобальный Scope - типы постов
-         */
-        static::addGlobalScope('type', function (Builder $builder) {
-            $builder->where('type', '=', request()->input('type'));
-        });
     }
     /**
      * Настройки

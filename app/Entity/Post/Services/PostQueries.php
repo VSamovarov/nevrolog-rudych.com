@@ -48,7 +48,7 @@ final class PostQueries implements ServiceQueries
         } else {
             $builder = $this->model::filter($values);
         }
-        return $builder;
+        return $builder->type($values['type']);
     }
 
     /**
@@ -74,12 +74,12 @@ final class PostQueries implements ServiceQueries
      */
     public function byId(int $id, bool $withTrashed = false): Post
     {
-
         if ($withTrashed) {
             $post = $this->model->withTrashed()->findOrFail($id);
         } else {
             $post = $this->model->findOrFail($id);
         }
+        $post->load('translations');
         return $post;
     }
 

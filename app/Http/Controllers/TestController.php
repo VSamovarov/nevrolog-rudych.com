@@ -19,6 +19,6 @@ class TestController extends Controller
      */
     public function __invoke(Request  $request, Post $post)
     {
-        dump($post->whereTranslationLike('title', '%uk%')->orderByTranslation('title')->orderByTranslation('content', 'desc')->get());
+        dump($post->find(1));
     }
 }

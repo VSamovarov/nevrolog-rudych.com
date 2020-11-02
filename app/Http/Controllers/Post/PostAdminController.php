@@ -48,9 +48,16 @@ class PostAdminController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit($id, PostQueries $services)
     {
-        //
+        return Inertia::render(
+            'Post/EditPost',
+            [
+                'pageTitle' => __('admin.post-edit.title'),
+                'locales' => app('localizer')->getSupportedLocales(),
+                'data' => $services->byId($id)
+            ]
+        );
     }
 
     public function update(Request $request, $id)

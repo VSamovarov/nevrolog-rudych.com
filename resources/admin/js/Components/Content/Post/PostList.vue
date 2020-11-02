@@ -8,7 +8,7 @@
       responsive
       no-select-on-click
       @row-selected="onRowSelected"
-      :items="feedbackData"
+      :items="items"
       :fields="tableFields"
       :tbody-tr-class="rowClass"
     >
@@ -23,73 +23,50 @@
         <!-- Выбор строки -->
         <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index,$event)"></b-form-checkbox>
       </template>
-      <template v-slot:cell(date_add)="data">
-        <!-- <inertia-link :href="$route('admin.feedback.show',data.item.id)">
-          {{data.item.date_add}}
-        </inertia-link> -->
-        <a @click.prevent="showFeedback(data.item.id)" href="#">
-          {{data.item.date_add}}
-        </a>
-      </template>
-      <template v-slot:cell(name)="data">
-          {{data.item.name}}
+      <template v-slot:cell(title)="data">
+        <!-- название -->
+        {{ data.item.title }}
       </template>
       <template v-slot:cell(action)="data">
         <div class="d-flex justify-content-around">
-          <b-btn
-            class="mx-1"
-            v-if="!data.item.deleted_at"
-            @click="feedbackViewStatusChange(data.item.id, data.item.viewed?0:1)"
-          >
-            <b-icon v-if="data.item.viewed" icon="envelope-open-fill"></b-icon>
-            <b-icon v-else icon="envelope-fill"></b-icon>
-          </b-btn>
           <inertia-link
             class="btn btn-sm mx-1 edit-button  btn-secondary"
             v-if="!data.item.deleted_at"
-            :href="$route('admin.feedback.edit',data.item.id)"
+            :href="$route('admin.post.edit', data.item.id)"
             >
             <b-icon icon="pencil-fill"></b-icon>
           </inertia-link>
           <b-btn
             class="mx-1"
             v-if="data.item.deleted_at"
-            @click="feedbackRestore(data.item.id)"
+            @click="itemRestore(data.item.id)"
           >
             <b-icon icon="shift-fill"></b-icon>
           </b-btn>
           <b-btn
             class="mx-1"
-            @click="feedbackDelete(data.item.id)">
+            @click="itemDelete(data.item.id)">
             <b-icon icon="trash-fill"></b-icon>
           </b-btn>
         </div>
       </template>
     </b-table>
-    <FeedbackShowItem v-if="feedbackShowId" :feedbackId="feedbackShowId"></FeedbackShowItem>
   </b-container>
 </template>
 
 <script>
-import FeedbackShowItem from './FeedbackShowItem'
 export default {
-  components: {
-    FeedbackShowItem
-  },
   props: ['items'],
   data() {
     return {
-      feedbackShowId: false,
+      itemShowId: false,
       tableFields: [
         { key: "id", label: "", class: "id" },
-        { key: "date_add", label: "Дата", class: "date_add text-nowrap" },
-        { key: "name", label: "Имя", class: "name" },
-        { key: "phone", label: "Телефон", class: "phone" },
-        { key: "email", label: "Email", class: "email" },
-        { key: "message", label: "Сообщение", class: "email" },
+        { key: "title", label: "Название", class: "title" },
+        { key: "date_add", label: "Созданный", class: "date_add text-nowrap" },
+        { key: "status", label: "Статус", class: "status" },
         { key: "action", label: "Действие", class: "action" },
       ],
-      feedbackData: [...this.items],
     };
   },
   methods: {
@@ -131,7 +108,7 @@ export default {
     /**
      * Удаление строки
      */
-    feedbackDelete(id) {
+    itemDelete(id) {
       this.confirmModal('Удалить сообщение?')
       .then(value => {
         if(value) {
@@ -148,7 +125,7 @@ export default {
         }
       });
     },
-    feedbackRestore(id) {
+    itemRestore(id) {
           axios.patch(this.$route('admin.api.feedback.restore',id))
           .then(
             response => {

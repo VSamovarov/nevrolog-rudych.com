@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Post;
 
 use App\Entity\Post\Services\PostQueries;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Post\Resources\PostsCollectionResource;
 use Illuminate\Http\Request;
 
 class PostIndexApiAdminController extends Controller
@@ -21,7 +22,7 @@ class PostIndexApiAdminController extends Controller
             return response()->json([
                 'total' => $data->total(),
                 'perPage' => $data->perPage(),
-                'items' => $post->index($request->all())->getCollection()
+                'items' => new PostsCollectionResource($data)
             ]);
         } else {
             return response()->json(['message' => 'Bad post type!'], 410);

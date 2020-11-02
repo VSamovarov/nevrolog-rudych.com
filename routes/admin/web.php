@@ -27,4 +27,5 @@ Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
 Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
 Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');
 
-Route::resource('/post', PostAdminController::class)->except('destroy')->middleware(['check-type-post']);
+Route::resource('/post', PostAdminController::class)->except(['destroy', 'edit', 'show'])->middleware(['check-type-post']);
+Route::get('/post/{id}/edit', [PostAdminController::class, 'edit'])->name('post.edit');

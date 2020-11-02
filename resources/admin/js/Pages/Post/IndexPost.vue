@@ -26,7 +26,7 @@
 
     <b-container fluid class="mb-4">
       <b-overlay variant="white" blur="0" :show="listOverlay" rounded="sm">
-      {{posts}}
+      <PostList :items="items"></PostList>
       <b-pagination
         v-if="total>perPage"
         :total-rows="total"
@@ -45,17 +45,18 @@ import AdminLayout from "./../../Layouts/AdminLayout";
 import AdminIndexMenu from "./../../Components/Common/AdminIndexMenu";
 import Locales from "./../../Components/Common/Locales";
 import PostFilters from './../../Components/Content/Post/PostFilters';
+import PostList from './../../Components/Content/Post/PostList';
 import {setUrl} from './../../Helpers/Url';
 
 export default {
-  components: { AdminLayout, AdminIndexMenu, Locales, PostFilters },
+  components: { AdminLayout, AdminIndexMenu, Locales, PostFilters, PostList },
   props: ['indexMenu', 'pageTitle'],
   data() {
     return {
       query: {...this.$page.query, locale: this.$page.locale},
       perPage: 15,
       total: 0,
-      posts: [],
+      items: [],
       listOverlay: false
     }
   },
@@ -92,7 +93,7 @@ export default {
       this.listOverlay = true;
       try {
         const {data} = await axios.get(this.$route('admin.api.post.index', query));
-        this.posts = data.items;
+        this.items = data.items;
         this.perPage = data.perPage;
         this.total = data.total;
         setUrl( this.$route('admin.post.index'), query );
