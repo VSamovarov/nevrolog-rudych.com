@@ -22,11 +22,14 @@
 </template>
 <script>
 // Обязательные поля
-const valuesDefault = {
-  title: "",
-  content: "",
-  excerpt: ""
+const defaultProperties = {
+  metatitle: null,
+  metadescription: null,
+  metakeys: null,
+  slug: null,
 };
+import { fillDefaultProperties } from './../../Helpers/Obj';
+
 export default {
   props: ["translations", "locales"],
   data() {
@@ -38,11 +41,11 @@ export default {
   created() {
     // Формируем данные
     for (let lang in this.locales) {
-      this.fields[lang] = {
-        ...valuesDefault,
-        ...this.translations.find(item => item.lang === lang)
-      };
-    }
+      this.fields[lang] = fillDefaultProperties (
+        defaultProperties,
+        this.translations.find((item, key) => item.lang === lang)
+      )
+    };
   },
   watch: {
     fields:  {
