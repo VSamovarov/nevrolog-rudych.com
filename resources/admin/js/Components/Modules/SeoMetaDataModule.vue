@@ -31,6 +31,7 @@ export default {
   props: ["translations", "locales"],
   data() {
     return {
+      moduleId: 'seo-meta-data-module',
       fields: {}
     };
   },
@@ -42,7 +43,16 @@ export default {
         ...this.translations.find(item => item.lang === lang)
       };
     }
-  }
+  },
+  watch: {
+    fields:  {
+      handler () {
+        this.$emit('updateDataModules', { key: this.moduleId, data: this.fields })
+      },
+      immediate: true,
+      deep: true
+    }
+  },
 };
 </script>
 <style></style>

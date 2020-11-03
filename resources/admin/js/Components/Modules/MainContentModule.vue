@@ -25,9 +25,10 @@ const valuesDefault = {
   excerpt: ""
 };
 export default {
-  props: ["translations", "locales"],
+  props: ["translations", "locales","props"],
   data() {
     return {
+      moduleId: 'main-content-module',
       fields: {}
     };
   },
@@ -38,8 +39,17 @@ export default {
         ...valuesDefault,
         ...this.translations.find(item => item.lang === lang)
       };
+    };
+  },
+  watch: {
+    fields:  {
+      handler () {
+        this.$emit('updateDataModules', { key: this.moduleId, data: this.fields })
+      },
+      immediate: true,
+      deep: true
     }
-  }
+  },
 };
 </script>
 <style></style>
