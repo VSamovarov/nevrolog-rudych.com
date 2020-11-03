@@ -36,7 +36,8 @@ import {
     SkeletonPlugin,
     AlertPlugin,
     OverlayPlugin,
-    TabsPlugin
+    TabsPlugin,
+    CollapsePlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -56,6 +57,7 @@ Vue.use(SkeletonPlugin);
 Vue.use(AlertPlugin);
 Vue.use(OverlayPlugin);
 Vue.use(TabsPlugin);
+Vue.use(CollapsePlugin);
 
 const app = document.getElementById("app");
 
