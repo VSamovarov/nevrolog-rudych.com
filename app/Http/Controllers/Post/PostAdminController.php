@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Post;
 
+use App\Entity\Post\Requests\PostUpdateRequest;
 use App\Entity\Post\Services\IndexAdminMenuItems;
 use App\Entity\Post\Services\PostQueries;
 use App\Http\Controllers\Controller;
@@ -58,9 +59,10 @@ class PostAdminController extends Controller
         );
     }
 
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
-        //
+        dump($id);
+        dump($request->all());
     }
 
     public function destroy($id)

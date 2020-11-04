@@ -1,46 +1,57 @@
 <template>
   <AdminLayout class="edit-post">
-    <b-container fluid class="my-5">
-      <b-row>
-        <b-col md="9">
-          <b-container fluid class="my-5">
-            <b-row>
-              <b-col
-                md="10"
-                class="d-flex align-items-center justify-content-between"
-              >
-                <h1>{{ $page.pageTitle }}</h1>
-              </b-col>
-              <b-col md="2" class="d-flex align-items-center justify-content-end">
-                <inertia-link
-                  :href="$route('admin.post.index', { type: main.type })"
-                  class="btn btn-secondary"
+    <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
+      <b-container fluid class="my-5">
+        <b-row>
+          <b-col md="9">
+            <b-container fluid class="my-5">
+              <b-row>
+                <b-col
+                  md="10"
+                  class="d-flex align-items-center justify-content-between"
                 >
-                  Вернутся к списку
-                </inertia-link>
-              </b-col>
-            </b-row>
-          </b-container>
-            <MainContentModule
-              v-if="main.translations"
-              :translations="main.translations"
-              :locales="locales"
-              @updateDataModules="updateDataModules"
-            ></MainContentModule>
-            <SeoMetaModule
-              v-if="main.translations"
-              :translations="main.translations"
-              :locales="locales"
-              @updateDataModules="updateDataModules"
-            ></SeoMetaModule>
-        </b-col>
-        <b-col md="3">
-          <DateModule :date="main.created_at" @updateDataModules="updateDataModules"></DateModule>
-          <PostStatusModule :statuses="statuses" :status="main.status" @updateDataModules="updateDataModules"></PostStatusModule>
-          <ThumbnailModule></ThumbnailModule>
-        </b-col>
-      </b-row>
-    </b-container>
+                  <h1>{{ $page.pageTitle }}</h1>
+                </b-col>
+                <b-col md="2" class="d-flex align-items-center justify-content-end">
+                  <inertia-link
+                    :href="$route('admin.post.index', { type: main.type })"
+                    class="btn btn-secondary"
+                  >
+                    Вернутся к списку
+                  </inertia-link>
+                </b-col>
+              </b-row>
+            </b-container>
+              <MainContentModule
+                v-if="main.translations"
+                :translations="main.translations"
+                :locales="locales"
+                @updateDataModules="updateDataModules"
+              ></MainContentModule>
+              <SeoMetaModule
+                v-if="main.translations"
+                :translations="main.translations"
+                :locales="locales"
+                @updateDataModules="updateDataModules"
+              ></SeoMetaModule>
+          </b-col>
+          <b-col md="3">
+            <div class="sticky text-center bg-white p-3">
+              <b-button @click="saveData">Сохранить изменения</b-button>
+              <inertia-link
+                    :href="$route('admin.post.index', { type: main.type })"
+                    class="btn btn-secondary"
+                  >
+                    Вернутся к списку
+              </inertia-link>
+            </div>
+            <DateModule :date="main.created_at" @updateDataModules="updateDataModules"></DateModule>
+            <PostStatusModule :statuses="statuses" :status="main.status" @updateDataModules="updateDataModules"></PostStatusModule>
+            <ThumbnailModule></ThumbnailModule>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-overlay>
   </AdminLayout>
 </template>
 
@@ -67,15 +78,36 @@ export default {
   props: ["main", "locales", "statuses"],
   data() {
     return {
-      modulesData: {}
+      modulesData: {},
+      overlay: false,
+      post_id: this.main.id,
+      post_type: this.main.type,
     };
   },
   methods: {
     updateDataModules(fileds) {
       this.modulesData[fileds.key] = fileds.data;
+    },
+    saveData () {
+      this.overlay = true;
+      console.log(this.modulesData);
+      try {
+        // await axios.post(this.$route('admin.post.update', modulesData));
+        this.$inertia.put(this.$route('admin.post.update',this.post_id),{type: this.post_type, ...this.modulesData});
+      } catch {
+
+      } finally {
+        this.overlay = false;
+      }
     }
   },
 };
 </script>
 
-<style></style>
+<style>
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100
+}
+</style>

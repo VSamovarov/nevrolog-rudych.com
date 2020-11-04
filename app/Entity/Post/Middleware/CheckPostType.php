@@ -3,6 +3,7 @@
 namespace App\Entity\Post\Middleware;
 
 use App\Entity\Post\Services\PostQueries;
+use App\Entity\Post\Rules\PostType;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class CheckPostType
     public function handle(Request $request, Closure $next)
     {
         $request->validate([
-            'type' => 'required|in:' . implode(',', array_keys($this->services->getTypes()))
+            'type' => ['required', 'string', app(PostType::class)],
         ]);
         return $next($request);
     }
