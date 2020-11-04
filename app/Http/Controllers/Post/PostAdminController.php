@@ -52,7 +52,8 @@ class PostAdminController extends Controller
             'Post/EditPost',
             [
                 'pageTitle' => __('admin.post-edit.title'),
-                'main' => $services->byId($id)
+                'main' => $services->byId($id),
+                'statuses' => $services->getStatuses()
             ]
         );
     }

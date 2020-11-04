@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card my-2">
     <div class="card-header d-flex justify-content-between" @click="visible=!visible">
       <div>
         {{ title }}
@@ -9,7 +9,7 @@
         <span v-else>+</span>
       </div>
     </div>
-    <div v-show="visible" class="card-body text-right">
+    <div v-show="visible" class="card-body">
       <slot></slot>
     </div>
   </div>
