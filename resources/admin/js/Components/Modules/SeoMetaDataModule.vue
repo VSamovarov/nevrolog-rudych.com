@@ -28,7 +28,7 @@ const defaultProperties = {
   metakeys: null,
   slug: null,
 };
-import { fillDefaultProperties } from './../../Helpers/Obj';
+import { fillDefaultProperties, fillDefaultPropertiesNative } from './../../Helpers/Obj';
 
 export default {
   props: ["translations", "locales"],
@@ -41,7 +41,7 @@ export default {
   created() {
     // Формируем данные
     for (let lang in this.locales) {
-      this.fields[lang] = fillDefaultProperties (
+      this.fields[lang] = fillDefaultPropertiesNative (
         defaultProperties,
         this.translations.find((item, key) => item.lang === lang)
       )
