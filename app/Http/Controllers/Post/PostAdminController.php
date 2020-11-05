@@ -62,7 +62,7 @@ class PostAdminController extends Controller
     public function update(PostUpdateRequest $request, $id)
     {
         dump($id);
-        dump($request->all());
+        dump($request->getDto());
     }
 
     public function destroy($id)

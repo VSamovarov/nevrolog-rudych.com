@@ -3,11 +3,11 @@
 namespace App\Entity\Post\Requests;
 
 use App\Entity\Post\Dto\PostUpdateDto;
+use App\Entity\Post\Dto\PostUpdateTranslationsDto;
 use App\Entity\Post\Rules\SupportedLocaleCheckArrayKey;
 use App\Entity\Post\Rules\PostStatus;
 use App\Entity\Post\Rules\PostType;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Collection;
 
 class PostUpdateRequest extends FormRequest
 {
@@ -30,18 +30,21 @@ class PostUpdateRequest extends FormRequest
 
     public function getDto(): PostUpdateDto
     {
+        $type = $this->input('type');
+        $status = $this->input('post-status-module');
+        $created_at = $this->input('date-module');
         return new PostUpdateDto(
-            $this->id,
-            $this->type,
-            $this->status,
-            $this->created_at,
-            $this->user_id,
-            $this->order,
-            $this->getTranslations($this->main, $this->seo)
+            compact('type', 'status', 'created_at'),
+            $this->getTranslations(array_merge_recursive($this->input('seo-meta-data-module'), $this->input('main-content-module')))
         );
     }
 
-    private function getTranslations()
+    private function getTranslations($data)
     {
+        $translations = [];
+        foreach ($data as $lang => $translation) {
+            $translations[] = new PostUpdateTranslationsDto(array_merge($translation, ['lang' => $lang]));
+        }
+        return $translations;
     }
 }
