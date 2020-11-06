@@ -36,11 +36,9 @@ if (mix.isWatching()) {
 }
 if (mix.inProduction()) {
 } else {
-    mix.sourceMaps(true, "source-map")
-        .webpackConfig({
-            devtool: "inline-source-map"
-        })
-        .disableNotifications();
+    mix.sourceMaps(true, "source-map").webpackConfig({
+        devtool: "inline-source-map"
+    });
 }
 
 mix.mergeManifest();

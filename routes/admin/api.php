@@ -4,6 +4,8 @@ use App\Http\Controllers\Feedback\FeedbackAdminApiController;
 use App\Http\Controllers\Post\PostIndexApiAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Common\Api\UploadTmpFilesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +30,9 @@ Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'rest
 
 
 Route::get('/post', PostIndexApiAdminController::class)->middleware(['localizer-api'])->name('post.index');
+
+Route::post('/files/upload', UploadTmpFilesController::class)->name('tmp-files-upload');
+
 /**
  * Ошибка, если неправильный роутер
  * Должен быть в конце
