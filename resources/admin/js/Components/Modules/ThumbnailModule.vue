@@ -43,20 +43,21 @@ export default {
         formData.append(`files[${i}]`, file)
       });
       try {
-        const {data} = await axios({
+        const data = await axios({
           method: "POST",
           url: routeUploadFiles,
           data: formData,
           headers: {
             "Content-Type": "multipart/form-data"
           }
-        })
+        });
+        console.log(data);
       } catch(e) {
         console.log(e);
       } finally {
       }
 
-      console.log(data);
+
     },
     // submitFiles(){
     //   let formData = new FormData();
