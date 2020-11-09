@@ -13,7 +13,7 @@ class UploadTmpFilesController extends Controller
     {
         $this->validate($request, [
             'files' => 'required',
-            'files.*' => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'files.*' => 'image|mimes:jpeg,png,jpg,gif,svg:max:8192'
         ]);
 
         return response()->json(

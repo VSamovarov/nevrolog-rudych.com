@@ -47,7 +47,10 @@
             </div>
             <DateModule :date="main.created_at" @updateDataModules="updateDataModules"></DateModule>
             <PostStatusModule :statuses="statuses" :status="main.status" @updateDataModules="updateDataModules"></PostStatusModule>
-            <ThumbnailModule></ThumbnailModule>
+            <ThumbnailModule
+              src="https://motik.com.ua/images/cache/100x110/categories_images/ks_10314_1j.jpg"
+              @updateDataModules="updateDataModules"
+            ></ThumbnailModule>
           </b-col>
         </b-row>
       </b-container>

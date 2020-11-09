@@ -15,13 +15,20 @@ class UploadTmpFiles
     private $folder;
     private $driver;
 
-    public function __construct($folder = self::FOLDER, $driver = self::STORAGE_DISK)
+    public function __construct(string $folder = self::FOLDER, string $driver = self::STORAGE_DISK)
     {
         $this->driver = $driver;
         $this->folder = $folder;
         $this->storage = Storage::disk($this->driver);
     }
 
+    /**
+     * Загружаем файлы во временную папку
+     * и возвращаем о них данные
+     *
+     * @param array $files - из Request
+     * @return array
+     */
     public function upload(array $files): array
     {
         $data = [];

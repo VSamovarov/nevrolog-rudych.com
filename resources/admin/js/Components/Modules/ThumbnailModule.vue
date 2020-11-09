@@ -1,9 +1,16 @@
 <template>
   <ModuleWrapper title="Изображение">
-    <div class="preview">
-      <img :src="preview" />
-    </div>
-    <input type="file" size="sm" @change="fileChange" />
+    <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
+      <label :class="{deleted: deleted}" class="preview p-0 m-0 w-100 text-center btn btn-link">
+        <img :src="preview" />
+        <p v-if="!deleted" class="text-left d-block p-0 m-0">Изменить</p>
+        <input v-if="!deleted" class="d-none" type="file" size="sm" @change="fileChange" />
+      </label>
+      <template v-if="preview">
+        <hr />
+        <b-check @change="remove">Удалить</b-check>
+      </template>
+    </b-overlay>
   </ModuleWrapper>
 </template>
 
@@ -12,80 +19,71 @@ import ModuleWrapper from "./../../Components/Common/ModuleWrapper";
 
 export default {
   components: {
-    ModuleWrapper,
+    ModuleWrapper
   },
+  props: ["src"],
   data() {
     return {
-      file: null,
-      src: null,
-      srcNew: null,
+      moduleId: 'thumbnail-module',
+      newFile: null,
+      overlay: false,
+      deleted: false
     }
   },
   computed: {
     preview() {
-      let url = this.src;
-      if (this.srcNew) {
-        url = this.srcNew;
-      } else if (this.files && this.files[0]) {
-        url = URL.createObjectURL(this.files[0]);
-      }
-      return url;
-    }
+      return (this.newFile && this.newFile.url) || this.src
+    },
   },
   methods: {
     async fileChange(e) {
       const routeUploadFiles = this.$route("admin.api.tmp-files-upload");
-
-      this.files = e.target.files;
+      if(!e.target.files[0] || this.deleted) {
+        return false;
+      } else {
+        this.newFile  = {url: URL.createObjectURL(e.target.files[0])};
+      }
+      this.overlay = true;
       let formData = new FormData();
-      console.log(this.files);
-      [...this.files].forEach( (file, i)=> {
-        formData.append(`files[${i}]`, file)
-      });
+
+      formData.append("files[0]", e.target.files[0]);
+
       try {
-        const data = await axios({
-          method: "POST",
-          url: routeUploadFiles,
-          data: formData,
+        const {data} = await axios.post(routeUploadFiles, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         });
-        console.log(data);
+        this.newFile = { name: data[0]['original_name'], path: data[0]['path'], url: data[0]['url'] };
+        //Отправляем данные вверх
+        this.$emit('updateDataModules', { key: this.moduleId, data: this.newFile })
       } catch(e) {
-        console.log(e);
+        this.newFile = null;
       } finally {
+        this.overlay = false;
       }
-
-
     },
-    // submitFiles(){
-    //   let formData = new FormData();
-    //   for( var i = 0; i < this.files.length; i++ ){
-    //     let file = this.files[i];
-    //     formData.append('files[' + i + ']', file);
-    //   }
-    //   axios.post( '/file-multiple-preview',
-    //     formData,
-    //     {
-    //       headers: {
-    //           'Content-Type': 'multipart/form-data'
-    //       }
-    //     }
-    //   ).then(function(){
-    //     console.log('SUCCESS!!');
-    //   })
-    //   .catch(function(){
-    //     console.log('FAILURE!!');
-    //   });
-    // },
-  }
+    remove(value) {
+      this.deleted = value;
+      if(this.deleted) {
+        this.$emit('updateDataModules', { key: this.moduleId, data: 'deleted' });
+      } else if (this.newFile && this.newFile.path) {
+        this.$emit('updateDataModules', { key: this.moduleId, data: this.newFile });
+      } else {
+        this.$emit('updateDataModules', { key: this.moduleId, data: null })
+      }
+    }
+  },
 }
 </script>
 
-<style scoped>
+<style>
+
 .preview img {
   max-width: 100%;
   height: auto;
+}
+.preview.deleted {
+  opacity: 0.25;
 }
 </style>
