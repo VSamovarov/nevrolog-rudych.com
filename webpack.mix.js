@@ -31,9 +31,9 @@ mix.js("resources/admin/js/app.js", "public/admin/js").postCss(
     ]
 );
 
-if (mix.isWatching()) {
-    mix.bundleAnalyzer();
-}
+// if (mix.isWatching()) {
+//     mix.bundleAnalyzer();
+// }
 if (mix.inProduction()) {
 } else {
     mix.sourceMaps(true, "source-map").webpackConfig({

@@ -5,7 +5,6 @@ services:
       context: ./develop/nginx
     volumes:
       - ../:/var/www
-      - ./storage:/var/www/storage
       - ./develop/nginx/config/default.conf:/etc/nginx/conf.d/default.conf
       - ./develop/nginx/ssl:/etc/ssl
       - ./log/nginx/:/var/log/nginx/
@@ -22,7 +21,6 @@ services:
         uid: 1000
     volumes:
       - ../:/var/www
-      - ./storage:/var/www/storage
   php-cli:
     build:
       context: ./develop/php-cli
@@ -31,7 +29,6 @@ services:
         uid: 1000
     volumes:
       - ../:/var/www
-      - ./storage:/var/www/storage
     tty: true
   # node:
   #   image: node:alpine
