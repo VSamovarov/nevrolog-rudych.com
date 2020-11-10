@@ -4,7 +4,7 @@
     <div id="body" class="d-flex">
       <LeftColumn :sidebar_menu="$page.adminSidebarMenu"></LeftColumn>
       <div class="main-content">
-        <Alerts></Alerts>
+        <Alerts :alerts="alerts"></Alerts>
         <slot></slot>
       </div>
     </div>
@@ -17,8 +17,8 @@ import Footer from "./../Components/Footer/Footer";
 import LeftColumn from "./../Components/LeftColumn/LeftColumn";
 import Alerts from './../Components/Common/Alerts'
 export default {
+  props: ['alerts'],
   components: { Header, Footer, LeftColumn, Alerts },
-
 };
 </script>
 <style>

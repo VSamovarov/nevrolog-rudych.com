@@ -36,9 +36,9 @@ mix.js("resources/admin/js/app.js", "public/admin/js").postCss(
 // }
 if (mix.inProduction()) {
 } else {
-    mix.sourceMaps(true, "source-map").webpackConfig({
-        devtool: "inline-source-map"
-    });
+    // mix.sourceMaps(true, "source-map").webpackConfig({
+    //     devtool: "inline-source-map"
+    // });
 }
 
 mix.mergeManifest();

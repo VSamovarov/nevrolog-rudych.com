@@ -55,10 +55,14 @@ export default {
           }
         });
         this.newFile = { name: data[0]['original_name'], path: data[0]['path'], url: data[0]['url'] };
+
         //Отправляем данные вверх
         this.$emit('updateDataModules', { key: this.moduleId, data: this.newFile })
+        this.$emit('updateAlerts', { key: this.moduleId, data: null })
       } catch(e) {
         this.newFile = null;
+        const {data} = e.response;
+        this.$emit('updateAlerts', { key: this.moduleId, data:{type: 'error', messages: e.response.data.error['files.0']} })
       } finally {
         this.overlay = false;
       }

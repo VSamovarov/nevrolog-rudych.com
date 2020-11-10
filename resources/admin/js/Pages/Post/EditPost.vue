@@ -1,5 +1,5 @@
 <template>
-  <AdminLayout class="edit-post">
+  <AdminLayout class="edit-post" :alerts="alerts">
     <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
       <b-container fluid class="my-5">
         <b-row>
@@ -50,6 +50,7 @@
             <ThumbnailModule
               src="https://motik.com.ua/images/cache/100x110/categories_images/ks_10314_1j.jpg"
               @updateDataModules="updateDataModules"
+              @updateAlerts="updateAlerts"
             ></ThumbnailModule>
           </b-col>
         </b-row>
@@ -85,11 +86,19 @@ export default {
       overlay: false,
       post_id: this.main.id,
       post_type: this.main.type,
+      alerts: {},
     };
   },
   methods: {
     updateDataModules(fileds) {
       this.modulesData[fileds.key] = fileds.data;
+    },
+    updateAlerts(alert) {
+      if(alert.data === null) {
+        this.$delete(this.alerts, alert.key)
+      } else {
+        this.$set(this.alerts, alert.key, {...alert.data})
+      }
     },
     saveData () {
       this.overlay = true;
