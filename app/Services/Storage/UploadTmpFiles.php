@@ -7,8 +7,8 @@ use Illuminate\Support\Str;
 
 class UploadTmpFiles
 {
-    const FOLDER = '';
-    private const STORAGE_DISK = 'tmp';
+    public const FOLDER = '';
+    public const STORAGE_DISK = 'tmp';
     private const MAXIMUM_TIME_FILE_STORAGE = 60 * 60 * 24;
 
     private $storage;
@@ -37,7 +37,8 @@ class UploadTmpFiles
             $path = $file->storeAs($this->folder, '[' . Str::uuid() . ']' . $name, $this->driver);
             $data[] = [
                 'original_name' => $file->getClientOriginalName(),
-                'path'         => $this->storage->path($path),
+                //'path'         => $this->storage->path($path),
+                'path'         => $path,
                 'url'          => $this->storage->url($path),
             ];
         }

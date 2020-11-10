@@ -12,6 +12,7 @@ use App\Services\Translation\Translatable;
 use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use App\Entity\Post\Traits\RegisterMediaCollectionsAndConversion;
 
 class Post extends Model implements HasMedia
 {
@@ -21,6 +22,7 @@ class Post extends Model implements HasMedia
     use Translatable;
     use InteractsWithMedia;
     use PostScope;
+    use RegisterMediaCollectionsAndConversion;
 
     protected $dates = ['deleted_at'];
 

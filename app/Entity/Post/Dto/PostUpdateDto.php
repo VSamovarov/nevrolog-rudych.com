@@ -2,6 +2,8 @@
 
 namespace App\Entity\Post\Dto;
 
+use App\Entity\Post\Dto\ThumbnailUpdateDto;
+
 class PostUpdateDto
 {
     private $type;
@@ -10,9 +12,10 @@ class PostUpdateDto
     private $user_id;
     private $order;
     private $translations;
+    private $thumbnail;
 
 
-    public function __construct(array $data, array $translations)
+    public function __construct(array $data, array $translations, ?ThumbnailUpdateDto $thumbnail)
     {
         $this->type = $data['type'] ?? null;
         $this->status = $data['status'] ?? null;
@@ -20,7 +23,10 @@ class PostUpdateDto
         $this->user_id = $data['user_id'] ?? null;
         $this->order = $data['order'] ?? null;
         $this->translations = $translations;
+        $this->thumbnail = $thumbnail;
     }
+
+
 
     /**
      * Get the value of type
@@ -68,5 +74,13 @@ class PostUpdateDto
     public function getTranslations()
     {
         return $this->translations;
+    }
+
+    /**
+     * Get the value of translations
+     */
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
     }
 }

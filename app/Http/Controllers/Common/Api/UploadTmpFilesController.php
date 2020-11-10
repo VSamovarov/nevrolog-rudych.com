@@ -21,7 +21,7 @@ class UploadTmpFilesController extends Controller
 
         $validator = Validator::make($request->all(), [
             'files.*' => 'max:8192',
-            'files.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'files.*' => 'bail|image|mimes:jpeg,png,jpg,gif,svg',
         ], $messages);
 
         if ($validator->fails()) {

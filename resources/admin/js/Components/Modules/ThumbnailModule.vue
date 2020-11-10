@@ -70,7 +70,7 @@ export default {
     remove(value) {
       this.deleted = value;
       if(this.deleted) {
-        this.$emit('updateDataModules', { key: this.moduleId, data: 'deleted' });
+        this.$emit('updateDataModules', { key: this.moduleId, data: { path: null , name: null } });
       } else if (this.newFile && this.newFile.path) {
         this.$emit('updateDataModules', { key: this.moduleId, data: this.newFile });
       } else {

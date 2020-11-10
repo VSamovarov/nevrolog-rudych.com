@@ -62,6 +62,7 @@ class PostAdminController extends Controller
 
     public function update($id, PostUpdateRequest $request, PostCommands $commands)
     {
+        dd($request->getDto());
         $commands->update($id, $request->getDto());
     }
 

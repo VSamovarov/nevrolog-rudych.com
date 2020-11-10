@@ -3,6 +3,7 @@
 namespace App\Entity\Post\Services;
 
 use App\Entity\Post\Dto\PostUpdateDto;
+use App\Entity\Post\Dto\ThumbnailUpdateDto;
 use App\Entity\Post\Post;
 use App\Entity\Post\Services\PostQueries;
 use VSamovarov\LaravelLocalizer\Facades\Localizer;
@@ -47,5 +48,13 @@ class PostCommands
                 ]
             );
         }
+    }
+
+    public function updateThumbnail(ThumbnailUpdateDto $data)
+    {
+    }
+
+    public function deleteThumbnail(ThumbnailUpdateDto $data)
+    {
     }
 }
