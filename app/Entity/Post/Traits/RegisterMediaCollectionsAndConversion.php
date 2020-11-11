@@ -2,9 +2,6 @@
 
 namespace App\Entity\Post\Traits;
 
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Spatie\Image\Manipulations;
-
 /**
  * Настраивает laravel-medialibrary - коллекции и конверсии
  */
@@ -43,7 +40,7 @@ trait RegisterMediaCollectionsAndConversion
      * https://spatie.be/docs/image/v1/introduction
      *
      */
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions($media = null): void
     {
         $this->addMediaConversion('thumb')
             //->border(10, 'black', Manipulations::BORDER_OVERLAY) //дополнительные манипуляции с изображением

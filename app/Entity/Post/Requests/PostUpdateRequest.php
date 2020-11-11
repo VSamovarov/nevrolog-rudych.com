@@ -11,6 +11,7 @@ use App\Entity\Post\Rules\PostType;
 use App\Services\Storage\UploadTmpFiles;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
+use App\Services\Helper;
 
 class PostUpdateRequest extends FormRequest
 {
@@ -67,6 +68,7 @@ class PostUpdateRequest extends FormRequest
         if (empty($data)) {
             return null;
         }
+        if (!empty($data['name'])) $data['name'] = Helper::normalizeFileName($data['name']);
         return new ThumbnailUpdateDto($data['path'] ?? null, $data['name'] ?? null);
     }
 }

@@ -48,7 +48,7 @@
             <DateModule :date="main.created_at" @updateDataModules="updateDataModules"></DateModule>
             <PostStatusModule :statuses="statuses" :status="main.status" @updateDataModules="updateDataModules"></PostStatusModule>
             <ThumbnailModule
-              src="https://motik.com.ua/images/cache/100x110/categories_images/ks_10314_1j.jpg"
+              :src="main.thumbnail"
               @updateDataModules="updateDataModules"
               @updateAlerts="updateAlerts"
             ></ThumbnailModule>

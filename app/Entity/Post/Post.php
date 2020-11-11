@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\Filters\Filterable;
 use App\Services\Translation\Translatable;
-use Illuminate\Database\Eloquent\Builder;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Entity\Post\Traits\RegisterMediaCollectionsAndConversion;
@@ -20,9 +19,10 @@ class Post extends Model implements HasMedia
     use SoftDeletes;
     use Filterable;
     use Translatable;
-    use InteractsWithMedia;
     use PostScope;
-    use RegisterMediaCollectionsAndConversion;
+
+    use InteractsWithMedia;
+    // use RegisterMediaCollectionsAndConversion;
 
     protected $dates = ['deleted_at'];
 
@@ -85,5 +85,28 @@ class Post extends Model implements HasMedia
     public function getPerPage(): int
     {
         return config('post_settings.per_page');
+    }
+
+    /**
+     *
+     */
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('thumbnail')
+            ->singleFile();
+
+        $this->addMediaCollection('page-thumbnail')
+            ->singleFile();
+    }
+
+    public function registerMediaConversions($media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->performOnCollections('thumbnail', 'page-thumbnail') //для других коллекций не будет выполняться
+            ->width(700)
+            ->height(350)
+            ->sharpen(10)
+            ->withResponsiveImages();
     }
 }

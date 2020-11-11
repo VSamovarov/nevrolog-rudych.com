@@ -9,6 +9,7 @@ use App\Entity\Post\Services\PostQueries;
 use App\Http\Controllers\Controller;
 use App\Services\Menu\IndexAdminMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class PostAdminController extends Controller
@@ -62,8 +63,9 @@ class PostAdminController extends Controller
 
     public function update($id, PostUpdateRequest $request, PostCommands $commands)
     {
-        dd($request->getDto());
         $commands->update($id, $request->getDto());
+
+        return Redirect::route('admin.post.edit', $id);
     }
 
     public function destroy($id)

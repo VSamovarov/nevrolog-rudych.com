@@ -6,34 +6,38 @@ use App\Entity\Post\Dto\PostUpdateDto;
 use App\Entity\Post\Dto\ThumbnailUpdateDto;
 use App\Entity\Post\Post;
 use App\Entity\Post\Services\PostQueries;
+use App\Services\Storage\UploadTmpFiles;
+use Illuminate\Support\Facades\Storage;
 use VSamovarov\LaravelLocalizer\Facades\Localizer;
 
 class PostCommands
 {
     private $queries;
+    private $tmpStorage;
 
     public function __construct(PostQueries $queries)
     {
         $this->queries = $queries;
+        $this->tmpStorage = Storage::disk(UploadTmpFiles::STORAGE_DISK);
     }
 
     /**
      * Сохраняем данные Post
      *
      * @param integer $id
-     * @param PostUpdateDto $data
+     * @param PostUpdateDto $dto
      */
-    public function update(int $id, PostUpdateDto $data)
+    public function update(int $id, PostUpdateDto $dto)
     {
         $post = Post::findOrFail($id);
 
-        if ($data->getStatus()) $post->status = $data->getStatus();
-        if ($data->getUser_id()) $post->user_id = $data->getUser_id();
-        if ($data->getCreated_at()) $post->created_at = $data->getCreated_at();
+        if ($dto->getStatus()) $post->status = $dto->getStatus();
+        if ($dto->getUser_id()) $post->user_id = $dto->getUser_id();
+        if ($dto->getCreated_at()) $post->created_at = $dto->getCreated_at();
 
         $post->save();
 
-        foreach ($data->getTranslations() as $translation) {
+        foreach ($dto->getTranslations() as $translation) {
 
             $post->translations()->updateOrCreate(
                 ['lang' => $translation->getLang()],
@@ -48,13 +52,27 @@ class PostCommands
                 ]
             );
         }
+
+        $this->updateThumbnail($post, $dto->getThumbnail());
     }
 
-    public function updateThumbnail(ThumbnailUpdateDto $data)
+    /**
+     * Добавить миниатюру
+     *
+     * @param Post $post
+     * @param ThumbnailUpdateDto $dto
+     * @return void
+     */
+    private function updateThumbnail(Post $post, ?ThumbnailUpdateDto $dto, string $collectionName = 'thumbnail')
     {
-    }
+        if ($dto === null) return;
 
-    public function deleteThumbnail(ThumbnailUpdateDto $data)
-    {
+        if (empty($dto->getPath())) { // Удаляем миниатюру (очищаем коллекцию)
+            $post->clearMediaCollection($collectionName);
+        } else { // Заменяем
+            $post->addMedia($this->tmpStorage->path($dto->getPath()))
+                ->usingFileName($dto->getName())
+                ->toMediaCollection($collectionName);
+        }
     }
 }
