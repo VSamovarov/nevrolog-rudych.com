@@ -15,10 +15,10 @@
 import Header from "./../Components/Header/Header";
 import Footer from "./../Components/Footer/Footer";
 import LeftColumn from "./../Components/LeftColumn/LeftColumn";
-import Alerts from './../Components/Common/Alerts'
+import Alerts from "./../Components/Common/Alerts";
 export default {
-  props: ['alerts'],
-  components: { Header, Footer, LeftColumn, Alerts },
+  props: ["alerts"],
+  components: { Header, Footer, LeftColumn, Alerts }
 };
 </script>
 <style>

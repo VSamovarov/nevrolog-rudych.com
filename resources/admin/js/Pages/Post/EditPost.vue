@@ -12,7 +12,10 @@
                 >
                   <h1>{{ $page.pageTitle }}</h1>
                 </b-col>
-                <b-col md="2" class="d-flex align-items-center justify-content-end">
+                <b-col
+                  md="2"
+                  class="d-flex align-items-center justify-content-end"
+                >
                   <inertia-link
                     :href="$route('admin.post.index', { type: main.type })"
                     class="btn btn-secondary"
@@ -22,31 +25,38 @@
                 </b-col>
               </b-row>
             </b-container>
-              <MainContentModule
-                v-if="main.translations"
-                :translations="main.translations"
-                :locales="locales"
-                @updateDataModules="updateDataModules"
-              ></MainContentModule>
-              <SeoMetaModule
-                v-if="main.translations"
-                :translations="main.translations"
-                :locales="locales"
-                @updateDataModules="updateDataModules"
-              ></SeoMetaModule>
+            <MainContentModule
+              v-if="main.translations"
+              :translations="main.translations"
+              :locales="locales"
+              @updateDataModules="updateDataModules"
+            ></MainContentModule>
+            <SeoMetaModule
+              v-if="main.translations"
+              :translations="main.translations"
+              :locales="locales"
+              @updateDataModules="updateDataModules"
+            ></SeoMetaModule>
           </b-col>
           <b-col md="3">
             <div class="sticky text-center bg-white p-3">
               <b-button @click="saveData">Сохранить изменения</b-button>
               <inertia-link
-                    :href="$route('admin.post.index', { type: main.type })"
-                    class="btn btn-secondary"
-                  >
-                    Вернутся к списку
+                :href="$route('admin.post.index', { type: main.type })"
+                class="btn btn-secondary"
+              >
+                Вернутся к списку
               </inertia-link>
             </div>
-            <DateModule :date="main.created_at" @updateDataModules="updateDataModules"></DateModule>
-            <PostStatusModule :statuses="statuses" :status="main.status" @updateDataModules="updateDataModules"></PostStatusModule>
+            <DateModule
+              :date="main.created_at"
+              @updateDataModules="updateDataModules"
+            ></DateModule>
+            <PostStatusModule
+              :statuses="statuses"
+              :status="main.status"
+              @updateDataModules="updateDataModules"
+            ></PostStatusModule>
             <ThumbnailModule
               :src="main.thumbnail"
               @updateDataModules="updateDataModules"
@@ -66,6 +76,7 @@ import SeoMetaModule from "./../../Components/Modules/SeoMetaModule";
 import DateModule from "./../../Components/Modules/DateModule";
 import PostStatusModule from "./../../Components/Modules/PostStatusModule";
 import ThumbnailModule from "./../../Components/Modules/ThumbnailModule";
+
 const mainSeoModuleValues = {
   title: "",
   content: "",
@@ -78,7 +89,14 @@ const mainContenModuleValues = {
   slug: ""
 };
 export default {
-  components: { AdminLayout, SeoMetaModule, MainContentModule, DateModule, PostStatusModule, ThumbnailModule},
+  components: {
+    AdminLayout,
+    SeoMetaModule,
+    MainContentModule,
+    DateModule,
+    PostStatusModule,
+    ThumbnailModule
+  },
   props: ["main", "locales", "statuses"],
   data() {
     return {
@@ -86,7 +104,7 @@ export default {
       overlay: false,
       post_id: this.main.id,
       post_type: this.main.type,
-      alerts: {},
+      alerts: {}
     };
   },
   methods: {
@@ -94,25 +112,26 @@ export default {
       this.modulesData[fileds.key] = fileds.data;
     },
     updateAlerts(alert) {
-      if(alert.data === null) {
-        this.$delete(this.alerts, alert.key)
+      if (alert.data === null) {
+        this.$delete(this.alerts, alert.key);
       } else {
-        this.$set(this.alerts, alert.key, {...alert.data})
+        this.alerts = Object.assign({}, this.alerts, alert);
       }
     },
-    saveData () {
+    saveData() {
       this.overlay = true;
-      console.log(this.modulesData);
       try {
         // await axios.post(this.$route('admin.post.update', modulesData));
-        this.$inertia.put(this.$route('admin.post.update',this.post_id),{type: this.post_type, ...this.modulesData});
+        this.$inertia.put(this.$route("admin.post.update", this.post_id), {
+          type: this.post_type,
+          ...this.modulesData
+        });
       } catch {
-
       } finally {
         this.overlay = false;
       }
     }
-  },
+  }
 };
 </script>
 
@@ -120,6 +139,6 @@ export default {
 .sticky {
   position: sticky;
   top: 0;
-  z-index: 100
+  z-index: 100;
 }
 </style>

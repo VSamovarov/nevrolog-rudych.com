@@ -25,7 +25,7 @@ class UploadTmpFilesController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return response()->json(["error" => $validator->errors()])->setStatusCode(422);
+            return response()->json(["message" => $validator->errors()])->setStatusCode(422);
         }
 
         return response()->json(
