@@ -13,7 +13,7 @@
           <b-form-textarea v-model="values.excerpt"></b-form-textarea>
         </b-form-group>
         <b-form-group label="Основное содержание">
-          <TextEditor v-model="values.content"></TextEditor>
+          <Editor></Editor>
         </b-form-group>
       </b-tab>
     </b-tabs>
@@ -29,13 +29,13 @@ const defaultProperties = {
 
 import { fillDefaultProperties } from './../../Helpers/Obj';
 import ModuleWrapper from "./../../Components/Common/ModuleWrapper";
-import TextEditor from "./../../Components/Common/TextEditor";
+import Editor from "./../../Components/Common/CkEditor";
 
 
 export default {
   components: {
     ModuleWrapper,
-    TextEditor
+    Editor
   },
   props: ["translations", "locales","props"],
   data() {

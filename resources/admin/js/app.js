@@ -2,6 +2,10 @@ require("./bootstrap");
 
 import Vue from "vue";
 
+import CKEditor from "@ckeditor/ckeditor5-vue";
+
+Vue.use(CKEditor);
+
 Vue.prototype.$route = (...args) => route(...args).url(); //Ziggy
 
 import { InertiaApp } from "@inertiajs/inertia-vue";
