@@ -13,7 +13,7 @@
           <b-form-textarea v-model="values.excerpt"></b-form-textarea>
         </b-form-group>
         <b-form-group label="Основное содержание">
-          <Editor></Editor>
+          <Editor :value="values.content"></Editor>
         </b-form-group>
       </b-tab>
     </b-tabs>
@@ -29,7 +29,7 @@ const defaultProperties = {
 
 import { fillDefaultProperties } from './../../Helpers/Obj';
 import ModuleWrapper from "./../../Components/Common/ModuleWrapper";
-import Editor from "./../../Components/Common/CkEditor";
+import Editor from "./../../Components/Common/CkEditorClassic";
 
 
 export default {
