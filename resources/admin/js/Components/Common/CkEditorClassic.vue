@@ -9,11 +9,14 @@
 </template>
 
 <script>
+    const routeName = "admin.api.tmp-files-upload";
+    import Vue from "vue";
 
     import InlineEditor from '@blowstack/ckeditor5-full-free-build';
     export default {
         props: ["value"],
         data() {
+            console.log(this.$page);
             return {
                 editor: InlineEditor,
                 editorData: '<p>Rich-text editor content.</p>',
@@ -21,15 +24,18 @@
                     removePlugins: [ 'Title'],
                     simpleUpload: {
                         // The URL that the images are uploaded to.
-                        uploadUrl: 'http://example.com',
+                        uploadUrl: Vue.prototype.$route(routeName),
 
                         // Enable the XMLHttpRequest.withCredentials property.
                         withCredentials: true,
 
                         // Headers sent along with the XMLHttpRequest to the upload server.
                         headers: {
-                            'X-CSRF-TOKEN': 'CSRF-Token',
-                            Authorization: 'Bearer <JSON Web Token>'
+                            // 'X-Requested-With': 'XMLHttpRequest',
+                            // 'X-CSRF-TOKEN': 'CSRF-Token',
+                            // Authorization: 'Bearer <JSON Web Token>'
+                            // 'X-CSRF-TOKEN': csrfToken,
+                            // 'accept': 'application/json'
                         }
                     },
                     toolbar: {
