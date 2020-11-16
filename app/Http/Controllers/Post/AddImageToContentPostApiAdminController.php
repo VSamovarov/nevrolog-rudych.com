@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Post;
 
-use App\Entity\Post\Post;
+use App\Entity\Post\Services\PostCommands;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class AddImageToContentPostApiAdminController extends Controller
 {
@@ -15,18 +14,14 @@ class AddImageToContentPostApiAdminController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function __invoke($id, Request $request)
+  public function __invoke($id, Request $request, PostCommands $commands)
   {
     $request->validate([
       'image' => 'max:8192',
       'image' => 'bail|image|mimes:jpeg,png,jpg,gif,svg',
     ]);
 
-    $post = Post::findOrFail($id);
-
-    $image = $post->addMediaFromRequest('image')
-      ->toMediaCollection();
-
-    return response()->json($image->getUrl());
+    $image = $commands->addImage($id, $request->file('image')->getPathName(), $request->file('image')->getClientOriginalName());
+    return response()->json($image);
   }
 }

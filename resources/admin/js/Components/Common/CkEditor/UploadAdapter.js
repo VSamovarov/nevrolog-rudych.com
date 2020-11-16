@@ -19,13 +19,11 @@ export default class UploadAdapter {
           "Content-Type": "multipart/form-data"
         }
       });
-      console.log(data);
       return {
         default: data
       };
     } catch (e) {
-      console.log(e);
-      this.abort();
+      throw e;
     }
   }
   abort() {

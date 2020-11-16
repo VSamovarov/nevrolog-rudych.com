@@ -41,12 +41,6 @@
           <b-col md="3">
             <div class="sticky text-center bg-white p-3">
               <b-button @click="saveData">Сохранить изменения</b-button>
-              <inertia-link
-                :href="$route('admin.post.index', { type: main.type })"
-                class="btn btn-secondary"
-              >
-                Вернутся к списку
-              </inertia-link>
             </div>
             <DateModule
               :date="main.created_at"
@@ -121,12 +115,12 @@ export default {
     saveData() {
       this.overlay = true;
       try {
-        // await axios.post(this.$route('admin.post.update', modulesData));
         this.$inertia.put(this.$route("admin.post.update", this.post_id), {
           type: this.post_type,
           ...this.modulesData
         });
-      } catch {
+      } catch(e) {
+        console.log(e);
       } finally {
         this.overlay = false;
       }
