@@ -71,7 +71,11 @@ export default {
       ) {
         message = alert.statusText;
       } else if (typeof alert.data === "object") {
-        message = Object.values(alert.data.message);
+        if(alert.data.message === "object") {
+          message = Object.values(alert.data.message);
+        } else {
+          message = alert.data.message;
+        }
       }
       return message;
     }

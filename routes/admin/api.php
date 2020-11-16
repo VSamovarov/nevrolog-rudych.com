@@ -5,7 +5,7 @@ use App\Http\Controllers\Post\PostIndexApiAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Common\Api\UploadTmpFilesController;
-
+use App\Http\Controllers\Post\AddImageToContentPostApiAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,13 +32,14 @@ Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'rest
 Route::get('/post', PostIndexApiAdminController::class)->middleware(['localizer-api'])->name('post.index');
 
 Route::post('/files/upload', UploadTmpFilesController::class)->name('tmp-files-upload');
+Route::post('/post/{id}/add-image', AddImageToContentPostApiAdminController::class)->name('post.add-image');
 
 /**
  * Ошибка, если неправильный роутер
  * Должен быть в конце
  */
 Route::fallback(function () {
-    return response()->json([
-        'message' => 'Page Not Found. If error persists, contact info@website.com'
-    ], 404);
+  return response()->json([
+    'message' => 'Page Not Found. If error persists, contact info@website.com'
+  ], 404);
 });

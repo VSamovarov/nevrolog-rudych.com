@@ -43,8 +43,6 @@
         "@ckeditor/ckeditor5-build-classic": "^23.1.0",
         "@ckeditor/ckeditor5-vue": "^1.0.3",
         "@inertiajs/progress": "^0.1.2",
-        "@toast-ui/vue-editor": "^2.5.0",
-        "@vsamovarov/ckeditor5-build-inline-my-build": "^23.1.0",
         "axios-cancel": "^0.2.2",
         "bootstrap": "^4.5.2",
         "bootstrap-icons": "^1.0.0",

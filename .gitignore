@@ -4,7 +4,9 @@
 /storage/*.key
 /storage/tmp
 /storage/image
+/storage/debugbar
 /storage/media-library
+/storage/media-library/tmp
 /vendor
 .env
 .env.backup
