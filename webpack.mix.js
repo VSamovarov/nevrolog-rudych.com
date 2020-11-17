@@ -12,33 +12,36 @@ require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manife
  |
  */
 
-mix.js("resources/admin/js/app.js", "public/admin/js").postCss(
-    "resources/admin/css/app.css",
-    "public/admin/css",
-    [
-        require("postcss-import"),
-        require("tailwindcss"),
-        require("cssnano")({
-            preset: [
-                "default",
-                {
-                    discardComments: {
-                        removeAll: true
-                    }
-                }
-            ]
-        })
-    ]
-);
+mix
+  .js("resources/admin/js/app.js", "public/admin/js")
+  .postCss("resources/admin/css/app.css", "public/admin/css", [
+    require("postcss-import"),
+    require("tailwindcss"),
+    require("cssnano")({
+      preset: [
+        "default",
+        {
+          discardComments: {
+            removeAll: true
+          }
+        }
+      ]
+    })
+  ]);
 
+mix.webpackConfig({
+  output: {
+    chunkFilename: "admin/js/chunks/[name].js"
+  }
+});
 // if (mix.isWatching()) {
 //     mix.bundleAnalyzer();
 // }
 if (mix.inProduction()) {
 } else {
-    // mix.sourceMaps(true, "source-map").webpackConfig({
-    //     devtool: "inline-source-map"
-    // });
+  // mix.sourceMaps(true, "source-map").webpackConfig({
+  //     devtool: "inline-source-map"
+  // });
 }
 
 mix.mergeManifest();

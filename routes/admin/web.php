@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Feedback\FeedbackAdminController;
 use App\Http\Controllers\Post\PostAdminController;
+use App\Http\Controllers\TestAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,5 @@ Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActi
 
 Route::resource('/post', PostAdminController::class)->except(['destroy', 'edit', 'show'])->middleware(['check-type-post']);
 Route::get('/post/{id}/edit', [PostAdminController::class, 'edit'])->name('post.edit');
+
+Route::get('/test', TestAdminController::class)->name('test');
