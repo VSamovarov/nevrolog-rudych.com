@@ -1,19 +1,14 @@
 <template>
-  <ModuleWrapper :title="moduleTitle">
     <component :is="module"
       :moduleName="moduleName"
       :moduleData="moduleData"
       :moduleId="moduleId">
     </component>
-  </ModuleWrapper>
 </template>
 
 <script>
 import ModuleWrapper from "./../../Components/Common/ModuleWrapper";
 export default {
-  components: {
-    ModuleWrapper,
-  },
   props: ['moduleName','moduleData', 'moduleId', 'moduleTitle'],
   data() {
     return {

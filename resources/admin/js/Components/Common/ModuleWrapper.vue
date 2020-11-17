@@ -2,11 +2,9 @@
   <div class="card my-2">
     <div class="card-header d-flex justify-content-between" @click="visible=!visible">
       <div>
+        <b-icon v-if="visible" icon="chevron-down"></b-icon>
+        <b-icon v-else icon="chevron-up"></b-icon>
         {{ title }}
-      </div>
-      <div>
-        <span v-if="visible">-</span>
-        <span v-else>+</span>
       </div>
     </div>
     <div v-show="visible" class="card-body">
@@ -22,6 +20,7 @@ export default {
       type: String,
       default: "Модуль"
     },
+
   },
   data() {
     return {
