@@ -13,6 +13,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use App\Entity\Post\Traits\RegisterMediaCollectionsAndConversion;
 use Spatie\Image\Manipulations;
+use App\Entity\Post\Metadata;
 
 class Post extends Model implements HasMedia
 {
@@ -48,6 +49,11 @@ class Post extends Model implements HasMedia
   public function user()
   {
     return $this->belongsTo(User::class);
+  }
+
+  public function metadata()
+  {
+    return $this->hasMany(Metadata::class);
   }
 
   protected static function boot()
