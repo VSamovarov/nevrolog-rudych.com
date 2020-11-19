@@ -1,491 +1,143 @@
-/*
-*
-* Typography
+/**
+ * https://www.modularscale.com/
+ * https://www.bourbon.io/docs/latest/#modular-scale
+ *
 */
-body {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
-    font-weight: 400;
-    color: rgba(49, 49, 49, 0.75);
-    background-color: #fff;
-    -webkit-text-size-adjust: none;
-    -webkit-font-smoothing: subpixel-antialiased;
-    letter-spacing: 0.03em;
-}
 
-@media (min-width: 768px) {
-    body {
-        font-size: 16px;
-        line-height: 1.5;
-    }
-}
+$font-base: 1rem; //17pх|15px
+$font-base-small: 0.8825rem; //15px|13.2px
+
+$modularscale: (
+  base: $font-base $font-base-small,
+  //15px
+    ratio: 1.414,
+  map-get($grid-breakpoints, "md"): (
+    base: $font-base $font-base-small,
+    //16px
+      ratio: 1.5
+  ),
+  map-get($grid-breakpoints, "lg"): (
+    base: $font-base $font-base-small,
+    //17px
+      ratio: 1.618
+  )
+);
 
 h1,
+.h1,
 h2,
+.h2,
 h3,
+.h3,
 h4,
+.h4,
 h5,
-h6,
-[class^="heading-"] {
+.h5 {
+  font-weight: bold;
+  line-height: 1.4;
+  margin: 0.83em 0 0.83em 0;
+
+  &:first-child {
     margin-top: 0;
-    margin-bottom: 0;
-    color: #313131;
+  }
 }
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a,
-[class^="heading-"] a {
-    color: inherit;
+p {
+  margin: 0em 0 1rem 0;
 }
 
-h1 a:hover,
-h2 a:hover,
-h3 a:hover,
-h4 a:hover,
-h5 a:hover,
-h6 a:hover,
-[class^="heading-"] a:hover {
-    color: $brand-color-dark;
+ul {
+  margin-top: 0;
+  margin-bottom: 1rem;
+
+  li {
+    margin-bottom: 0.52rem;
+  }
 }
 
-h1 span,
-h2 span,
-h3 span,
-h4 span,
-h5 span,
-h6 span,
-[class^="heading-"] span {
-    display: inline-block;
+p > ul {
+  margin-top: 1;
 }
 
-h1 span[data-toggle="modal"],
-h2 span[data-toggle="modal"],
-h3 span[data-toggle="modal"],
-h4 span[data-toggle="modal"],
-h5 span[data-toggle="modal"],
-h6 span[data-toggle="modal"],
-[class^="heading-"] span[data-toggle="modal"] {
-    border-bottom: 2px dashed rgba(97, 60, 109, 0.3);
-    cursor: pointer;
-}
-
-h1 > span.icon,
-h2 > span.icon,
-h3 > span.icon,
-h4 > span.icon,
-h5 > span.icon,
-h6 > span.icon,
-[class^="heading-"] > span.icon {
-    display: inline-block;
-    margin-right: 5px;
+.ms-5 {
+  @include ms-respond(font-size, 5);
+  line-height: 1.4;
 }
 
 h1,
-.heading-1 {
-    font-size: 30px;
-    line-height: 1.15;
-    letter-spacing: 0;
-}
-
-@media (min-width: 576px) {
-    h1,
-    .heading-1 {
-        font-size: 32px;
-    }
-}
-
-@media (min-width: 768px) {
-    h1,
-    .heading-1 {
-        font-size: 46px;
-        line-height: 1.25;
-    }
-}
-
-@media (min-width: 992px) {
-    h1,
-    .heading-1 {
-        font-size: 54px;
-    }
-}
-
-@media (min-width: 1200px) {
-    h1,
-    .heading-1 {
-        font-size: 58px;
-    }
-}
-
-@media (min-width: 1600px) {
-    h1,
-    .heading-1 {
-        font-size: 65px;
-        line-height: 1.23077;
-    }
+.h1,
+.ms-4 {
+  @include ms-respond(font-size, 4);
 }
 
 h2,
-.heading-2 {
-    font-family: "Libre Baskerville", serif;
-    font-weight: 300;
-    font-size: 28px;
-    line-height: 1.4;
-    letter-spacing: 0;
-}
-
-@media (min-width: 576px) {
-    h2,
-    .heading-2 {
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 768px) {
-    h2,
-    .heading-2 {
-        font-size: 44px;
-    }
-}
-
-@media (min-width: 1200px) {
-    h2,
-    .heading-2 {
-        font-size: 48px;
-        line-height: 1.33333;
-    }
+.h2,
+.ms-3 {
+  @include ms-respond(font-size, 3);
 }
 
 h3,
-.heading-3 {
-    font-size: 24px;
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-}
-
-@media (min-width: 768px) {
-    h3,
-    .heading-3 {
-        font-size: 30px;
-        line-height: 1.4;
-    }
-}
-
-@media (min-width: 1200px) {
-    h3,
-    .heading-3 {
-        font-size: 40px;
-        line-height: 52px;
-    }
-}
-
-h3 .big,
-.heading-3 .big {
-    font-size: 2em;
-    line-height: 1;
+.h3,
+.ms-2 {
+  @include ms-respond(font-size, 2);
 }
 
 h4,
-.heading-4 {
-    font-size: 18px;
-    line-height: 1.5;
-    letter-spacing: 0;
+.h4,
+.ms-1 {
+  @include ms-respond(font-size, 1);
 }
 
-@media (min-width: 1200px) {
-    h4,
-    .heading-4 {
-        font-size: 26px;
-        line-height: 1.23077;
-    }
-}
-
-h4.h4-smaller,
-.heading-4.h4-smaller {
-    font-size: 19px;
-}
-
-@media (min-width: 1200px) {
-    h4.h4-smaller,
-    .heading-4.h4-smaller {
-        font-size: 22px;
-        line-height: 1.45455;
-    }
+.ms-0 {
+  @include ms-respond(font-size, 0);
 }
 
 h5,
-.heading-5 {
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.01em;
-}
-
-@media (min-width: 768px) {
-    h5,
-    .heading-5 {
-        font-size: 24px;
-        line-height: 1.16667;
-    }
-}
-
-h6,
-.heading-6 {
-    font-size: 14px;
-    line-height: 1.8;
-    letter-spacing: 0.03em;
-}
-
-@media (min-width: 768px) {
-    h6,
-    .heading-6 {
-        font-size: 18px;
-        line-height: 26px;
-    }
-}
-
-.title-decorated {
-    position: relative;
-    padding-left: 40px;
-    text-align: left;
-}
-
-.title-decorated::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.8em;
-    width: 30px;
-    border-bottom: 1px solid;
-}
-
-@media (min-width: 768px) {
-    .title-decorated {
-        padding-left: 70px;
-    }
-    .title-decorated::before {
-        width: 50px;
-        top: 0.7em;
-        border-bottom-width: 2px;
-    }
-}
-
-@media (min-width: 768px) {
-    .title-decorated-lg {
-        padding-left: 80px;
-    }
-    .title-decorated-lg::before {
-        width: 62px;
-    }
-    .title-decorated-lg + p {
-        margin-top: 32px;
-    }
-}
-
+.h5,
 small,
 .small {
-    display: block;
-    font-size: 12px;
-    line-height: 1.5;
+  @include ms-respond(font-size, -1);
 }
 
-mark,
-.mark {
-    padding: 3px 5px;
-    color: #fff;
-    background: $brand-color-dark;
+b,
+strong,
+.bold,
+.b {
+  font-weight: bold;
 }
 
-strong {
-    font-weight: 700;
-    color: #d1d1d1;
+sub,
+.sub,
+sup,
+.sup {
+  @include ms-respond(font-size, -2);
+  font-weight: normal;
 }
 
-.big {
-    font-size: 16px;
-    line-height: 1.55;
+.ms-5,
+h1,
+.h1,
+.ms-4,
+h2,
+.h2,
+.ms-3,
+h3,
+.h3,
+.ms-2 {
+  sub,
+  .sub,
+  sup,
+  .sup {
+    @include ms-respond(font-size, -1);
+  }
 }
 
-@media (min-width: 768px) {
-    .big {
-        font-size: 20px;
-        line-height: 1.6;
-    }
+sub,
+.sub {
+  vertical-align: sub;
 }
 
-.lead {
-    font-size: 24px;
-    line-height: 34px;
-    font-weight: 300;
-}
-
-code {
-    padding: 4px 5px;
-    border-radius: 0;
-    font-size: 90%;
-    color: #111111;
-    background: #f5f6fa;
-}
-
-.text-large {
-    font-family: "Libre Baskerville", serif;
-    font-size: 30px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
-@media (min-width: 576px) {
-    .text-large {
-        font-size: 55px;
-    }
-}
-
-@media (min-width: 768px) {
-    .text-large {
-        font-size: 68px;
-    }
-}
-
-@media (min-width: 992px) {
-    .text-large {
-        font-size: 80px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .text-large {
-        font-size: 100px;
-    }
-}
-
-.context-dark .text-large,
-.bg-gray-700 .text-large,
-.bg-gray-800 .text-large,
-.bg-primary .text-large,
-.bg-primary-darker .text-large {
-    color: #fff;
-}
-
-.text-extra-large {
-    font-size: 100px;
-    line-height: 0.8;
-    font-weight: 800;
-}
-
-@media (min-width: 768px) {
-    .text-extra-large {
-        font-size: 130px;
-        line-height: 0.7;
-    }
-}
-
-@media (min-width: 992px) {
-    .text-extra-large {
-        font-size: 150px;
-    }
-}
-
-@media (min-width: 1600px) {
-    .text-extra-large {
-        font-size: 180px;
-    }
-}
-
-.wow-outer span {
-    display: block;
-}
-
-.wow-outer .wow > span {
-    display: inline;
-}
-
-p [data-toggle="tooltip"] {
-    padding-left: 0.25em;
-    padding-right: 0.25em;
-    color: $brand-color-dark;
-}
-
-p [style*="max-width"] {
-    display: inline-block;
-}
-
-p a {
-    color: inherit;
-}
-
-p .text-width-1 {
-    display: inline-block;
-    max-width: 730px;
-}
-
-.text-width-2 {
-    display: inline-block;
-    max-width: 350px;
-}
-
-html .page .text-primary {
-    color: $brand-color-dark;
-}
-
-.page .text-danger {
-    color: #dc0000;
-}
-
-.page .text-gray-300 {
-    color: $gray-300;
-}
-
-.page .text-gray-700 {
-    color: $gray-700;
-}
-
-.page .text-color-1 {
-    color: #d3d5db;
-}
-
-.page .text-color-5 {
-    color: $brand-color-light;
-}
-
-.page .text-color-6 {
-    color: $brand-color;
-}
-
-.context-dark .text-gray-700,
-.bg-gray-700 .text-gray-700,
-.bg-gray-800 .text-gray-700,
-.bg-primary .text-gray-700,
-.bg-primary-darker .text-gray-700 {
-    color: #fff;
-}
-
-.font-sec {
-    font-family: "Libre Baskerville", serif;
-}
-
-.big-text {
-    font-size: 18px;
-}
-
-.opacity-75 {
-    opacity: 0.75;
-}
-
-@media (min-width: 768px) {
-    .lh-1 {
-        line-height: 40px;
-    }
-}
-
-.text-nowrap {
-    white-space: nowrap;
-}
-
-.page-title {
-    margin-bottom: map-get($spacers, 4);
+sup,
+.sup {
+  vertical-align: super;
 }

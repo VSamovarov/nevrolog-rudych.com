@@ -1,6 +1,9 @@
 @import "../fonts/social-icons/css/social.css";
 @import "../fonts/linearicons/css/linearicons.css";
+@import "../fonts/open-sans/stylesheet.css";
 @import "~breakpoint-sass/stylesheets/breakpoint";
+@import "~bourbon/core/bourbon";
+@import "~modularscale-sass";
 
 @import "common/z-index-variables";
 @import "common/variables";
@@ -12,6 +15,7 @@
 @import "common/common";
 @import "common/a";
 @import "common/typography";
+@import "common/text-style";
 
 @import "parts/header";
 @import "parts/brand";
@@ -28,3 +32,4 @@
 @import "modules/post-list";
 @import "modules/teaser";
 @import "modules/pagination";
+@import "modules/main-banner";

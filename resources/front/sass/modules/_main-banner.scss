@@ -1,0 +1,62 @@
+.main-banner {
+  $background-color: #9baacb;
+  &__wrapper {
+    background-size: auto 100%;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 100%;
+    height: 1px;
+    padding-bottom: 60%;
+    position: relative;
+  }
+  &__content {
+    position: absolute;
+    width: 50%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: $background-color;
+  }
+  &__content::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    content: "";
+    display: block;
+    left: -25%;
+    background: linear-gradient(
+      90deg,
+      rgba($background-color, 0) 2%,
+      rgba($background-color, 1) 98%
+    );
+  }
+
+  &__content-inner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    // align-content: space-between;
+    justify-content: center;
+    padding: 4rem 3rem 3rem;
+    top: 10%;
+    bottom: 0;
+    z-index: 1;
+    min-width: 80%;
+    background-color: rgba(white, 0.5);
+    background: linear-gradient(0, rgba(white, 0) 5%, rgba(white, 0.65) 100%);
+  }
+
+  &__text {
+    margin-bottom: 1rem;
+  }
+  &__title {
+    margin-bottom: 1rem;
+    flex: 2 0 auto;
+    @include rfs(3rem, true);
+  }
+
+  &__action {
+  }
+}
