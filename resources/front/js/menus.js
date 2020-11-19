@@ -70,7 +70,7 @@ function buttonMenu(menuWrapper, actionElementSelector, openElementSelector) {
 
 function coverageLayerToggle() {
   if (activeElements.length > 0) {
-    coverageLayer.show("red", "0.5");
+    coverageLayer.show();
     menuWrapper.style.zIndex =
       Number(menuWrapper.style.zIndex) + Number(zIndexCoverageLayer);
   } else {

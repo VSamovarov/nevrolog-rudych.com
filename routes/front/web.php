@@ -17,7 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('front.templates.main-page');
+  return view('front.pages.main');
+});
+Route::get('/posts', function () {
+  return view('front.pages.index-posts');
 });
 
 
