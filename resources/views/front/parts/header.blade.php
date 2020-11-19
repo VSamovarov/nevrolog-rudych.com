@@ -8,18 +8,24 @@
                 <span class="hamburger-label">Menu</span>
             </button>
 
-            <div class="brand">
-                <a href="index.html">
-                    <img src="{{ asset('img/logo.png') }}" alt="" width="128" height="37">
-                </a>
-            </div>
+
+            <a class="brand" href="index.html">
+                <span class="brand__img">
+                  <img src="{{ asset('img/logo-nejrologia.svg') }}" alt="кабинет невролога">
+                </span>
+                <span class="brand__text">
+                  <span class="brand__title">Кабинет невролога</span>
+                  <span class="brand__caption">Катерина Рудич</span>
+                </span>
+            </a>
+
         </div>
         <div class="contacts-wrapper">
             <div class="contacts">
                 <div class="contacts__icon"><span class="linearicons-telephone2"></span></div>
                 <div class="contacts__content">
                     <p>
-                        <a class="text-nowrap" href="tel:#">1-800-1234-567</a>
+                      <a class="text-nowrap" href="tel:#">1-800-1234-567</a>
                     <p>
                     </p>
                     <a class="text-nowrap" href="tel:#">1-800-8763-765</a>

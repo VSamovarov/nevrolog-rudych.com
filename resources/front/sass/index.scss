@@ -2,6 +2,7 @@
 @import "../fonts/linearicons/css/linearicons.css";
 @import "~breakpoint-sass/stylesheets/breakpoint";
 
+@import "common/z-index-variables";
 @import "common/variables";
 @import "common/colors";
 
@@ -13,9 +14,11 @@
 @import "common/typography";
 
 @import "parts/header";
+@import "parts/brand";
 @import "parts/footer";
 @import "parts/page-header";
 
+@import "modules/global-coverage-layer";
 @import "modules/hamburger";
 @import "modules/main-navbar";
 @import "modules/dots-menu-button";

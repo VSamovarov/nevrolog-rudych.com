@@ -1,135 +1,132 @@
-$header-top-height-mobile: 58px;
-$header-top-height: 110px;
-$header-menu-height: 78px;
-
 .header {
-    position: relative;
-    &__top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: $header-top-height-mobile;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-        @include breakpoint(map-get($grid-breakpoints, "lg")) {
-            box-shadow: none;
-            height: $header-top-height;
-        }
-
-        .contacts-wrapper {
-            display: none;
-            @include breakpoint(map-get($grid-breakpoints, "lg")) {
-                display: flex;
-            }
-            margin-left: 50px;
-
-            align-items: center;
-            justify-content: space-between;
-            & > * {
-                margin-left: 34px;
-            }
-        }
-    }
-    &__menu {
-        background: #fdf5fc;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-        min-width: 80%;
-        position: absolute;
-        display: none;
-        &.active {
-            display: block;
-        }
-        @include breakpoint(map-get($grid-breakpoints, "lg")) {
-            display: block;
-            min-width: auto;
-            position: relative;
-            background: #f7f9f9;
-            box-shadow: none;
-            height: $header-menu-height;
-        }
-    }
-}
-.contacts {
+  position: relative;
+  &__top {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 1rem;
-    color: $brand-color-dark;
-    a {
-        color: $gray-700;
+    height: $header-top-height-mobile;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+      box-shadow: none;
+      height: $header-top-height;
     }
-    p {
-        margin-bottom: 0.2rem;
+
+    .contacts-wrapper {
+      display: none;
+      @include breakpoint(map-get($grid-breakpoints, "lg")) {
+        display: flex;
+      }
+      margin-left: 50px;
+
+      align-items: center;
+      justify-content: space-between;
+      & > * {
+        margin-left: 34px;
+      }
     }
-    &__icon,
-    &__content {
-        margin-left: 20px;
-        max-width: 15rem;
+  }
+  &__menu {
+    background: #fdf5fc;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+    min-width: 80%;
+    position: absolute;
+    display: none;
+    &.active {
+      display: block;
+      z-index: $global-coverage-layer-level;
     }
-    &__icon {
-        font-size: 1.875em;
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+      display: block;
+      min-width: auto;
+      position: relative;
+      background: #f7f9f9;
+      box-shadow: none;
+      height: $header-menu-height;
     }
+  }
+}
+.contacts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: $brand-color-dark;
+  a {
+    color: $gray-700;
+  }
+  p {
+    margin-bottom: 0.2rem;
+  }
+  &__icon,
+  &__content {
+    margin-left: 20px;
+    max-width: 15rem;
+  }
+  &__icon {
+    font-size: 1.875em;
+  }
 }
 
 .social-links {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    &__item {
-        margin: 0 0 0 1.2rem;
-        a {
-            display: inline-block;
-            font-size: 20px;
-            color: $gray-500;
-        }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &__item {
+    margin: 0 0 0 1.2rem;
+    a {
+      display: inline-block;
+      font-size: 20px;
+      color: $gray-500;
     }
+  }
 }
 
 .contacts-wrapper.active {
-    position: absolute;
-    display: block;
-    background: #fdf5fc;
-    z-index: 1000;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
-    top: $header-top-height-mobile;
-    @include breakpoint(map-get($grid-breakpoints, "lg")) {
-        top: $header-top-height;
-    }
-    padding: 0 2rem;
-    right: 0;
-    & > * {
-        padding: 0;
-        margin: 2rem 0;
-    }
-    .contacts {
-        justify-content: left;
-    }
-    .social-links {
-        justify-content: center;
-    }
+  position: absolute;
+  display: block;
+  background: #fdf5fc;
+  z-index: $global-coverage-layer-level;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.05);
+  top: $header-top-height-mobile;
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    top: $header-top-height;
+  }
+  padding: 0 2rem;
+  right: 0;
+  & > * {
+    padding: 0;
+    margin: 2rem 0;
+  }
+  .contacts {
+    justify-content: left;
+  }
+  .social-links {
+    justify-content: center;
+  }
 }
 
 .main-menu {
-    position: relative;
-    padding: 16px 0;
-    @include breakpoint(map-get($grid-breakpoints, "lg")) {
-        min-width: 690px;
-        display: flex;
-        padding: 0;
-        height: $header-menu-height;
-        // flex-direction: row-reverse;
-        align-items: center;
-        justify-content: space-between;
-    }
+  position: relative;
+  padding: 16px 0;
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    min-width: 690px;
+    display: flex;
+    padding: 0;
+    height: $header-menu-height;
+    // flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 .header {
-    .hamburger {
-        padding-left: 0;
-    }
+  .hamburger {
+    padding-left: 0;
+  }
 
-    @include breakpoint(map-get($grid-breakpoints, "lg")) {
-        .dots-menu-button,
-        .hamburger {
-            display: none;
-        }
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    .dots-menu-button,
+    .hamburger {
+      display: none;
     }
+  }
 }
