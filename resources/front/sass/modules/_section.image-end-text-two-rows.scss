@@ -1,0 +1,10 @@
+.section.image-end-text-two-rows {
+  &__image {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.section.image-end-text-two-rows .image-end-text-two-rows__wrapper > .row {
+  flex-direction: row-reverse !important;
+}

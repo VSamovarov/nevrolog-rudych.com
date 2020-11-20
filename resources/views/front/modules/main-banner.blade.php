@@ -1,4 +1,4 @@
-<div class="section" style="background-color: #9baacb">
+<section class="section padding-none" style="background-color: #9baacb">
   <div class="container main-banner">
     <div class="main-banner__wrapper" style="background-image: url({{ asset('img/Rudych/nevrolog-rudych-2.jpg') }});">
       <div class="main-banner__content">
@@ -19,4 +19,4 @@
       </div>
     </div>
   </div>
-</div>
+</section>
