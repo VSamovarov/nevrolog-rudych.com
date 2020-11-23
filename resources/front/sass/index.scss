@@ -16,6 +16,7 @@
 @import "common/a";
 @import "common/typography";
 @import "common/text-style";
+@import "common/buttons";
 
 @import "parts/header";
 @import "parts/brand";
@@ -32,8 +33,9 @@
 @import "modules/teaser";
 @import "modules/pagination";
 @import "modules/main-banner";
+@import "modules/google-maps";
 
 @import "modules/section";
-@import "modules/section.image-end-text-two-rows";
-@import "modules/section.cover-image-end-text-two-rows";
+@import "modules/section.image-and-text-two-rows";
+@import "modules/section.cover-image-and-text-two-rows";
 @import "modules/section.info-block-section";

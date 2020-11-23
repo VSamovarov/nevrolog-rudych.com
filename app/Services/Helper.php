@@ -10,6 +10,15 @@ use Illuminate\Support\Str;
 
 final class Helper
 {
+  public static function parsingMapsHtmlCode($string, $lang = 'en')
+  {
+    preg_match('/src="([^"]+)/', $string, $found);
+    if ($lang && strripos($found[1], 'google') !== false) {
+      $found[1] = preg_replace("{\!1suk}", "!1s{$lang}", $found[1]);
+    }
+    return $found[1];
+  }
+
   /**
    * Очищаем телефон
    *
@@ -21,6 +30,13 @@ final class Helper
     return preg_replace("{[^0-9]}", "", $string);
   }
 
+  /**
+   * Приводим имя файла к нормальному виду
+   *
+   * @param string $name
+   * @param string $separator
+   * @return string
+   */
   public static function normalizeFileName(string $name, $separator = "-"): string
   {
     $ext = mb_substr(strrchr($name, '.'), 1);

@@ -1,62 +1,139 @@
+$background-color: #9baacb;
 .main-banner {
-  $background-color: #9baacb;
+  position: relative;
+  height: 0;
+  padding-bottom: 120%;
   &__wrapper {
-    background-size: auto 100%;
-    background-position: left center;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    width: 100%;
-    height: 1px;
-    padding-bottom: 60%;
-    position: relative;
-  }
-  &__content {
     position: absolute;
-    width: 50%;
     top: 0;
     bottom: 0;
     right: 0;
-    background-color: $background-color;
+    left: 0;
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    overflow: hidden;
   }
-  &__content::before {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 25%;
-    content: "";
-    display: block;
-    left: -25%;
-    background: linear-gradient(
-      90deg,
-      rgba($background-color, 0) 2%,
-      rgba($background-color, 1) 98%
-    );
+  &__content {
+    height: 100%;
   }
-
   &__content-inner {
-    position: absolute;
+    padding: $grid-gutter-width;
     display: flex;
     flex-direction: column;
-    // align-content: space-between;
-    justify-content: center;
-    padding: 4rem 3rem 3rem;
-    top: 10%;
-    bottom: 0;
-    z-index: 1;
-    min-width: 80%;
-    background-color: rgba(white, 0.5);
-    background: linear-gradient(0, rgba(white, 0) 5%, rgba(white, 0.65) 100%);
+    height: 100%;
+    //background-color: rgba(white, 0.2);
+    background: linear-gradient(
+      -90deg,
+      rgba(white, 0) 60%,
+      rgba(white, 0.65) 100%
+    );
   }
-
   &__text {
-    margin-bottom: 1rem;
+    font-family: $font-stack-garamond;
+    font-style: italic;
+    font-weight: bold;
+    color: $brand-color;
+    line-height: 1.3;
   }
   &__title {
-    margin-bottom: 1rem;
-    flex: 2 0 auto;
-    @include rfs(3rem, true);
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-weight: bold;
   }
-
+  &__text,
+  &__title {
+    text-shadow: 1px 1px 0 rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255);
+  }
   &__action {
+    flex: 0 0 auto;
+  }
+}
+
+@include breakpoint(380px) {
+  .main-banner {
+    &__text {
+      @include ms-respond(font-size, 2);
+    }
+    &__title {
+      @include ms-respond(font-size, 3);
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "m")) {
+  .main-banner {
+    &__text {
+      font-size: 2rem;
+    }
+    &__title {
+      font-size: 3rem;
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "md")) {
+  .main-banner {
+    padding-bottom: 40%;
+    &__wrapper {
+      background-size: 52% auto;
+      background-position: left top;
+    }
+    &__content {
+      position: absolute;
+      width: 50%;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: $background-color;
+      padding: 0;
+    }
+    &__content::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 25%;
+      content: "";
+      display: block;
+      left: -25%;
+      background: linear-gradient(
+        90deg,
+        rgba($background-color, 0) 2%,
+        rgba($background-color, 1) 98%
+      );
+    }
+
+    &__content-inner {
+      position: absolute;
+      justify-content: center;
+      background-color: rgba(white, 0.5);
+      background: linear-gradient(0, rgba(white, 0) 5%, rgba(white, 0.65) 100%);
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "lg")) {
+  .main-banner {
+    padding-bottom: 45%;
+    &__content-inner {
+      top: 10%;
+      height: 90%;
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "xl")) {
+  .main-banner {
+    padding-bottom: 40%;
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "xxl")) {
+  .main-banner {
+    padding-bottom: 30%;
   }
 }

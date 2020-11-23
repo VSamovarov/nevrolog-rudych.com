@@ -1,0 +1,13 @@
+.image-and-text-two-rows {
+  &__image {
+    width: 100%;
+    height: auto;
+    img {
+      max-width: 100%;
+    }
+  }
+}
+
+.section.image-and-text-two-rows .image-and-text-two-rows__wrapper > .row {
+  flex-direction: row-reverse !important;
+}

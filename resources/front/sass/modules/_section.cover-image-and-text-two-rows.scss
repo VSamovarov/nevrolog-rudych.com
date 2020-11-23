@@ -1,0 +1,37 @@
+.section.cover-image-and-text-two-rows {
+  position: relative;
+  & * {
+    color: white;
+  }
+}
+
+.cover-image-and-text-two-rows__image {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  opacity: 0.2;
+}
+
+.section.cover-image-and-text-two-rows.reverse {
+  .cover-image-and-text-two-rows__image {
+    right: auto;
+    left: 0;
+  }
+  .row {
+    flex-direction: row-reverse !important;
+    padding-left: 4rem;
+  }
+}
+@include breakpoint(map-get($grid-breakpoints, "md")) {
+  .cover-image-and-text-two-rows__image {
+    width: 50%;
+    background-size: 100% auto;
+    opacity: 1;
+  }
+}

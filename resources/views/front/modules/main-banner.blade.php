@@ -1,18 +1,21 @@
-<section class="section padding-none" style="background-color: #9baacb">
+<section class="section padding-none" style="background-color:{{ $color }}">
   <div class="container main-banner">
-    <div class="main-banner__wrapper" style="background-image: url({{ asset('img/Rudych/nevrolog-rudych-2.jpg') }});">
+    <div class="main-banner__wrapper" style="background-image: url({{ asset($data['image']) }});">
       <div class="main-banner__content">
         <div class="main-banner__content-inner">
-          <div class="main-banner__text font-italic text-primary h5">
-            All Kinds of Counseling
+          <div class="main-banner__text">
+            {{$data['text']}}
           </div>
-          <div class="main-banner__title h1">
-            Improve<br>Your Mental<br>Well-being
+          <div class="main-banner__title">
+            {!! $data['title'] !!}
           </div>
           <div class="main-banner__action">
-            <button>
-              Action
-            </button>
+            @if (!empty($data['url']))
+            <a class="btn btn-primary" href="{{$data['url']}}">
+              {!! $data['action-text'] !!}
+            </a>
+            @endif
+
           </div>
         </div>
 

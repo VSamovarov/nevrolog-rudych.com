@@ -1,7 +1,11 @@
 .section {
   box-sizing: border-box;
-  padding-bottom: 7rem;
-  padding-top: 7rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    padding-bottom: 7rem;
+    padding-top: 7rem;
+  }
   &__header,
   &__body,
   &__footer {

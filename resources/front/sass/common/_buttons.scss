@@ -1,0 +1,93 @@
+a.btn,
+.btn,
+#{$all-buttons} {
+  @include ms-respond(font-size, 1);
+  font-weight: 100;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  background-color: $gray-100;
+
+  cursor: pointer;
+
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.1;
+  // border: 1px solid $gray-300;
+  border: none;
+  // border-radius: 4px;
+  padding: 0.5em 1em;
+}
+
+.btn:active,
+button:active {
+  background-color: #fff;
+  // border: 1px solid transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.btn:focus,
+button:focus {
+  background-color: #fff;
+  // border: 1px solid transparent;
+  border: none;
+}
+
+.btn:hover,
+button:hover {
+  background-color: $gray-200;
+}
+
+.btn-primary,
+a.btn-primary {
+  background-color: $brand-color;
+  color: lighten($brand-color, $amount: 60%);
+
+  &:active {
+    background-color: darken($brand-color, 12%);
+    color: lighten($brand-color, $amount: 60%);
+  }
+
+  &:hover {
+    background-color: darken($brand-color, 7%);
+    color: lighten($brand-color, $amount: 60%);
+  }
+
+  &:focus {
+    background-color: darken($brand-color, 30%);
+    color: lighten($brand-color, $amount: 60%);
+  }
+}
+.btn-stroke,
+a.btn-stroke {
+  background-color: rgba($color: $white, $alpha: 0.2);
+  &:hover {
+    background-color: rgba($color: $white, $alpha: 0.4);
+    color: lighten($brand-color, $amount: 60%);
+  }
+}
+.btn-contrast,
+a.btn-contrast {
+  background-color: $contrast-color;
+  color: lighten($brand-color, $amount: 60%);
+
+  &:active {
+    background-color: darken($contrast-color, 12%);
+  }
+
+  &:hover {
+    background-color: darken($contrast-color, 7%);
+  }
+
+  &:focus {
+    background-color: darken($contrast-color, 30%);
+  }
+}
+
+.btn-big,
+a.btn-big {
+  font-size: 1.3rem;
+}
