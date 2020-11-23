@@ -1,13 +1,26 @@
 .image-and-text-two-rows {
+  display: flex;
+  flex-direction: column;
   &__image {
     width: 100%;
     height: auto;
+    margin-bottom: 2rem;
     img {
-      max-width: 100%;
+      width: 100%;
     }
   }
 }
 
-.section.image-and-text-two-rows .image-and-text-two-rows__wrapper > .row {
-  flex-direction: row-reverse !important;
+.section.image-and-text-two-rows.reverse .row.image-and-text-two-rows__wrapper {
+  flex-direction: column-reverse !important;
+}
+
+@include breakpoint(map-get($grid-breakpoints, "md")) {
+  .image-and-text-two-rows {
+    flex-wrap: wrap;
+  }
+  .section.image-and-text-two-rows.reverse
+    .row.image-and-text-two-rows__wrapper {
+    flex-direction: row-reverse !important;
+  }
 }

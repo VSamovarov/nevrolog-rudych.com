@@ -1,7 +1,7 @@
-<section class="section adress-and-callback-form" style="background: #fdf5fc">
+<section class="section adress-and-callback-form padding-none" style="background: #fdf5fc">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 pr-5">
+      <div class="col-md-6 pr-5 py-5">
         <h2>Get in Touch</h2>
         @include('front.modules.call-back-form')
       </div>
