@@ -4,26 +4,26 @@ return [
 
     'types' => [
         'pages' => [
-            'name' => 'post.type.pages',
+            'name' => 'pages',
             'taxonomy' => [],
             'icon' => 'bookmark',
         ],
         'news' => [
-            'name' => 'post.type.news',
+            'name' => 'news',
             'taxonomy' => [],
             'icon' => 'newspaper',
         ],
         'blogs' => [
-            'name' => 'post.type.blogs',
+            'name' => 'blogs',
             'taxonomy' => [],
             'icon' => 'journal',
         ]
     ],
 
     'statuses' => [
-        'draft' => 'admin.statuses.draft', #Черновик
-        'publish' => 'admin.statuses.publish', #Опубликован
-        'off' => 'admin.statuses.off', #Отключен
+        'draft' => 'draft', #Черновик
+        'publish' => 'publish', #Опубликован
+        'off' => 'off', #Отключен
     ],
 
     'per_page' => 15

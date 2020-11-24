@@ -18,7 +18,7 @@ class IndexAdminMenuItems
         $items = [];
 
         $items[] = [
-            'name' => 'admin.all'
+            'name' => 'all'
         ];
 
         foreach ($queries->getStatuses() as $status => $name) {
@@ -30,7 +30,7 @@ class IndexAdminMenuItems
         }
 
         $items[] = [
-            'name' => 'admin.deleted',
+            'name' => 'deleted',
             'parameter' => 'deleted'
         ];
 

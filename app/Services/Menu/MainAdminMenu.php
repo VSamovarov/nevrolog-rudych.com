@@ -38,10 +38,10 @@ class MainAdminMenu
         $items = [];
 
         $items[] = [
-            'title' => 'feedback.title',
+            'title' => 'Обратная связь',
             'href' => route('admin.feedback.index'),
             'active' => $this->request->is('*/feedback'),
-            'icon' => 'comment'
+            'icon' => 'chat-right'
         ];
         $items = array_merge($items, $this->getPostMenuItems());
 

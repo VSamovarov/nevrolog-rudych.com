@@ -19,20 +19,20 @@ class FeedbackAdminController extends Controller
     const MASS_ACTIONS_ALLOWED = ['delete', 'restore', 'viewed', 'not-viewed'];
     public $indexMenuItems = [
         [
-            'name' => 'admin.all'
+            'name' => 'all'
         ],
         [
-            'name' => 'admin.viewed',
+            'name' => 'viewed',
             'parameter' => 'viewed',
             'value' =>  1,
         ],
         [
-            'name' => 'admin.not-viewed',
+            'name' => 'not-viewed',
             'parameter' => 'viewed',
             'value' =>  0,
         ],
         [
-            'name' => 'admin.deleted',
+            'name' => 'deleted',
             'parameter' => 'deleted'
         ]
     ];
@@ -40,11 +40,10 @@ class FeedbackAdminController extends Controller
 
     public function index(Request $request, FeedbackQueries $services)
     {
-        // dd((new indexAdminMenu($services, $request))->get($this->indexMenuItems, 'admin.feedback.index'));
         return Inertia::render(
             'Feedback/IndexFeedback',
             [
-                'pageTitle' => __('admin.feedback.title'),
+                'pageTitle' => __('Обратная связь'),
                 'feedback' => $services->index($request->all()),
                 'indexMenu' => (new IndexAdminMenu(
                     $services,
