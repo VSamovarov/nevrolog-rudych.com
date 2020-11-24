@@ -33,38 +33,48 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+
     public function boot()
     {
+        parent::boot();
         $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/front/api.php'));
-
-            Route::localizedGroup(
-                [],
-                function () {
-                    Route::middleware('web')
-                        ->namespace($this->namespace)
-                        ->group(base_path('routes/front/web.php'));
-                }
-            );
-
-
-            Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => $this->namespace], function () {
-                Route::prefix('api')
-                    ->name('api.')
-                    ->middleware(['web', 'auth'])
-                    ->group(base_path('routes/admin/api.php'));
-
-
-                Route::middleware(['web', 'auth'])
-                    ->group(base_path('routes/admin/web.php'));
-            });
-        });
     }
+
+    public function map()
+    {
+        $this->mapAdminRoutes();
+        $this->mapWebRoutes();
+    }
+
+    protected function mapWebRoutes()
+    {
+      Route::prefix('api')
+        ->middleware('api')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/front/api.php'));
+
+      Route::localizedGroup(
+          [],
+          function () {
+              Route::middleware('web')
+                  ->namespace($this->namespace)
+                  ->group(base_path('routes/front/web.php'));
+          }
+      );
+    }
+    protected function mapAdminRoutes()
+    {
+      Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => $this->namespace], function () {
+          Route::prefix('api')
+              ->name('api.')
+              ->middleware(['web', 'auth'])
+              ->group(base_path('routes/admin/api.php'));
+
+          Route::middleware(['web', 'auth'])
+              ->group(base_path('routes/admin/web.php'));
+      });
+    }
+
 
     /**
      * Configure the rate limiters for the application.

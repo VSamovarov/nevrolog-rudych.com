@@ -45,6 +45,13 @@ class MainAdminMenu
         ];
         $items = array_merge($items, $this->getPostMenuItems());
 
+        $items[] = [
+            'title' => 'Настройки',
+            'href' => '/admin/setting',
+            'active' => $this->request->is('*/setting'),
+            'icon' => 'chat-right'
+        ];
+
         return  $items;
     }
 }

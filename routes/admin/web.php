@@ -31,4 +31,5 @@ Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActi
 Route::resource('/post', PostAdminController::class)->except(['destroy', 'edit', 'show'])->middleware(['check-type-post']);
 Route::get('/post/{id}/edit', [PostAdminController::class, 'edit'])->name('post.edit');
 
+Route::get('/setting', TestAdminController::class)->name('setting');
 Route::get('/test', TestAdminController::class)->name('test');
