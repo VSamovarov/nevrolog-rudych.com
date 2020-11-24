@@ -1,0 +1,148 @@
+$background-color: #9baacb;
+.main-banner {
+  overflow: hidden;
+  &__wrapper {
+    background-size: auto 100%;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    width: 100%;
+    height: 1px;
+    padding-bottom: 60%;
+    position: relative;
+  }
+  &__content {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: $background-color;
+    text-align: center;
+    padding: 0.4rem 0;
+  }
+
+  &__content::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25%;
+    content: "";
+    display: block;
+    left: -25%;
+    background: linear-gradient(
+      90deg,
+      rgba($background-color, 0) 2%,
+      rgba($background-color, 1) 98%
+    );
+  }
+
+  &__content-inner {
+    display: flex;
+    flex-direction: column;
+    // align-content: space-between;
+    justify-content: center;
+    height: 100%;
+    padding: 0.5rem 0;
+
+    background-color: rgba(white, 0.5);
+    background: linear-gradient(0, rgba(white, 0) 10%, rgba(white, 0.65) 100%);
+  }
+
+  &__text {
+    margin-bottom: 0.5rem;
+    font-family: $font-stack-garamond;
+    font-style: italic;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    font-weight: bold;
+    color: $brand-color;
+    z-index: 1;
+  }
+  &__title {
+    z-index: 1;
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "sm")) {
+  .main-banner {
+    &__content {
+      position: absolute;
+      width: 50%;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: $background-color;
+      padding: 0;
+    }
+
+    &__content::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 25%;
+      content: "";
+      display: block;
+      left: -25%;
+      background: linear-gradient(
+        90deg,
+        rgba($background-color, 0) 2%,
+        rgba($background-color, 1) 98%
+      );
+    }
+
+    &__content-inner {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      // align-content: space-between;
+      justify-content: center;
+      padding: 4rem 3rem 3rem;
+
+      bottom: 0;
+      z-index: 1;
+      min-width: 80%;
+      background-color: rgba(white, 0.5);
+      background: linear-gradient(0, rgba(white, 0) 5%, rgba(white, 0.65) 100%);
+    }
+
+    &__text {
+      margin-bottom: 1rem;
+      font-family: $font-stack-garamond;
+      font-style: italic;
+      @include ms-respond(font-size, 2);
+      font-weight: bold;
+      color: $brand-color;
+    }
+    &__title {
+      margin-bottom: 1rem;
+      flex: 2 0 auto;
+      @include ms-respond(font-size, 3);
+      line-height: 1.4;
+      // @include rfs(3rem, true);
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "lg")) {
+  .main-banner {
+    &__wrapper {
+      margin-left: 0;
+    }
+    &__content-inner {
+      top: 10%;
+      height: 90%;
+      text-align: left;
+    }
+    &__title {
+      @include ms-respond(font-size, 5);
+      margin-left: 0;
+    }
+    &__action {
+      margin: 0;
+    }
+  }
+}

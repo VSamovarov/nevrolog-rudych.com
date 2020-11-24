@@ -1,41 +1,40 @@
 html,
 body,
 #app {
-    height: 100%;
+  height: 100%;
 }
 
 #app {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
+  box-sizing: border-box;
+
+  #main {
     box-sizing: border-box;
+    flex: 1 0 auto;
+  }
 
-    #main {
-        box-sizing: border-box;
-        flex: 1 0 auto;
-    }
-
-    #footer {
-        box-sizing: border-box;
-        flex: 0 0 auto;
-    }
+  #footer {
+    box-sizing: border-box;
+    flex: 0 0 auto;
+  }
 }
 
 body {
-    font-family: "Open Sans", sans-serif;
-    font-size: 14px;
-    line-height: 1.7;
-    font-weight: 400;
-    color: $gray-800;
-    background-color: #fff;
-    -webkit-text-size-adjust: none;
-    -webkit-font-smoothing: subpixel-antialiased;
-    letter-spacing: 0.03em;
+  font-family: "Open Sans", $font-stack-lucida-grande;
+  @include ms-respond(font-size, 0);
+  line-height: 1.7;
+  font-weight: 400;
+  color: $gray-800;
+  background-color: #fff;
+  -webkit-text-size-adjust: none;
+  -webkit-font-smoothing: subpixel-antialiased;
+  letter-spacing: 0.03em;
 }
 
 @media (min-width: 768px) {
-    body {
-        font-size: 16px;
-        line-height: 1.5;
-    }
+  body {
+    line-height: 1.5;
+  }
 }

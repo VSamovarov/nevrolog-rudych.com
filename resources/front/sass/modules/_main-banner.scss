@@ -1,0 +1,139 @@
+$background-color: #9baacb;
+.main-banner {
+  position: relative;
+  height: 0;
+  padding-bottom: 100%;
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-size: cover;
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    overflow: hidden;
+  }
+  &__content {
+    height: 100%;
+  }
+  &__content-inner {
+    padding: $grid-gutter-width;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    //background-color: rgba(white, 0.2);
+    background: linear-gradient(
+      -90deg,
+      rgba(white, 0) 60%,
+      rgba(white, 0.65) 100%
+    );
+  }
+  &__text {
+    font-family: $font-stack-garamond;
+    font-style: italic;
+    font-weight: bold;
+    color: $brand-color;
+    line-height: 1.3;
+  }
+  &__title {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    font-weight: bold;
+  }
+  &__text,
+  &__title {
+    text-shadow: 1px 1px 0 rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255);
+  }
+  &__action {
+    flex: 0 0 auto;
+  }
+}
+
+@include breakpoint(380px) {
+  .main-banner {
+    &__text {
+      @include ms-respond(font-size, 2);
+    }
+    &__title {
+      @include ms-respond(font-size, 3);
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "m")) {
+  .main-banner {
+    &__text {
+      font-size: 2rem;
+    }
+    &__title {
+      font-size: 3rem;
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "md")) {
+  .main-banner {
+    padding-bottom: 40%;
+    &__wrapper {
+      background-size: 52% auto;
+      background-position: left top;
+    }
+    &__content {
+      position: absolute;
+      width: 50%;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      background-color: $background-color;
+      padding: 0;
+    }
+    &__content::before {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 25%;
+      content: "";
+      display: block;
+      left: -25%;
+      background: linear-gradient(
+        90deg,
+        rgba($background-color, 0) 2%,
+        rgba($background-color, 1) 98%
+      );
+    }
+
+    &__content-inner {
+      position: absolute;
+      justify-content: center;
+      background-color: rgba(white, 0.5);
+      background: linear-gradient(0, rgba(white, 0) 5%, rgba(white, 0.65) 100%);
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "lg")) {
+  .main-banner {
+    padding-bottom: 45%;
+    &__content-inner {
+      top: 10%;
+      height: 90%;
+    }
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "xl")) {
+  .main-banner {
+    padding-bottom: 40%;
+  }
+}
+
+@include breakpoint(map-get($grid-breakpoints, "xxl")) {
+  .main-banner {
+    padding-bottom: 30%;
+  }
+}

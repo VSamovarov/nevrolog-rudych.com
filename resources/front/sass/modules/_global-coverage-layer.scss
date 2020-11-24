@@ -1,0 +1,8 @@
+.global-coverage-layer,
+#global-coverage-layer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: $global-coverage-layer-level;
+}

@@ -24,7 +24,7 @@ class CreatePostTranslationsTable extends Migration
             $table->longText('content')->nullable();
             $table->text('excerpt')->nullable();
             $table->string('metatitle')->nullable();
-            $table->string('metadescription')->nullable();
+            $table->text('metadescription')->nullable();
             $table->string('metakeys')->nullable();
             $table->string('slug')->nullable();
             $table->unique(['post_id', 'lang']);

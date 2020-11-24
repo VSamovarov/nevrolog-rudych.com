@@ -1,0 +1,38 @@
+.brand {
+  display: flex;
+  position: relative;
+  align-items: center;
+  &__img {
+    display: inline-block;
+    height: 50px;
+    width: 42px;
+    margin-right: 15px;
+    @include breakpoint(map-get($grid-breakpoints, "lg")) {
+      height: 65px;
+      width: 52px;
+      margin-left: -2px;
+    }
+    img {
+      width: auto;
+      height: 100%;
+    }
+  }
+  &__text {
+    line-height: 1.1;
+  }
+  &__title {
+    display: block;
+    font-weight: bold;
+    @include breakpoint(map-get($grid-breakpoints, "m")) {
+      font-size: 1.2rem;
+    }
+    margin-bottom: 0.2rem;
+  }
+  &__caption {
+    font-size: 0.8rem;
+    display: none;
+    @include breakpoint(map-get($grid-breakpoints, "sm")) {
+      display: block;
+    }
+  }
+}
