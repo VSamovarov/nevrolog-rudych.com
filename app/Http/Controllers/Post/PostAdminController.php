@@ -22,7 +22,7 @@ class PostAdminController extends Controller
     return Inertia::render(
       'Post/IndexPost',
       [
-        'pageTitle' => __('admin.post.title'),
+        'pageTitle' => $services->getType($request->input('type'))['name'],
         'per_page' => $services->getPerPage(),
         'indexMenu' => (new IndexAdminMenu(
           $services,

@@ -12,6 +12,6 @@ class Setting extends Model
   public $timestamps = false;
   public function description()
   {
-      return $this->hasMany(Post::class);
+    return $this->hasOne(SettingDescription::class);
   }
 }

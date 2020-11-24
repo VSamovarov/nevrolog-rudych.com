@@ -11,7 +11,7 @@ use App\Services\Filters\Filterable;
 use App\Services\Translation\Translatable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use App\Entity\Post\Traits\RegisterMediaCollectionsAndConversion;
+
 use Spatie\Image\Manipulations;
 use App\Entity\Post\Metadata;
 
@@ -22,9 +22,7 @@ class Post extends Model implements HasMedia
   use Filterable;
   use Translatable;
   use PostScope;
-
   use InteractsWithMedia;
-  // use RegisterMediaCollectionsAndConversion;
 
   protected $dates = ['deleted_at'];
 
