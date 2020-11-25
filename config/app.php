@@ -183,6 +183,8 @@ return [
 
     App\Providers\InertiaShare::class,
 
+    QCod\Settings\SettingsServiceProvider::class,
+
   ],
 
   /*
