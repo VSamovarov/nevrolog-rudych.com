@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Feedback\FeedbackAdminController;
 use App\Http\Controllers\Post\PostAdminController;
+use App\Http\Controllers\Setting\SettingAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
+Route::get('/setting', [SettingAdminController::class, 'index'])->name('setting');
 Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
 Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');
 

@@ -21,6 +21,7 @@ class TestController extends Controller
      */
     public function __invoke()
     {
+      dd([]['ffff']);
       $load = new ConfigsLoader();
 
       dump($load->get(app_path('Services/AppSettings/config'),true));

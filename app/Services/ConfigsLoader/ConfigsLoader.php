@@ -56,7 +56,7 @@ class ConfigsLoader
     $files = [];
 
     $configPath = realpath($folder);
-
+    dd($configPath);
     foreach (Finder::create()->files()->name('*.php')->in($configPath) as $file) {
         $directory = $this->getNestedDirectory($file, $configPath);
 
