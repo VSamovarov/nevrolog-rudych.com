@@ -4,17 +4,13 @@
     :label="data.label"
     :state="data.state"
   >
-    <b-form-input
-      :type="data.type || `text`"
-      :value="value"
-      @input="$emit('input', $event)"
-    ></b-form-input>
+    <b-form-file></b-form-file>
   </b-form-group>
 </template>
 
 <script>
 export default {
-  props: ["data", "value"]
+  props: ["data"]
 };
 </script>
 

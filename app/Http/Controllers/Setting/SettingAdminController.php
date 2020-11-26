@@ -7,6 +7,7 @@ use App\Services\AppSettings\ConfigSettings;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use QCod\Settings\Setting\SettingStorage;
+use Redirect;
 
 class SettingAdminController extends Controller
 {
@@ -23,8 +24,10 @@ class SettingAdminController extends Controller
     );
   }
 
-  // public function update(Request $request, ConfigSettings $configSettings)
-  // {
-  //   # code...
-  // }
+  public function update(Request $request, ConfigSettings $configSettings)
+  {
+    $this->validate($request, $configSettings->getValidationRules());
+    $configSettings->save($request);
+    return Redirect::route('admin.setting');
+  }
 }

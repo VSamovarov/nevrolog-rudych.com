@@ -9,7 +9,7 @@ return [
 
           'inputs' => [
               [
-                  'name' => 'app_name', // unique key for setting
+                  'name' => 'app_nameiii', // unique key for setting
                   'type' => 'text', // type of input can be text, number, textarea, select, boolean, checkbox etc.
                   'label' => 'App Name', // label for input
                   // optional properties
@@ -40,14 +40,14 @@ return [
 
           'inputs' => [
               [
-                  'name' => 'from_email',
+                  'name' => 'from_emailllll',
                   'type' => 'email',
                   'label' => 'From Email',
                   'placeholder' => 'Application from email',
                   'rules' => 'required|email',
               ],
               [
-                  'name' => 'from_name',
+                  'name' => 'from_nameiiiii',
                   'type' => 'text',
                   'label' => 'Email from Name',
                   'placeholder' => 'Email from Name',

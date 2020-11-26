@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
 Route::get('/setting', [SettingAdminController::class, 'index'])->name('setting');
+Route::post('/setting', [SettingAdminController::class, 'update'])->name('setting.update');
 Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
 Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');
 
