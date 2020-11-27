@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSettingsTable extends Migration
+class AddGroupColumnOnSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->text('val')->nullable();
-            $table->timestamps();
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropUnique('settings_name_unique');
+            $table->string('group')->default('default');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->dropColumn('group');
+        });
     }
 }
