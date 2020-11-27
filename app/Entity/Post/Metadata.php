@@ -6,7 +6,7 @@ use App\Entity\Post\Post;
 
 class Metadata extends Model
 {
-  private $cats = [
+  private $casts  = [
     'value' => 'array'
   ];
   public function post()

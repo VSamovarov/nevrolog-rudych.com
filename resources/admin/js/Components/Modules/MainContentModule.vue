@@ -9,7 +9,10 @@
         <b-form-group description="Обязательный параметр" label="Название">
           <b-form-input v-model="values.title" trim></b-form-input>
         </b-form-group>
-        <b-form-group description="Выводится в списке" label="Краткое содержание">
+        <b-form-group
+          description="Выводится в списке"
+          label="Краткое содержание"
+        >
           <b-form-textarea v-model="values.excerpt"></b-form-textarea>
         </b-form-group>
         <b-form-group label="Основное содержание">
@@ -24,44 +27,46 @@
 const defaultProperties = {
   title: null,
   content: null,
-  excerpt: null,
-}
+  excerpt: null
+};
 
-import { fillDefaultProperties } from './../../Helpers/Obj';
+import { fillDefaultProperties } from "./../../Helpers/Obj";
 import ModuleWrapper from "./../../Components/Common/ModuleWrapper";
 import Editor from "./../../Components/Common/CkEditor/CkEditorClassic";
-
 
 export default {
   components: {
     ModuleWrapper,
     Editor
   },
-  props: ["translations", "locales","props"],
+  props: ["translations", "locales"],
   data() {
     return {
-      moduleId: 'main-content-module',
+      moduleId: "main-content-module",
       fields: {}
     };
   },
   created() {
     // Формируем данные
     for (let lang in this.locales) {
-      this.fields[lang] = fillDefaultProperties (
+      this.fields[lang] = fillDefaultProperties(
         defaultProperties,
         this.translations.find((item, key) => item.lang === lang)
-      )
-    };
+      );
+    }
   },
   watch: {
-    fields:  {
-      handler () {
-        this.$emit('updateDataModules', { key: this.moduleId, data: this.fields })
+    fields: {
+      handler() {
+        this.$emit("updateDataModules", {
+          key: this.moduleId,
+          data: this.fields
+        });
       },
       immediate: true,
       deep: true
     }
-  },
+  }
 };
 </script>
 <style></style>
