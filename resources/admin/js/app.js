@@ -24,24 +24,25 @@ InertiaProgress.init();
 import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
 
 import {
-    NavbarPlugin,
-    BootstrapVueIcons,
-    ButtonPlugin,
-    ButtonGroupPlugin,
-    PaginationPlugin,
-    FormTextareaPlugin,
-    LayoutPlugin,
-    TablePlugin,
-    FormCheckboxPlugin,
-    FormSelectPlugin,
-    FormInputPlugin,
-    FormGroupPlugin,
-    ModalPlugin,
-    SkeletonPlugin,
-    AlertPlugin,
-    OverlayPlugin,
-    TabsPlugin,
-    CollapsePlugin
+  NavbarPlugin,
+  BootstrapVueIcons,
+  ButtonPlugin,
+  ButtonGroupPlugin,
+  PaginationPlugin,
+  FormTextareaPlugin,
+  LayoutPlugin,
+  TablePlugin,
+  FormCheckboxPlugin,
+  FormSelectPlugin,
+  FormInputPlugin,
+  FormFilePlugin,
+  FormGroupPlugin,
+  ModalPlugin,
+  SkeletonPlugin,
+  AlertPlugin,
+  OverlayPlugin,
+  TabsPlugin,
+  CollapsePlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -54,6 +55,7 @@ Vue.use(LayoutPlugin);
 Vue.use(TablePlugin);
 Vue.use(FormCheckboxPlugin);
 Vue.use(FormSelectPlugin);
+Vue.use(FormFilePlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormTextareaPlugin);
 Vue.use(ModalPlugin);
@@ -66,11 +68,11 @@ Vue.use(CollapsePlugin);
 const app = document.getElementById("app");
 
 new Vue({
-    render: h =>
-        h(InertiaApp, {
-            props: {
-                initialPage: JSON.parse(app.dataset.page),
-                resolveComponent: name => require(`./Pages/${name}`).default
-            }
-        })
+  render: h =>
+    h(InertiaApp, {
+      props: {
+        initialPage: JSON.parse(app.dataset.page),
+        resolveComponent: name => require(`./Pages/${name}`).default
+      }
+    })
 }).$mount(app);

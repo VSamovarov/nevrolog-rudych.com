@@ -24,12 +24,4 @@ Route::get('/posts', function () {
 });
 
 
-// Route::get('/test', TestController::class);
-Route::get('/test', function () {
-  return view('front.pages.coming-soon');
-});
-// Route::get('/linkstorage', function () {
-//     $targetFolder = storage_path("app/public");
-//     $linkFolder = $_SERVER['DOCUMENT_ROOT'] . '/storage';
-//     symlink($targetFolder, $linkFolder);
-// });
+Route::get('/test', TestController::class);

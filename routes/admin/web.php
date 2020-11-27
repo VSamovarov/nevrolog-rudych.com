@@ -3,7 +3,6 @@
 use App\Http\Controllers\Feedback\FeedbackAdminController;
 use App\Http\Controllers\Post\PostAdminController;
 use App\Http\Controllers\Setting\SettingAdminController;
-use App\Http\Controllers\TestAdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [FeedbackAdminController::class, 'index'])->name('home');
+Route::get('/setting', [SettingAdminController::class, 'index'])->name('setting');
+Route::post('/setting', [SettingAdminController::class, 'update'])->name('setting.update');
 Route::resource('/feedback', FeedbackAdminController::class)->except('destroy');
 Route::post('/feedback/mass-actions', [FeedbackAdminController::class, 'massActions'])->name('feedback.mass-actions');
 
 Route::resource('/post', PostAdminController::class)->except(['destroy', 'edit', 'show'])->middleware(['check-type-post']);
 Route::get('/post/{id}/edit', [PostAdminController::class, 'edit'])->name('post.edit');
-
-Route::get('/setting', [SettingAdminController::class, 'index'])->name('setting');
-Route::get('/test', TestAdminController::class)->name('test');

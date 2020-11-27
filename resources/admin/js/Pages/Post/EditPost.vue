@@ -119,7 +119,7 @@ export default {
           type: this.post_type,
           ...this.modulesData
         });
-      } catch(e) {
+      } catch (e) {
         console.log(e);
       } finally {
         this.overlay = false;
