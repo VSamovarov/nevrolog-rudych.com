@@ -41,6 +41,7 @@
                 :locales="locales"
                 @updateMetaDataModules="updateMetaDataModules"
                 @addNewMetaModule="addNewMetaModule"
+                @draggableMetaModules="draggableMetaModules"
               ></MetaData>
             </b-container>
             <hr />
@@ -125,7 +126,9 @@ export default {
     updateDataModules(fileds) {
       this.modulesData[fileds.key] = fileds.data;
     },
-
+    draggableMetaModules(modules) {
+      this.modulesMetaData = Object.assign([], this.modulesMetaData, modules);
+    },
     updateMetaDataModules(module) {
       this.modulesMetaData.map(item => {
         if (item.id === module.id) {

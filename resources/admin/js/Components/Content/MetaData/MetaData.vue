@@ -2,7 +2,7 @@
   <div>
     <draggable
       handle=".card-header"
-      v-model="modules"
+      v-model="draggableList"
       @start="drag = true"
       @end="drag = false"
       class="mb-3"
@@ -72,6 +72,16 @@ export default {
       ]
     };
   },
+  computed: {
+    draggableList: {
+      get() {
+        return this.modules;
+      },
+      set(value) {
+        this.$emit("draggableMetaModules", value);
+      }
+    }
+  },
   methods: {
     addNewModule(slectedValue) {
       if (!slectedValue) return;
@@ -85,12 +95,6 @@ export default {
         type: value,
         id: uid()
       });
-      // this.modules.push({
-      //   data: null,
-      //   title: text,
-      //   name: value,
-      //   id: uid()
-      // });
     }
   }
 };
