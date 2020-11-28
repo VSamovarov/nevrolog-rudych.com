@@ -68,6 +68,10 @@ export default {
         {
           text: "Картинка",
           value: "ImageInput"
+        },
+        {
+          text: "Картинка с текстом",
+          value: "ImageAndTextTwoRows"
         }
       ]
     };

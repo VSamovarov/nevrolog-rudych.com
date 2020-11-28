@@ -2,10 +2,10 @@
   <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
     <label
       :class="{ deleted: deleted }"
-      class="preview p-0 m-0 w-100 text-center btn btn-link"
+      class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
       <img :src="preview" />
-      <p v-if="!deleted" class="text-left d-block p-0 m-0">Изменить</p>
+      <p v-if="!deleted" class="p-0 m-0 text-left d-block">Изменить</p>
       <input
         v-if="!deleted"
         class="d-none"
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     preview() {
-      return this.newfile.url || this.moduleData.src;
+      return this.newfile.url || (this.moduleData && this.moduleData.src) || null;
     }
   },
   methods: {
