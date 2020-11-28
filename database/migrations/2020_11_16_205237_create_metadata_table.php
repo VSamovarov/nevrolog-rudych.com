@@ -15,7 +15,11 @@ class CreateMetadataTable extends Migration
   {
     Schema::create('metadata', function (Blueprint $table) {
       $table->bigIncrements('id');
-      $table->string('group')->default('main')->index();
+      $table->unsignedBigInteger('post_id')->index();
+      $table->foreign('post_id')
+        ->references('id')->on('posts')
+        ->onDelete('cascade');
+      $table->string('title');
       $table->string('key')->index();
       $table->json('value')->nullable();
       $table->unsignedInteger('order')->default(10);
