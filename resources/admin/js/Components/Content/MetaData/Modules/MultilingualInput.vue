@@ -7,8 +7,8 @@
     >
       <b-form-group>
         <b-form-input
-          :value="(moduleData && moduleData.text && moduleData.text[lang]) || null "
-          @input="$emit(`changeData`, { text: { [lang]: $event } })"
+          :value="(moduleData &&  moduleData[lang]) || null "
+          @input="$emit(`changeData`, { [lang]: $event } )"
           trim
         ></b-form-input>
       </b-form-group>

@@ -55,7 +55,7 @@
             </b-container>
           </b-col>
           <b-col md="3">
-            <div class="sticky text-center bg-white p-3">
+            <div class="sticky p-3 text-center bg-white">
               <b-button @click="saveData">Сохранить изменения</b-button>
             </div>
             <DateModule
@@ -132,7 +132,6 @@ export default {
     updateMetaDataModules(module) {
       this.modulesMetaData.map(item => {
         if (item.id === module.id) {
-          console.log(module.data);
           item.data = Object.assign(
             {},
             item.data,
@@ -158,7 +157,8 @@ export default {
       try {
         this.$inertia.put(this.$route("admin.post.update", this.post_id), {
           type: this.post_type,
-          ...this.modulesData
+          ...this.modulesData,
+          metadata: modulesMetaData
         });
       } catch (e) {
         console.log(e);
