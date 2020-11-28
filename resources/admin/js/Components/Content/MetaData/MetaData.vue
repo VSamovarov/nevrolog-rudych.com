@@ -63,7 +63,11 @@ export default {
         },
         {
           text: "Многоязычное поле",
-          value: "InputMultilingual"
+          value: "MultilingualInput"
+        },
+        {
+          text: "Картинка",
+          value: "ImageInput"
         }
       ]
     };

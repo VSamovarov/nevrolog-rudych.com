@@ -16,7 +16,7 @@
           <b-form-textarea v-model="values.excerpt"></b-form-textarea>
         </b-form-group>
         <b-form-group label="Основное содержание">
-          <Editor v-model="values.content"></Editor>
+          <Editor v-model="values.content" :post_id="post_id"></Editor>
         </b-form-group>
       </b-tab>
     </b-tabs>
@@ -39,7 +39,7 @@ export default {
     ModuleWrapper,
     Editor
   },
-  props: ["translations", "locales"],
+  props: ["translations", "locales", "post_id"],
   data() {
     return {
       moduleId: "main-content-module",

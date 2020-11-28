@@ -30,6 +30,7 @@
                 v-if="main.translations"
                 :translations="main.translations"
                 :locales="locales"
+                :post_id="post_id"
                 @updateDataModules="updateDataModules"
               ></MainContentModule>
             </b-container>
