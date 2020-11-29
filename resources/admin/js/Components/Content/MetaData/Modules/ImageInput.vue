@@ -5,7 +5,7 @@
       class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
       <img :src="preview" />
-      <p v-if="!deleted" class="p-0 m-0 text-left d-block">Изменить</p>
+      <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">Изменить</p>
       <input
         v-if="!deleted"
         class="d-none"
@@ -14,10 +14,8 @@
         @change="upload"
       />
     </label>
-    <template v-if="preview">
-      <hr />
-      <b-check @change="remove">Удалить</b-check>
-    </template>
+
+    <b-check v-if="preview !== null" @change="remove">Удалить</b-check>
   </b-overlay>
 </template>
 
@@ -90,6 +88,14 @@ export default {
 </script>
 
 <style>
+.preview {
+  position: relative;
+}
+.preview .change-image {
+  position: absolute;
+  top:4px;
+  left: 4px;
+}
 .preview img {
   max-width: 100%;
   height: auto;
