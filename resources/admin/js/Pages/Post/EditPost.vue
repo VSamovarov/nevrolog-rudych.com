@@ -130,19 +130,19 @@ export default {
       this.modulesMetaData = Object.assign([], this.modulesMetaData, modules);
     },
     updateMetaDataModules(module) {
+      console.log(module);
       this.modulesMetaData.map(item => {
         if (item.id === module.id) {
-          item.data = Object.assign(
+          item = Object.assign(
             {},
-            item.data,
-            merge(item.data, module.data)
+            item,
+            merge(item, module)
           );
         }
         return item;
       });
     },
     addNewMetaModule(module) {
-      module.data = {};
       this.modulesMetaData.push(Object.assign({}, module));
     },
     updateAlerts(alert) {

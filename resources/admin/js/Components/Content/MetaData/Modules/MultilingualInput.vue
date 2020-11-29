@@ -7,8 +7,8 @@
     >
       <b-form-group>
         <b-form-input
-          :value="(moduleData &&  moduleData[lang]) || null "
-          @input="$emit(`changeData`, { [lang]: $event } )"
+          :value="(module && module.content && module.content[lang]) || null "
+          @input="changeInput(lang,  $event)"
           trim
         ></b-form-input>
       </b-form-group>
@@ -18,8 +18,19 @@
 
 <script>
 export default {
-  name: "MultilingualInput",
-  props: ["moduleData", "locales"]
+  props: ["module", "locales"],
+  data() {
+    return {
+      type: 'multilingual-input'
+    }
+  },
+  methods: {
+    changeInput(lang, value) {
+      const module = { ...this.module, type: this.type};
+      module.content = {...module.content, [lang]: value };
+      this.$emit(`changeModule`, module);
+    }
+  }
 };
 </script>
 

@@ -31,14 +31,15 @@
  */
 
 export default {
-  name: "ImageInput",
-  props: ["moduleData"],
+  props: ["module"],
   data() {
     return {
+      type: 'image-input',
       newfile: {
         pach: "",
         url: "",
-        name: ""
+        name: "",
+
       },
       deleted: false,
       route: this.$route("admin.api.tmp-files-upload"),
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     preview() {
-      return this.newfile.url || (this.moduleData && this.moduleData.src) || null;
+      return this.newfile.url || ( this.module && this.module.content && this.module.content.src ) || null;
     }
   },
   methods: {
@@ -70,14 +71,19 @@ export default {
           url: data[0]["url"]
         };
         //Отправляем данные вверх
-        this.$emit(`changeData`, { newfile: this.newfile });
+
+        const module = { ...this.module, type: this.type};
+        module.content = {...module.content, newfile: this.newfile};
+        this.$emit(`changeModule`, module);
       } catch (e) {
         throw e;
       }
     },
     remove(e) {
       this.deleted = e;
-      this.$emit(`changeData`, { delete: this.deleted });
+      const module = { ...this.module, type: this.type};
+      module.content = {...module.content, delete: this.deleted };
+      this.$emit(`changeModule`, module);
     }
   }
 };

@@ -4,15 +4,15 @@
           <div class="row image-and-text-two-rows__wrapper">
               <div class="col-md-6 image-and-text-two-rows__image">
                 <ImageInput
-                  :moduleData="moduleData.image || null"
-                  @changeData="$emit(`changeData`, { image: $event })"
+                  :module="(module && module.image) || null"
+                  @changeModule="changeModule({image:$event})"
                 ></ImageInput>
               </div>
               <div class="col-md-6">
                 <MultilingualInput
-                  :moduleData="moduleData.content || null"
+                  :content="(module && module.text) || null"
                   :locales="locales"
-                  @changeData="$emit(`changeData`, { content: $event })"
+                  @changeModule="changeModule({text:$event})"
                   ></MultilingualInput>
               </div>
           </div>
@@ -27,14 +27,22 @@ import MultilingualInput from "../Modules/MultilingualInput";
 export default {
   data() {
     return {
-      reverse: false
+      type: 'image-and-text-two-rows',
+      reverse: false,
     }
   },
   components: {
     ImageInput,
     MultilingualInput
   },
-  props: ["moduleData", "locales"],
+  props: ["module", "locales"],
+  methods: {
+    changeModule(value) {
+      const module = {...this.module, type: this.type};
+      module.content = {...module.content, ...value};
+      this.$emit(`changeModule`, module);
+    }
+  }
 };
 </script>
 

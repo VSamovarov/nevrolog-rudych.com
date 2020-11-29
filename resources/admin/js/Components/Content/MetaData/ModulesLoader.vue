@@ -1,34 +1,32 @@
 <template>
   <component
-    :is="module"
-    :type="type"
-    :id="id"
-    :moduleData="moduleData"
+    :is="moduleComponent"
+    :module="module"
     :locales="locales"
-    @changeData="$emit(`changeData`, { id, data: $event })"
+    @changeModule="$emit(`changeModule`, $event)"
   >
   </component>
 </template>
 
 <script>
 export default {
-  props: ["type", "id", "moduleData", "locales"],
+  props: ["module", "locales"],
   data() {
     return {
-      module: null
+      moduleComponent: null
     };
   },
   computed: {
     loader() {
-      if (!this.type) {
+      if (!this.module.name) {
         return null;
       }
-      return () => import(`./Modules/${this.type}`);
+      return () => import(`./Modules/${this.module.name}`);
     }
   },
   mounted: function() {
     this.loader().then(() => {
-      this.module = () => ({
+      this.moduleComponent = () => ({
         // Загружаемый компонент. Значение должно быть Promise
         component: this.loader(),
         // Компонент загрузки, используемый пока загружается асинхронный компонент

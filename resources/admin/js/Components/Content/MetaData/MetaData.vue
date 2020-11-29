@@ -10,11 +10,9 @@
       <template v-for="module in modules">
         <ModuleWrapper :title="module.title" :key="module.id">
           <ModulesLoader
-            :type="module.type"
-            :id="module.id"
-            :moduleData="module.data"
+            :module="module"
             :locales="locales"
-            @changeData="$emit(`updateMetaDataModules`, $event)"
+            @changeModule="$emit(`updateMetaDataModules`,$event)"
           >
           </ModulesLoader>
         </ModuleWrapper>
@@ -94,13 +92,15 @@ export default {
       );
       this.showSelectedNewModules = false;
       this.$emit("addNewMetaModule", {
-        data: null,
+        content: {},
+        type: '',
         title: text,
-        type: value,
+        name: value,
         id: uid()
       });
     }
-  }
+  },
+
 };
 </script>
 
