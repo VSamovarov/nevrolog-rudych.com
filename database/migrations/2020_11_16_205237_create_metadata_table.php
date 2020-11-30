@@ -21,7 +21,7 @@ class CreateMetadataTable extends Migration
         ->onDelete('cascade');
       $table->string('title');
       $table->string('key')->index();
-      $table->json('value')->nullable();
+      $table->longText('value')->nullable();
       $table->unsignedInteger('order')->default(10);
       $table->timestamps();
     });

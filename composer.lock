@@ -3331,10 +3331,6 @@
                 "laravel",
                 "qcod"
             ],
-            "support": {
-                "issues": "https://github.com/qcod/laravel-settings/issues",
-                "source": "https://github.com/qcod/laravel-settings/tree/1.0.9"
-            },
             "time": "2020-09-14T01:17:40+00:00"
         },
         {

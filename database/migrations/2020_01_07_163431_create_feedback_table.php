@@ -20,7 +20,7 @@ class CreateFeedbackTable extends Migration
             $table->string('phone', 20)->nullable();
             $table->text('message')->nullable();
             $table->tinyInteger('viewed')->default(0);
-            $table->json('form_data')->nullable();
+            $table->longText('form_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
