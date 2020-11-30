@@ -25,21 +25,37 @@
                 </b-col>
               </b-row>
             </b-container>
-            <MainContentModule
-              v-if="main.translations"
-              :translations="main.translations"
-              :locales="locales"
-              @updateDataModules="updateDataModules"
-            ></MainContentModule>
-            <SeoMetaModule
-              v-if="main.translations"
-              :translations="main.translations"
-              :locales="locales"
-              @updateDataModules="updateDataModules"
-            ></SeoMetaModule>
+            <b-container fluid class="my-5">
+              <MainContentModule
+                v-if="main.translations"
+                :translations="main.translations"
+                :locales="locales"
+                :post_id="post_id"
+                @updateDataModules="updateDataModules"
+              ></MainContentModule>
+            </b-container>
+            <hr />
+            <b-container fluid class="my-5">
+              <MetaData
+                :modules="modulesMetaData"
+                :locales="locales"
+                @updateMetaDataModules="updateMetaDataModules"
+                @addNewMetaModule="addNewMetaModule"
+                @draggableMetaModules="draggableMetaModules"
+              ></MetaData>
+            </b-container>
+            <hr />
+            <b-container fluid class="my-5">
+              <SeoMetaModule
+                v-if="main.translations"
+                :translations="main.translations"
+                :locales="locales"
+                @updateDataModules="updateDataModules"
+              ></SeoMetaModule>
+            </b-container>
           </b-col>
           <b-col md="3">
-            <div class="sticky text-center bg-white p-3">
+            <div class="sticky p-3 text-center bg-white">
               <b-button @click="saveData">Сохранить изменения</b-button>
             </div>
             <DateModule
@@ -70,6 +86,9 @@ import SeoMetaModule from "./../../Components/Modules/SeoMetaModule";
 import DateModule from "./../../Components/Modules/DateModule";
 import PostStatusModule from "./../../Components/Modules/PostStatusModule";
 import ThumbnailModule from "./../../Components/Modules/ThumbnailModule";
+import MetaData from "./../../Components/Content/MetaData/MetaData";
+
+import { merge } from "lodash";
 
 const mainSeoModuleValues = {
   title: "",
@@ -89,12 +108,14 @@ export default {
     MainContentModule,
     DateModule,
     PostStatusModule,
-    ThumbnailModule
+    ThumbnailModule,
+    MetaData
   },
   props: ["main", "locales", "statuses"],
   data() {
     return {
       modulesData: {},
+      modulesMetaData: [],
       overlay: false,
       post_id: this.main.id,
       post_type: this.main.type,
@@ -104,6 +125,25 @@ export default {
   methods: {
     updateDataModules(fileds) {
       this.modulesData[fileds.key] = fileds.data;
+    },
+    draggableMetaModules(modules) {
+      this.modulesMetaData = Object.assign([], this.modulesMetaData, modules);
+    },
+    updateMetaDataModules(module) {
+      console.log(module);
+      this.modulesMetaData.map(item => {
+        if (item.id === module.id) {
+          item = Object.assign(
+            {},
+            item,
+            merge(item, module)
+          );
+        }
+        return item;
+      });
+    },
+    addNewMetaModule(module) {
+      this.modulesMetaData.push(Object.assign({}, module));
     },
     updateAlerts(alert) {
       if (alert.data === null) {
@@ -117,9 +157,10 @@ export default {
       try {
         this.$inertia.put(this.$route("admin.post.update", this.post_id), {
           type: this.post_type,
-          ...this.modulesData
+          ...this.modulesData,
+          metadata: modulesMetaData
         });
-      } catch(e) {
+      } catch (e) {
         console.log(e);
       } finally {
         this.overlay = false;

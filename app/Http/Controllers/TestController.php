@@ -9,6 +9,7 @@ use App\Entity\Post\Services\PostQueries;
 use App\Services\Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Services\ConfigsLoader\ConfigsLoader;
 
 class TestController extends Controller
 {
@@ -18,12 +19,16 @@ class TestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request  $request, Helper $helper)
+    public function __invoke()
     {
-        $name = 'dffff.ghhhh.12345.gif';
-        $ext = mb_substr(strrchr($name, '.'), 1);
-        $basename = mb_substr($name, 0,  - (mb_strlen($ext) + 1));
-        dd(helper::normalizeFileName($name));
-        // phpinfo();
+      dd([]['ffff']);
+      $load = new ConfigsLoader();
+
+      dump($load->get(app_path('Services/AppSettings/config'),true));
+      dump($load->get(app_path('Services/AppSettings/config')));
+      dump($load->get(app_path('Services/AppSettings/config')));
+      dump($load->get(app_path('Services/AppSettings/config')));
+      dump($load->get(app_path('Services/AppSettings/config')));
+      dump($load->get(app_path('Services/AppSettings/config')));
     }
 }

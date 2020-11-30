@@ -97,13 +97,28 @@ final class PostQueries implements ServiceQueries
   }
 
   /**
-   * типы
+   * Все данные по всем типам поста
    *
    * @return array|null
    */
   public function getTypes(): ?array
   {
     return $this->model->getTypes();
+  }
+
+  /**
+   * Возвращаем данные определенного типа
+   *
+   * @param string $type
+   * @return array|null
+   */
+  public function getType(string $type): ?array
+  {
+    $types = $this->getTypes();
+    if($types === null ) return null;
+    if(!empty($types)) {
+      return $types[$type]??null;
+    }
   }
 
   /**
