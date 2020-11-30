@@ -1,7 +1,8 @@
-
 <template>
   <footer>
-    <div class="container-fluid">Produktoff {{ new Date().getFullYear() }}</div>
+    <div class="container-fluid">
+      nevrolog-rudych.com {{ new Date().getFullYear() }}
+    </div>
   </footer>
 </template>
 
