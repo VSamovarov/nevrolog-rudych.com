@@ -8,11 +8,17 @@
       class="mb-3"
     >
       <template v-for="module in modules">
-        <ModuleWrapper :title="module.title" :key="module.id">
+        <ModuleWrapper
+          :title="module.title"
+          :key="module.id"
+          class="movable"
+          :renameModule="renameModule(module)"
+          :deleteModule="deleteModule(module)"
+        >
           <ModulesLoader
             :module="module"
             :locales="locales"
-            @changeModule="$emit(`updateMetaDataModules`,$event)"
+            @changeModule="$emit(`updateMetaDataModules`, $event)"
           >
           </ModulesLoader>
         </ModuleWrapper>
@@ -93,14 +99,55 @@ export default {
       this.showSelectedNewModules = false;
       this.$emit("addNewMetaModule", {
         content: {},
-        type: '',
+        type: "",
         title: text,
         name: value,
         id: uid()
       });
-    }
-  },
+    },
+    renameModule(module) {
+      return () => {
+        const h = this.$createElement;
+        let newName = module.title;
+        const messageVNode = h("div", {}, [
+          "Новое название",
+          h("b-form-input", {
+            props: { value: module.title },
+            on: {
+              input: value => (newName = value)
+            }
+          })
+        ]);
+        this.$bvModal
+          .msgBoxConfirm([messageVNode], {
+            title: false,
+            buttonSize: "sm",
+            centered: true,
+            size: "sm"
+          })
+          .then(value => {
+            // this.boxOne = value;
 
+            this.$emit(`updateMetaDataModules`, { ...module, title: newName });
+          })
+          .catch(err => {
+            // An error occurred
+          });
+      };
+    },
+    deleteModule(module) {
+      return () => {
+        this.$bvModal
+          .msgBoxConfirm("Удалить модуль?")
+          .then(value => {
+            if (value) this.$emit("removeMetaModules", module);
+          })
+          .catch(err => {
+            // An error occurred
+          });
+      };
+    }
+  }
 };
 </script>
 

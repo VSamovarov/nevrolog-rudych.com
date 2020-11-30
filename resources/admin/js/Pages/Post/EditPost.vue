@@ -42,6 +42,7 @@
                 @updateMetaDataModules="updateMetaDataModules"
                 @addNewMetaModule="addNewMetaModule"
                 @draggableMetaModules="draggableMetaModules"
+                @removeMetaModules="removeMetaModules"
               ></MetaData>
             </b-container>
             <hr />
@@ -129,15 +130,14 @@ export default {
     draggableMetaModules(modules) {
       this.modulesMetaData = Object.assign([], this.modulesMetaData, modules);
     },
+    removeMetaModules(module) {
+      const index = this.modulesMetaData.findIndex(item => item === module);
+      this.modulesMetaData.splice(index, 1);
+    },
     updateMetaDataModules(module) {
-      console.log(module);
       this.modulesMetaData.map(item => {
         if (item.id === module.id) {
-          item = Object.assign(
-            {},
-            item,
-            merge(item, module)
-          );
+          item = Object.assign({}, item, merge(item, module));
         }
         return item;
       });
