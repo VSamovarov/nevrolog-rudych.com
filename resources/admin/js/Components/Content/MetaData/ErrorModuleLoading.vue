@@ -1,5 +1,3 @@
 <template>
-  <div>
-    Ошибка загрузки модуля
-  </div>
+  <b-alert show variant="danger">Ошибка загрузки модуля</b-alert>
 </template>
