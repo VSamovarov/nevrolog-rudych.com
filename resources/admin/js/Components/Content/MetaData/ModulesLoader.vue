@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="moduleComponent"
+    :is="loader"
     :module="module"
     :locales="locales"
     :post="post"
@@ -10,30 +10,24 @@
 </template>
 
 <script>
-import Vue from "vue";
+import LoadingComponent from "./StartModuleLoading";
+import ErrorComponent from "./ErrorModuleLoading";
 export default {
   props: ["module", "locales", "post"],
-  data() {
-    return {
-      moduleComponent: null
-    };
+  components: {
+    LoadingComponent,
+    ErrorComponent
   },
   computed: {
     loader() {
-      if (!this.module.name) {
-        return null;
-      }
-      return () => import(`./Modules/${this.module.name}`);
-    }
-  },
-  mounted: function() {
-    this.loader()
-      .then(() => {
-        this.moduleComponent = () => this.loader();
-      })
-      .catch(() => {
-        this.module = () => import("./ErrorModuleLoading.vue");
+      return () => ({
+        component: import(`./Modules/${this.module.name}`),
+        loading: LoadingComponent,
+        error: ErrorComponent,
+        delay: 100,
+        timeout: 3000
       });
+    }
   }
 };
 </script>
