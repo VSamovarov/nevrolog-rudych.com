@@ -39,6 +39,7 @@
               <MetaData
                 :modules="modulesMetaData"
                 :locales="locales"
+                :post="main"
                 @updateMetaDataModules="updateMetaDataModules"
                 @addNewMetaModule="addNewMetaModule"
                 @draggableMetaModules="draggableMetaModules"

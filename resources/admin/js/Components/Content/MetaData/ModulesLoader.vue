@@ -3,6 +3,7 @@
     :is="moduleComponent"
     :module="module"
     :locales="locales"
+    :post="post"
     @changeModule="$emit(`changeModule`, $event)"
   >
   </component>
@@ -10,7 +11,7 @@
 
 <script>
 export default {
-  props: ["module", "locales"],
+  props: ["module", "locales", "post"],
   data() {
     return {
       moduleComponent: null

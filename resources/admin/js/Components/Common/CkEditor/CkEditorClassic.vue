@@ -9,26 +9,30 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 import UploadAdapter from "./UploadAdapter";
-
 import InlineEditor from "@blowstack/ckeditor5-full-free-build";
 
+let url = "";
 function UploadAdapterPlugin(editor) {
   editor.plugins.get("FileRepository").createUploadAdapter = loader => {
     return new UploadAdapter(loader, url);
   };
 }
+
 export default {
   props: ["value", "post_id"],
   methods: {
     changeContent(value) {}
   },
+  created() {
+    /**
+     * ! Мутируем внешнюю переменную
+     */
+    url = this.$route("admin.api.post.add-image", this.post_id);
+  },
   data() {
     return {
       editor: InlineEditor,
-      url: this.$route("admin.api.post.add-image", this.post_id),
       editorConfig: {
         removePlugins: ["Title", "simpleUpload"],
         extraPlugins: [UploadAdapterPlugin],

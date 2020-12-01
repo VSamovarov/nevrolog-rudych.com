@@ -18,6 +18,7 @@
           <ModulesLoader
             :module="module"
             :locales="locales"
+            :post="post"
             @changeModule="$emit(`updateMetaDataModules`, $event)"
           >
           </ModulesLoader>
@@ -56,7 +57,7 @@ import { uid } from "./../../../Helpers/Sting";
 import ModuleWrapper from "./../../Common/ModuleWrapper";
 export default {
   components: { ModulesLoader, draggable, ModuleWrapper },
-  props: ["modules", "locales"],
+  props: ["modules", "locales", "post"],
   data() {
     return {
       showSelectedNewModules: false,
@@ -76,6 +77,10 @@ export default {
         {
           text: "Картинка с текстом",
           value: "ImageAndTextTwoRows"
+        },
+        {
+          text: "Текстовый редактор",
+          value: "Editor"
         }
       ]
     };
