@@ -1,26 +1,29 @@
 <template>
-  <div class="container">
-    <div class="row" :class="{'flex-row-reverse':reverse}">
+  <div>
+    <div class="row" :class="{ 'flex-row-reverse': reverse }">
       <div class="col-md-4">
-        <h5>Картинка</h5>
+        <p class="text-black-50 small">Картинка</p>
         <ImageInput
           :module="(module && module.image) || null"
-          @changeModule="changeModule({image:$event})"
+          :locales="locales"
+          @changeModule="changeModule({ image: $event })"
         ></ImageInput>
       </div>
       <div class="col-md-8">
-        <h5>Teкст</h5>
-        <MultilingualInput
-          :content="(module && module.text) || null"
+        <p class="text-black-50 small">Teкст</p>
+        <MultilingualEditor
+          :module="(module && module.text) || null"
           :locales="locales"
-          @changeModule="changeModule({text:$event})"
-          ></MultilingualInput>
+          :post="post"
+          @changeModule="changeModule({ text: $event })"
+        ></MultilingualEditor>
       </div>
     </div>
+    <hr />
     <div class="row">
       <div class="col-md-12">
-        <h5>Настройки</h5>
-        алалал
+        <p class="text-black-50 small">Настройки</p>
+        Картинка справа (внизу)
       </div>
     </div>
   </div>
@@ -29,29 +32,29 @@
 <script>
 import ImageInput from "../Modules/ImageInput";
 import MultilingualInput from "../Modules/MultilingualInput";
+import MultilingualEditor from "../Modules/Editor";
 
 export default {
   data() {
     return {
-      type: 'image-and-text-two-rows',
-      reverse: false,
-    }
+      type: "image-and-text-two-rows",
+      reverse: false
+    };
   },
   components: {
     ImageInput,
-    MultilingualInput
+    MultilingualInput,
+    MultilingualEditor
   },
-  props: ["module", "locales"],
+  props: ["module", "locales", "post"],
   methods: {
     changeModule(value) {
-      const module = {...this.module, type: this.type};
-      module.content = {...module.content, ...value};
+      const module = { ...this.module, type: this.type };
+      module.content = { ...module.content, ...value };
       this.$emit(`changeModule`, module);
     }
   }
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,14 +1,10 @@
 <template>
-  <b-tabs content-class="mt-3">
-    <b-tab
-      v-for="(values, lang) in locales"
-      :key="lang"
-      :title="locales[lang].native"
-    >
+  <b-tabs small>
+    <b-tab v-for="(values, lang) in locales" :key="lang" :title="lang">
       <b-form-group>
         <b-form-input
-          :value="(module && module.content && module.content[lang]) || null "
-          @input="changeInput(lang,  $event)"
+          :value="(module && module.content && module.content[lang]) || null"
+          @input="changeInput(lang, $event)"
           trim
         ></b-form-input>
       </b-form-group>
@@ -21,14 +17,15 @@ export default {
   props: ["module", "locales"],
   data() {
     return {
-      type: 'multilingual-input'
-    }
+      type: "multilingual-input"
+    };
   },
   methods: {
     changeInput(lang, value) {
-      const module = { ...this.module, type: this.type};
-      module.content = {...module.content, [lang]: value };
-      this.$emit(`changeModule`, module);
+      this.$emit(`changeModule`, {
+        ...this.module,
+        ...{ type: this.type, content: { ...this.module, [lang]: value } }
+      });
     }
   }
 };

@@ -1,9 +1,11 @@
 <template>
-  <b-tabs content-class="mt-3">
+  <b-tabs small>
     <b-tab
       v-for="(values, lang) in locales"
       :key="lang"
-      :title="locales[lang].native"
+      :title="lang"
+      vertical
+      end
     >
       <b-form-group>
         <Editor

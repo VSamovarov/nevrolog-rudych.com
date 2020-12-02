@@ -101,3 +101,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.ck.ck-editor {
+  min-height: 15rem;
+}
+</style>

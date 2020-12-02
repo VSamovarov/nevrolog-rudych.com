@@ -11,15 +11,28 @@
         <ModuleWrapper
           :title="module.title"
           :key="module.id"
-          class="movable"
+          class="movable meta-modules"
+          :class="module.type"
           :renameModule="renameModule(module)"
           :deleteModule="deleteModule(module)"
         >
+          <SectionTitle
+            :module="module"
+            :locales="locales"
+            v-if="loaded[module.id]"
+            @changeModule="
+              $emit(`updateMetaDataModules`, {
+                ...module,
+                sectionTitle: { ...module.sectionTitle, ...$event.content }
+              })
+            "
+          ></SectionTitle>
           <ModulesLoader
             :module="module"
             :locales="locales"
             :post="post"
             @changeModule="$emit(`updateMetaDataModules`, $event)"
+            @isLoaded="$set(loaded, [module.id], $event)"
           >
           </ModulesLoader>
         </ModuleWrapper>
@@ -55,12 +68,20 @@ import ModulesLoader from "./../MetaData/ModulesLoader";
 import draggable from "vuedraggable";
 import { uid } from "./../../../Helpers/Sting";
 import ModuleWrapper from "./../../Common/ModuleWrapper";
+import SectionTitle from "./Modules/SectionTitle";
 export default {
-  components: { ModulesLoader, draggable, ModuleWrapper },
+  components: { ModulesLoader, draggable, ModuleWrapper, SectionTitle },
   props: ["modules", "locales", "post"],
   data() {
     return {
       showSelectedNewModules: false,
+      /**
+       * ! Надо как то переделать
+       * Id модулей, которые уже загружены.
+       * Необходимы чтоб поле заглавие секции
+       * загружалось уже после отображение асинхронного компонента
+       */
+      loaded: {},
       newModules: [
         {
           text: "-- Выбрать модуль --",
@@ -104,7 +125,7 @@ export default {
       this.showSelectedNewModules = false;
       this.$emit("addNewMetaModule", {
         content: {},
-        type: "",
+        type: null,
         title: text,
         name: value,
         id: uid()
@@ -156,4 +177,16 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.meta-modules .nav-tabs,
+.meta-modules .nav-tabs .nav-link {
+  border: none;
+}
+.meta-modules .nav-tabs .nav-link {
+  padding: 0.1rem 1rem;
+}
+.meta-modules .nav-tabs .nav-link.active {
+  background: var(--ck-color-switch-button-off-hover-background);
+  color: #fff;
+}
+</style>

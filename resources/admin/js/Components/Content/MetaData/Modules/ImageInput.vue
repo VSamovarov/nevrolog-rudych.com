@@ -5,7 +5,9 @@
       class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
       <img :src="preview" />
-      <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">Изменить</p>
+      <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">
+        Изменить
+      </p>
       <input
         v-if="!deleted"
         class="d-none"
@@ -20,24 +22,17 @@
 </template>
 
 <script>
-/**
- * image {
- *     src,
- *     width,
- *     height,
- * }
- */
-
+import SectionTitle from "./SectionTitle";
 export default {
-  props: ["module"],
+  props: ["module", "locales"],
+  components: { SectionTitle },
   data() {
     return {
-      type: 'image-input',
+      type: "image-input",
       newfile: {
         pach: "",
         url: "",
-        name: "",
-
+        name: ""
       },
       deleted: false,
       route: this.$route("admin.api.tmp-files-upload"),
@@ -47,7 +42,11 @@ export default {
   },
   computed: {
     preview() {
-      return this.newfile.url || ( this.module && this.module.content && this.module.content.src ) || null;
+      return (
+        this.newfile.url ||
+        (this.module && this.module.content && this.module.content.src) ||
+        null
+      );
     }
   },
   methods: {
@@ -70,8 +69,8 @@ export default {
         };
         //Отправляем данные вверх
 
-        const module = { ...this.module, type: this.type};
-        module.content = {...module.content, newfile: this.newfile};
+        const module = { ...this.module, type: this.type };
+        module.content = { ...module.content, newfile: this.newfile };
         this.$emit(`changeModule`, module);
       } catch (e) {
         throw e;
@@ -79,8 +78,8 @@ export default {
     },
     remove(e) {
       this.deleted = e;
-      const module = { ...this.module, type: this.type};
-      module.content = {...module.content, delete: this.deleted };
+      const module = { ...this.module, type: this.type };
+      module.content = { ...module.content, delete: this.deleted };
       this.$emit(`changeModule`, module);
     }
   }
@@ -93,7 +92,7 @@ export default {
 }
 .preview .change-image {
   position: absolute;
-  top:4px;
+  top: 4px;
   left: 4px;
 }
 .preview img {
