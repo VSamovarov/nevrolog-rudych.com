@@ -1,20 +1,30 @@
 <template>
-  <b-tabs small>
-    <b-tab v-for="(values, lang) in locales" :key="lang" :title="lang">
-      <b-form-group>
-        <b-form-input
-          :value="(module && module.content && module.content[lang]) || null"
-          @input="changeInput(lang, $event)"
-          trim
-        ></b-form-input>
-      </b-form-group>
-    </b-tab>
-  </b-tabs>
+  <div>
+    <p v-if="title" class="text-black-50 small">{{ title }}</p>
+    <b-tabs small>
+      <b-tab v-for="(values, lang) in locales" :key="lang" :title="lang">
+        <b-form-group>
+          <b-form-input
+            :value="(module && module.content && module.content[lang]) || null"
+            @input="changeInput(lang, $event)"
+            trim
+          ></b-form-input>
+        </b-form-group>
+      </b-tab>
+    </b-tabs>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["module", "locales"],
+  props: {
+    module: Object,
+    locales: Object,
+    title: {
+      type: String,
+      default: "Текст"
+    }
+  },
   data() {
     return {
       type: "multilingual-input"

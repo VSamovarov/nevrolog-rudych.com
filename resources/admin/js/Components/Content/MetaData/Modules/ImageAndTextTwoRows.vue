@@ -2,16 +2,17 @@
   <div>
     <div class="row" :class="{ 'flex-row-reverse': reverse }">
       <div class="col-md-4">
-        <p class="text-black-50 small">Картинка</p>
         <ImageInput
+          title="Картинка"
           :module="(module && module.image) || null"
           :locales="locales"
+          :post="post"
           @changeModule="changeModule({ image: $event })"
         ></ImageInput>
       </div>
       <div class="col-md-8">
-        <p class="text-black-50 small">Teкст</p>
         <MultilingualEditor
+          title="Текст"
           :module="(module && module.text) || null"
           :locales="locales"
           :post="post"
@@ -23,7 +24,24 @@
     <div class="row">
       <div class="col-md-12">
         <p class="text-black-50 small">Настройки</p>
-        Картинка справа (внизу)
+
+        <b-form-checkbox
+          :checked="
+            (module && module.settings && module.settings.reverse === true) ||
+              false
+          "
+          @input="
+            $emit(`changeModule`, {
+              ...module,
+              settings: {
+                ...module.settings,
+                reverse: $event
+              }
+            })
+          "
+        >
+          Картинка справа (внизу)
+        </b-form-checkbox>
       </div>
     </div>
   </div>
@@ -31,7 +49,6 @@
 
 <script>
 import ImageInput from "../Modules/ImageInput";
-import MultilingualInput from "../Modules/MultilingualInput";
 import MultilingualEditor from "../Modules/Editor";
 
 export default {
@@ -43,10 +60,13 @@ export default {
   },
   components: {
     ImageInput,
-    MultilingualInput,
     MultilingualEditor
   },
-  props: ["module", "locales", "post"],
+  props: {
+    module: Object,
+    locales: Object,
+    post: Object
+  },
   methods: {
     changeModule(value) {
       const module = { ...this.module, type: this.type };

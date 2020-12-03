@@ -20,12 +20,7 @@
             :module="module"
             :locales="locales"
             v-if="loaded[module.id]"
-            @changeModule="
-              $emit(`updateMetaDataModules`, {
-                ...module,
-                sectionTitle: { ...module.sectionTitle, ...$event.content }
-              })
-            "
+            @changeModule="$emit(`updateMetaDataModules`, $event)"
           ></SectionTitle>
           <ModulesLoader
             :module="module"
@@ -123,8 +118,12 @@ export default {
         item => item.value === slectedValue
       );
       this.showSelectedNewModules = false;
+
       this.$emit("addNewMetaModule", {
         content: {},
+        sectionTitleShow: true,
+        sectionTitle: {},
+        settings: {},
         type: null,
         title: text,
         name: value,

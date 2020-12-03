@@ -38,8 +38,9 @@ export default {
         this.$emit("isLoaded", true);
         this.component = () => this.loader();
       })
-      .catch(() => {
+      .catch(e => {
         this.component = ErrorComponent;
+        console.error(e);
       });
   }
 };

@@ -105,6 +105,8 @@ class Post extends Model implements HasMedia
       ->singleFile();
 
     $this->addMediaCollection('post-content');
+
+    $this->addMediaCollection('post-common');
   }
 
   public function registerMediaConversions($media = null): void
@@ -118,7 +120,13 @@ class Post extends Model implements HasMedia
       ->withResponsiveImages();
 
     $this->addMediaConversion('content')
-      ->performOnCollections('post-content') //для других коллекций не будет выполняться
+      ->performOnCollections('post-content')
+      ->withResponsiveImages()
+      ->fit(Manipulations::FIT_MAX, 2000, 2000)
+      ->nonQueued();
+
+    $this->addMediaConversion('common')
+      ->performOnCollections('post-common')
       ->withResponsiveImages()
       ->fit(Manipulations::FIT_MAX, 2000, 2000)
       ->nonQueued();

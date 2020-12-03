@@ -9,6 +9,7 @@ use App\Entity\Post\Services\PostQueries;
 use App\Services\Storage\UploadTmpFiles;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Helper;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PostCommands
 {
@@ -77,12 +78,22 @@ class PostCommands
     }
   }
 
-
-  public function addImage(int $id, string $patch, ?string $name = null, string $collection = 'post-content', string $conversions = 'content')
+  /**
+   * Добавить картинку
+   *
+   * @param integer $id
+   * @param string $patch
+   * @param string|null $name
+   * @param string $collection
+   * @param string $conversions
+   * @param array $size
+   * @return Media
+   */
+  public function addImage(int $id, string $path, ?string $name = null, string $collection = 'post-content'): Media
   {
     $post = Post::findOrFail($id);
-    $name = Helper::normalizeFileName($name ?? $patch);
-    $image = $post->addMedia($patch)->usingFileName($name)->toMediaCollection($collection);
-    return $image->getUrl($conversions);
+    $name = Helper::normalizeFileName($name ?? $path);
+    $image = $post->addMedia($path)->usingFileName($name)->toMediaCollection($collection);
+    return $image;
   }
 }

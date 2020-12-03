@@ -6,7 +6,7 @@ use App\Entity\Post\Services\PostCommands;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AddImageToContentPostApiAdminController extends Controller
+class ConvertAndAddImageToPostApiAdminController extends Controller
 {
   /**
    * Handle the incoming request.
@@ -21,7 +21,12 @@ class AddImageToContentPostApiAdminController extends Controller
       'image' => 'bail|image|mimes:jpeg,png,jpg,gif,svg',
     ]);
 
-    $image = $commands->addImage($id, $request->file('image')->getPathName(), $request->file('image')->getClientOriginalName());
-    return response()->json($image->getUrl('content'));
+    $image = $commands->addImage(
+                                  $id,
+                                  $request->file('image')->getPathName(),
+                                  $request->file('image')->getClientOriginalName(),
+                                  'post-common'
+                                );
+    return response()->json($image->getUrl('common'));
   }
 }

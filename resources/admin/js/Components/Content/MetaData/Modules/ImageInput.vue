@@ -1,10 +1,12 @@
 <template>
   <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
+    <p v-if="title" class="text-black-50 small">{{ title }}</p>
+
     <label
       :class="{ deleted: deleted }"
       class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
-      <img :src="preview" />
+      <img :src="(module && module.content && module.content.src) || null" />
       <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">
         Изменить
       </p>
@@ -17,44 +19,43 @@
       />
     </label>
 
-    <b-check v-if="preview !== null" @change="remove">Удалить</b-check>
+    <b-check
+      v-if="module && module.content && module.content.src"
+      @change="remove"
+      >Удалить</b-check
+    >
   </b-overlay>
 </template>
 
 <script>
 import SectionTitle from "./SectionTitle";
 export default {
-  props: ["module", "locales"],
+  props: {
+    module: Object,
+    locales: Object,
+    post: Object,
+    title: {
+      type: String | null,
+      default: "Картинка"
+    }
+  },
   components: { SectionTitle },
   data() {
     return {
       type: "image-input",
-      newfile: {
-        pach: "",
-        url: "",
-        name: ""
-      },
+      route: this.$route("admin.api.post.add-image", this.post.id),
       deleted: false,
-      route: this.$route("admin.api.tmp-files-upload"),
       overlay: false,
       deleted: false
     };
   },
-  computed: {
-    preview() {
-      return (
-        this.newfile.url ||
-        (this.module && this.module.content && this.module.content.src) ||
-        null
-      );
-    }
-  },
   methods: {
     async upload(e) {
+      this.overlay = true;
       const file = e.target.files[0] || false;
       if (!file || this.deleted) return false;
       const formData = new FormData();
-      formData.append("files[0]", file);
+      formData.append("image", file);
       try {
         const { data } = await axios.post(this.route, formData, {
           headers: {
@@ -62,25 +63,35 @@ export default {
           }
         });
 
-        this.newfile = {
-          name: data[0]["original_name"],
-          path: data[0]["path"],
-          url: data[0]["url"]
-        };
         //Отправляем данные вверх
-
-        const module = { ...this.module, type: this.type };
-        module.content = { ...module.content, newfile: this.newfile };
+        const module = {
+          ...this.module,
+          ...{
+            type: this.type,
+            content: { ...(this.module.content | {}), src: data }
+          }
+        };
         this.$emit(`changeModule`, module);
       } catch (e) {
         throw e;
+      } finally {
+        this.overlay = false;
       }
     },
     remove(e) {
       this.deleted = e;
-      const module = { ...this.module, type: this.type };
-      module.content = { ...module.content, delete: this.deleted };
-      this.$emit(`changeModule`, module);
+      //Отправляем данные вверх
+      const module = {
+        ...this.module,
+        ...{
+          type: this.type,
+          content: { ...(this.module.content | {}), delete: this.deleted }
+        }
+      };
+      this.$emit(`changeModule`, {
+        ...module,
+        module
+      });
     }
   }
 };
