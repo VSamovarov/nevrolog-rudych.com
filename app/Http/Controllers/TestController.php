@@ -21,14 +21,15 @@ class TestController extends Controller
      */
     public function __invoke()
     {
-      dd([]['ffff']);
-      $load = new ConfigsLoader();
+      $_value = '12345';
 
-      dump($load->get(app_path('Services/AppSettings/config'),true));
-      dump($load->get(app_path('Services/AppSettings/config')));
-      dump($load->get(app_path('Services/AppSettings/config')));
-      dump($load->get(app_path('Services/AppSettings/config')));
-      dump($load->get(app_path('Services/AppSettings/config')));
-      dump($load->get(app_path('Services/AppSettings/config')));
+      dd($_value);
+
+      // dump($load->get(app_path('Services/AppSettings/config'),true));
+      // dump($load->get(app_path('Services/AppSettings/config')));
+      // dump($load->get(app_path('Services/AppSettings/config')));
+      // dump($load->get(app_path('Services/AppSettings/config')));
+      // dump($load->get(app_path('Services/AppSettings/config')));
+      // dump($load->get(app_path('Services/AppSettings/config')));
     }
 }

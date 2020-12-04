@@ -1,12 +1,12 @@
 <template>
   <b-overlay variant="white" blur="0" :show="overlay" rounded="sm">
+    <Alerts :alerts="alerts"></Alerts>
     <p v-if="title" class="text-black-50 small">{{ title }}</p>
-
     <label
       :class="{ deleted: deleted }"
       class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
-      <img :src="(module && module.content && module.content.src) || null" />
+      <img :src="getValue('src')" />
       <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">
         Изменить
       </p>
@@ -19,19 +19,16 @@
       />
     </label>
 
-    <b-check
-      v-if="module && module.content && module.content.src"
-      @change="remove"
-      >Удалить</b-check
-    >
+    <b-check v-if="getValue('src')" @change="remove">Удалить</b-check>
   </b-overlay>
 </template>
 
 <script>
 import SectionTitle from "./SectionTitle";
+import Alerts from "./../../../Common/Alerts";
 export default {
   props: {
-    module: Object,
+    module: Object | null,
     locales: Object,
     post: Object,
     title: {
@@ -39,11 +36,11 @@ export default {
       default: "Картинка"
     }
   },
-  components: { SectionTitle },
+  components: { SectionTitle, Alerts },
   data() {
     return {
-      type: "image-input",
       route: this.$route("admin.api.post.add-image", this.post.id),
+      alerts: {},
       deleted: false,
       overlay: false,
       deleted: false
@@ -62,18 +59,10 @@ export default {
             "Content-Type": "multipart/form-data"
           }
         });
-
-        //Отправляем данные вверх
-        const module = {
-          ...this.module,
-          ...{
-            type: this.type,
-            content: { ...(this.module.content | {}), src: data }
-          }
-        };
-        this.$emit(`changeModule`, module);
+        this.changeModule("src", data);
+        this.alerts = {};
       } catch (e) {
-        throw e;
+        this.$set(this.alerts, "image", e.response);
       } finally {
         this.overlay = false;
       }
@@ -81,17 +70,23 @@ export default {
     remove(e) {
       this.deleted = e;
       //Отправляем данные вверх
-      const module = {
-        ...this.module,
-        ...{
-          type: this.type,
-          content: { ...(this.module.content | {}), delete: this.deleted }
-        }
+      this.changeModule("delete", this.deleted);
+    },
+    /**
+     * Общая часть
+     */
+    getValue(name) {
+      return (
+        (this.module && this.module._value && this.module._value[name]) || null
+      );
+    },
+    changeModule(name, value) {
+      const module = this.module || { _value: {} };
+      module._value = {
+        ...((this.module && this.module._value) || {}),
+        [name]: value
       };
-      this.$emit(`changeModule`, {
-        ...module,
-        module
-      });
+      this.$emit(`changeModule`, module);
     }
   }
 };

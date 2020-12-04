@@ -11,8 +11,8 @@
       >
         <b-form-group>
           <Editor
-            :value="(module && module.content && module.content[lang]) || null"
-            @input="changeInput(lang, $event)"
+            :value="getValue([lang])"
+            @input="changeModule(lang, $event)"
             :post_id="post.id"
           ></Editor>
         </b-form-group>
@@ -26,7 +26,7 @@ import Editor from "./../../../Common/CkEditor/CkEditorClassic";
 export default {
   components: { Editor },
   props: {
-    module: Object,
+    module: Object | null,
     locales: Object,
     post: Object,
     title: {
@@ -34,15 +34,21 @@ export default {
       default: "Текст"
     }
   },
-  data() {
-    return {
-      type: "multilingual-editor"
-    };
-  },
+  /**
+   * Общая часть
+   */
   methods: {
-    changeInput(lang, value) {
-      const module = { ...this.module, type: this.type };
-      module.content = { ...module.content, [lang]: value };
+    getValue(name) {
+      return (
+        (this.module && this.module._value && this.module._value[name]) || null
+      );
+    },
+    changeModule(name, value) {
+      const module = this.module || { _value: {} };
+      module._value = {
+        ...((this.module && this.module._value) || {}),
+        [name]: value
+      };
       this.$emit(`changeModule`, module);
     }
   }

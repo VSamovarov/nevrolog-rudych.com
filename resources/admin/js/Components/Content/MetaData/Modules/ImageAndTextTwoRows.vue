@@ -4,19 +4,19 @@
       <div class="col-md-4">
         <ImageInput
           title="Картинка"
-          :module="(module && module.image) || null"
+          :module="getModule('image')"
           :locales="locales"
           :post="post"
-          @changeModule="changeModule({ image: $event })"
+          @changeModule="changeModule('image', $event)"
         ></ImageInput>
       </div>
       <div class="col-md-8">
         <MultilingualEditor
           title="Текст"
-          :module="(module && module.text) || null"
+          :module="getModule('text')"
           :locales="locales"
           :post="post"
-          @changeModule="changeModule({ text: $event })"
+          @changeModule="changeModule('text', $event)"
         ></MultilingualEditor>
       </div>
     </div>
@@ -26,21 +26,17 @@
         <p class="text-black-50 small">Настройки</p>
 
         <b-form-checkbox
-          :checked="
-            (module && module.settings && module.settings.reverse === true) ||
-              false
-          "
-          @input="
-            $emit(`changeModule`, {
-              ...module,
-              settings: {
-                ...module.settings,
-                reverse: $event
-              }
-            })
-          "
+          :checked="getValue('reverse')"
+          @input="changeModule('reverse', $event)"
         >
           Картинка справа (внизу)
+        </b-form-checkbox>
+
+        <b-form-checkbox
+          :checked="getValue('big-image')"
+          @input="changeModule('big-image', $event)"
+        >
+          Большая картинка
         </b-form-checkbox>
       </div>
     </div>
@@ -50,11 +46,10 @@
 <script>
 import ImageInput from "../Modules/ImageInput";
 import MultilingualEditor from "../Modules/Editor";
-
+const titleModuleDefaul = "";
 export default {
   data() {
     return {
-      type: "image-and-text-two-rows",
       reverse: false
     };
   },
@@ -65,12 +60,39 @@ export default {
   props: {
     module: Object,
     locales: Object,
-    post: Object
+    post: Object,
+    title: {
+      type: String,
+      default: titleModuleDefaul
+    }
   },
   methods: {
-    changeModule(value) {
-      const module = { ...this.module, type: this.type };
-      module.content = { ...module.content, ...value };
+    /**
+     * Общая часть
+     */
+    getValue(name) {
+      const value =
+        (this.module && this.module._value && this.module._value[name]) || null;
+      return value;
+    },
+
+    //?! Мутируем пропсы
+    getModule(name) {
+      if (this.module._value === undefined) {
+        this.$set(this.module, "_value", {});
+      }
+      if (this.module._value[name] === undefined) {
+        this.$set(this.module._value, name, {});
+      }
+      return this.module._value[name];
+    },
+
+    changeModule(name, value) {
+      const module = this.module || { _value: {} };
+      module._value = {
+        ...((this.module && this.module._value) || {}),
+        [name]: value
+      };
       this.$emit(`changeModule`, module);
     }
   }

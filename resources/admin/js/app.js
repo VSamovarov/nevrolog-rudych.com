@@ -42,7 +42,8 @@ import {
   AlertPlugin,
   OverlayPlugin,
   TabsPlugin,
-  CollapsePlugin
+  CollapsePlugin,
+  SpinnerPlugin
 } from "bootstrap-vue";
 
 Vue.use(FormInputPlugin);
@@ -64,6 +65,7 @@ Vue.use(AlertPlugin);
 Vue.use(OverlayPlugin);
 Vue.use(TabsPlugin);
 Vue.use(CollapsePlugin);
+Vue.use(SpinnerPlugin);
 
 const app = document.getElementById("app");
 

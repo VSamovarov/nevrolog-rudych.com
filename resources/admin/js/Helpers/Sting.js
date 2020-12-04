@@ -1,3 +1,4 @@
+import camelCase from "lodash/camelCase";
 /**
  * Псевдо уникальный индетификатор
  * на базе рандомной строки и времени в микросекундах
@@ -9,4 +10,11 @@ const uid = () =>
     .slice(-5)
     .concat("-", Date.now());
 
-export { uid };
+const moduleNameCase = string => ucFirst(camelCase(string));
+
+const ucFirst = string => {
+  if (!string) return string;
+  return string[0].toUpperCase() + string.slice(1);
+};
+
+export { uid, moduleNameCase, ucFirst };

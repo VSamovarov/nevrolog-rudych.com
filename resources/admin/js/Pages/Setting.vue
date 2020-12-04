@@ -89,7 +89,7 @@ export default {
             console.log(response);
           });
       } catch (e) {
-        console.log(e);
+        console.error(e);
       } finally {
         this.overlay = false;
       }

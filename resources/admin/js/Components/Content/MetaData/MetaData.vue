@@ -9,25 +9,17 @@
     >
       <template v-for="module in modules">
         <ModuleWrapper
-          :title="module.title"
+          :_title="module._title"
           :key="module.id"
           class="movable meta-modules"
-          :class="module.type"
-          :renameModule="renameModule(module)"
+          :class="module._name"
           :deleteModule="deleteModule(module)"
         >
-          <SectionTitle
-            :module="module"
-            :locales="locales"
-            v-if="loaded[module.id]"
-            @changeModule="$emit(`updateMetaDataModules`, $event)"
-          ></SectionTitle>
           <ModulesLoader
             :module="module"
             :locales="locales"
             :post="post"
-            @changeModule="$emit(`updateMetaDataModules`, $event)"
-            @isLoaded="$set(loaded, [module.id], $event)"
+            @changeModule="changeModule"
           >
           </ModulesLoader>
         </ModuleWrapper>
@@ -63,12 +55,15 @@ import ModulesLoader from "./../MetaData/ModulesLoader";
 import draggable from "vuedraggable";
 import { uid } from "./../../../Helpers/Sting";
 import ModuleWrapper from "./../../Common/ModuleWrapper";
-import SectionTitle from "./Modules/SectionTitle";
+
 export default {
-  components: { ModulesLoader, draggable, ModuleWrapper, SectionTitle },
+  components: { ModulesLoader, draggable, ModuleWrapper },
   props: ["modules", "locales", "post"],
   data() {
     return {
+      /**
+       * Отображаем меню выбора модулей
+       */
       showSelectedNewModules: false,
       /**
        * ! Надо как то переделать
@@ -120,45 +115,13 @@ export default {
       this.showSelectedNewModules = false;
 
       this.$emit("addNewMetaModule", {
-        content: {},
-        sectionTitleShow: true,
-        sectionTitle: {},
-        settings: {},
-        type: null,
-        title: text,
-        name: value,
+        _title: text, //Заглавие в админке
+        _name: value, //Название шаблона
         id: uid()
       });
     },
-    renameModule(module) {
-      return () => {
-        const h = this.$createElement;
-        let newName = module.title;
-        const messageVNode = h("div", {}, [
-          "Новое название",
-          h("b-form-input", {
-            props: { value: module.title },
-            on: {
-              input: value => (newName = value)
-            }
-          })
-        ]);
-        this.$bvModal
-          .msgBoxConfirm([messageVNode], {
-            title: false,
-            buttonSize: "sm",
-            centered: true,
-            size: "sm"
-          })
-          .then(value => {
-            // this.boxOne = value;
-
-            this.$emit(`updateMetaDataModules`, { ...module, title: newName });
-          })
-          .catch(err => {
-            // An error occurred
-          });
-      };
+    changeModule(module) {
+      this.$emit("updateMetaModules", module);
     },
     deleteModule(module) {
       return () => {

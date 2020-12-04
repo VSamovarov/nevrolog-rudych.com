@@ -19,9 +19,9 @@ class CreateMetadataTable extends Migration
       $table->foreign('post_id')
         ->references('id')->on('posts')
         ->onDelete('cascade');
-      $table->string('title');
-      $table->string('key')->index();
-      $table->longText('value')->nullable();
+      $table->string('_title');
+      $table->string('_name')->index();
+      $table->longText('_value')->nullable();
       $table->unsignedInteger('order')->default(10);
       $table->timestamps();
     });

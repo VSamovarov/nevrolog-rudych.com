@@ -12,7 +12,6 @@
       :fields="tableFields"
       :tbody-tr-class="rowClass"
     >
-
       <template v-slot:head(id)>
         <span class="text-info">
           <!-- Выбор всех строк -->
@@ -21,25 +20,30 @@
       </template>
       <template v-slot:cell(id)="data">
         <!-- Выбор строки -->
-        <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index,$event)"></b-form-checkbox>
+        <b-form-checkbox
+          :checked="data.rowSelected"
+          @change="selectRow(data.index, $event)"
+        ></b-form-checkbox>
       </template>
       <template v-slot:cell(date_add)="data">
         <!-- <inertia-link :href="$route('admin.feedback.show',data.item.id)">
           {{data.item.date_add}}
         </inertia-link> -->
         <a @click.prevent="showFeedback(data.item.id)" href="#">
-          {{data.item.date_add}}
+          {{ data.item.date_add }}
         </a>
       </template>
       <template v-slot:cell(name)="data">
-          {{data.item.name}}
+        {{ data.item.name }}
       </template>
       <template v-slot:cell(action)="data">
         <div class="d-flex justify-content-around">
           <b-btn
             class="mx-1"
             v-if="!data.item.deleted_at"
-            @click="feedbackViewStatusChange(data.item.id, data.item.viewed?0:1)"
+            @click="
+              feedbackViewStatusChange(data.item.id, data.item.viewed ? 0 : 1)
+            "
           >
             <b-icon v-if="data.item.viewed" icon="envelope-open-fill"></b-icon>
             <b-icon v-else icon="envelope-fill"></b-icon>
@@ -47,8 +51,8 @@
           <inertia-link
             class="btn btn-sm mx-1 edit-button  btn-secondary"
             v-if="!data.item.deleted_at"
-            :href="$route('admin.feedback.edit',data.item.id)"
-            >
+            :href="$route('admin.feedback.edit', data.item.id)"
+          >
             <b-icon icon="pencil-fill"></b-icon>
           </inertia-link>
           <b-btn
@@ -58,25 +62,26 @@
           >
             <b-icon icon="shift-fill"></b-icon>
           </b-btn>
-          <b-btn
-            class="mx-1"
-            @click="feedbackDelete(data.item.id)">
+          <b-btn class="mx-1" @click="feedbackDelete(data.item.id)">
             <b-icon icon="trash-fill"></b-icon>
           </b-btn>
         </div>
       </template>
     </b-table>
-    <FeedbackShowItem v-if="feedbackShowId" :feedbackId="feedbackShowId"></FeedbackShowItem>
+    <FeedbackShowItem
+      v-if="feedbackShowId"
+      :feedbackId="feedbackShowId"
+    ></FeedbackShowItem>
   </b-container>
 </template>
 
 <script>
-import FeedbackShowItem from './FeedbackShowItem'
+import FeedbackShowItem from "./FeedbackShowItem";
 export default {
   components: {
     FeedbackShowItem
   },
-  props: ['items'],
+  props: ["items"],
   data() {
     return {
       feedbackShowId: false,
@@ -87,9 +92,9 @@ export default {
         { key: "phone", label: "Телефон", class: "phone" },
         { key: "email", label: "Email", class: "email" },
         { key: "message", label: "Сообщение", class: "email" },
-        { key: "action", label: "Действие", class: "action" },
+        { key: "action", label: "Действие", class: "action" }
       ],
-      feedbackData: [...this.items],
+      feedbackData: [...this.items]
     };
   },
   methods: {
@@ -98,97 +103,96 @@ export default {
      */
     rowClass(item, type) {
       let rowClass = [];
-      if (!item || type !== 'row') return;
+      if (!item || type !== "row") return;
 
-      if (item.viewed) rowClass.push('viewed');
-      if (!!item.deleted_at) rowClass.push('deleted');
-      return rowClass.join(' ');
+      if (item.viewed) rowClass.push("viewed");
+      if (!!item.deleted_at) rowClass.push("deleted");
+      return rowClass.join(" ");
     },
     /**
      * Изменяем статус просмотра
      *
      */
     feedbackViewStatusChange(id, status) {
-        status = status ? 1 : 0;
-        axios.patch( this.$route('admin.api.feedback.viewed-status',id), {status:status})
+      status = status ? 1 : 0;
+      axios
+        .patch(this.$route("admin.api.feedback.viewed-status", id), {
+          status: status
+        })
         .then(response => {
-          console.log(response)
-
-          this.feedbackData.forEach((item) => {
-            if(item.id === id)  {
+          this.feedbackData.forEach(item => {
+            if (item.id === id) {
               item.viewed = status;
             }
-          })
+          });
         });
     },
     /**
      * просматриваемый feedback
      */
     showFeedback(id) {
-      if(!id) return false;
+      if (!id) return false;
       this.feedbackShowId = id;
-    //this.feedbackViewStatusChange(id, 1)
-      this.$bvModal.show('modal-feedback-show-item')
+      //this.feedbackViewStatusChange(id, 1)
+      this.$bvModal.show("modal-feedback-show-item");
     },
     /**
      * Удаление строки
      */
     feedbackDelete(id) {
-      this.confirmModal('Удалить сообщение?')
-      .then(value => {
-        if(value) {
-          axios.delete(this.$route('admin.api.feedback.destroy',id))
-          .then(
-            response => {
-              this.feedbackData.forEach((item) => {
-                if(item.id === id)  {
+      this.confirmModal("Удалить сообщение?").then(value => {
+        if (value) {
+          axios
+            .delete(this.$route("admin.api.feedback.destroy", id))
+            .then(response => {
+              this.feedbackData.forEach(item => {
+                if (item.id === id) {
                   item.deleted_at = true;
                 }
               });
-            }
-          );
+            });
         }
       });
     },
     feedbackRestore(id) {
-          axios.patch(this.$route('admin.api.feedback.restore',id))
-          .then(
-            response => {
-              this.feedbackData.forEach((item) => {
-                if(item.id === id)  {
-                  item.deleted_at = false;
-                }
-              });
+      axios
+        .patch(this.$route("admin.api.feedback.restore", id))
+        .then(response => {
+          this.feedbackData.forEach(item => {
+            if (item.id === id) {
+              item.deleted_at = false;
             }
-          );
+          });
+        });
     },
     /**
      * Окно подтверждения
      */
     confirmModal(msg) {
-      return this.$bvModal.msgBoxConfirm( msg, {
-        title: 'Подтвердите',
-        size: 'sm',
-        buttonSize: 'sm',
-        okVariant: 'danger',
-        okTitle: 'Да',
-        cancelTitle: 'Нет',
-        footerClass: 'p-2',
-        hideHeaderClose: true,
-        centered: true
-      })
-      .then(value => {
-        return value;
-      })
-      .catch(err => {
-        // An error occurred
-      })
+      return this.$bvModal
+        .msgBoxConfirm(msg, {
+          title: "Подтвердите",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Да",
+          cancelTitle: "Нет",
+          footerClass: "p-2",
+          hideHeaderClose: true,
+          centered: true
+        })
+        .then(value => {
+          return value;
+        })
+        .catch(err => {
+          // An error occurred
+        });
     },
     /**
      * Выбор строк таблицы-->
      */
     onRowSelected(items) {
-      this.$emit('rowSelected', items);
+      this.$emit("rowSelected", items);
     },
     selectRow(index, checked) {
       if (checked) {
@@ -203,27 +207,26 @@ export default {
       } else {
         this.$refs.selectableTable.clearSelected();
       }
-    },
+    }
     /**
      * Выбор строк таблицы<--
-    */
+     */
   }
 };
-
-
 </script>
 
 <style>
-  .index-feedback tbody tr.deleted, .index-feedback.deleted tbody tr {
-    display: none;
-  }
-  .index-feedback.deleted tr.deleted {
-    display: table-row;
-  }
-  .index-feedback.all tbody tr {
-    font-weight: bold;
-  }
-  .index-feedback.all tbody tr.viewed {
-    font-weight: normal;
-  }
+.index-feedback tbody tr.deleted,
+.index-feedback.deleted tbody tr {
+  display: none;
+}
+.index-feedback.deleted tr.deleted {
+  display: table-row;
+}
+.index-feedback.all tbody tr {
+  font-weight: bold;
+}
+.index-feedback.all tbody tr.viewed {
+  font-weight: normal;
+}
 </style>

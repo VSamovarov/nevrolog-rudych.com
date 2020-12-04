@@ -40,7 +40,7 @@
                 :modules="modulesMetaData"
                 :locales="locales"
                 :post="main"
-                @updateMetaDataModules="updateMetaDataModules"
+                @updateMetaModules="updateMetaModules"
                 @addNewMetaModule="addNewMetaModule"
                 @draggableMetaModules="draggableMetaModules"
                 @removeMetaModules="removeMetaModules"
@@ -135,7 +135,7 @@ export default {
       const index = this.modulesMetaData.findIndex(item => item === module);
       this.modulesMetaData.splice(index, 1);
     },
-    updateMetaDataModules(module) {
+    updateMetaModules(module) {
       this.modulesMetaData.map(item => {
         if (item.id === module.id) {
           item = Object.assign({}, item, merge(item, module));
@@ -162,7 +162,7 @@ export default {
           metadata: modulesMetaData
         });
       } catch (e) {
-        console.log(e);
+        console.error(e);
       } finally {
         this.overlay = false;
       }

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div :class="this.module._name">
     <p v-if="title" class="text-black-50 small">{{ title }}</p>
     <b-tabs small>
       <b-tab v-for="(values, lang) in locales" :key="lang" :title="lang">
         <b-form-group>
           <b-form-input
-            :value="(module && module.content && module.content[lang]) || null"
-            @input="changeInput(lang, $event)"
+            :value="getValue([lang])"
+            @input="changeModule(lang, $event)"
             trim
           ></b-form-input>
         </b-form-group>
@@ -16,26 +16,32 @@
 </template>
 
 <script>
+const titleModuleDefaul = "Текст";
 export default {
   props: {
-    module: Object,
+    module: Object | null,
     locales: Object,
     title: {
       type: String,
-      default: "Текст"
+      default: titleModuleDefaul
     }
   },
-  data() {
-    return {
-      type: "multilingual-input"
-    };
-  },
+  /**
+   * Общая часть
+   */
   methods: {
-    changeInput(lang, value) {
-      this.$emit(`changeModule`, {
-        ...this.module,
-        ...{ type: this.type, content: { ...this.module, [lang]: value } }
-      });
+    getValue(name) {
+      return (
+        (this.module && this.module._value && this.module._value[name]) || null
+      );
+    },
+    changeModule(name, value) {
+      const module = this.module || { _value: {} };
+      module._value = {
+        ...((this.module && this.module._value) || {}),
+        [name]: value
+      };
+      this.$emit(`changeModule`, module);
     }
   }
 };

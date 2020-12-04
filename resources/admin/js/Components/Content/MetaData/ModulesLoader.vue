@@ -5,7 +5,6 @@
       :module="module"
       :locales="locales"
       :post="post"
-      :class="module.type"
       @changeModule="$emit(`changeModule`, $event)"
     >
     </component>
@@ -15,7 +14,7 @@
 <script>
 import LoadingComponent from "./StartModuleLoading";
 import ErrorComponent from "./ErrorModuleLoading";
-
+import { moduleNameCase } from "./../../../Helpers/Sting";
 export default {
   props: ["module", "locales", "post"],
   data() {
@@ -29,7 +28,8 @@ export default {
   },
   computed: {
     loader() {
-      return () => import(`./Modules/${this.module.name}`);
+      const moduleName = moduleNameCase(this.module._name);
+      return () => import(`./Modules/${moduleName}`);
     }
   },
   created() {
