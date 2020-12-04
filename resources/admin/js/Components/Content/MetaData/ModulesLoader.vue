@@ -1,5 +1,6 @@
 <template>
   <div>
+    <SectionTitle :module="module" :locales="locales"></SectionTitle>
     <component
       :is="component"
       :module="module"
@@ -14,9 +15,14 @@
 <script>
 import LoadingComponent from "./StartModuleLoading";
 import ErrorComponent from "./ErrorModuleLoading";
+import SectionTitle from "./Modules/SectionTitle";
 import { moduleNameCase } from "./../../../Helpers/Sting";
 export default {
-  props: ["module", "locales", "post"],
+  props: {
+    module: Object | null,
+    locales: Object,
+    post: Object
+  },
   data() {
     return {
       component: LoadingComponent
@@ -24,7 +30,8 @@ export default {
   },
   components: {
     LoadingComponent,
-    ErrorComponent
+    ErrorComponent,
+    SectionTitle
   },
   computed: {
     loader() {

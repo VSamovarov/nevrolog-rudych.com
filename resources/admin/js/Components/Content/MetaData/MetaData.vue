@@ -9,11 +9,12 @@
     >
       <template v-for="module in modules">
         <ModuleWrapper
-          :_title="module._title"
+          :title="module._title"
           :key="module.id"
           class="movable meta-modules"
           :class="module._name"
           :deleteModule="deleteModule(module)"
+          :renameModule="renameModule(module)"
         >
           <ModulesLoader
             :module="module"
@@ -132,6 +133,35 @@ export default {
           })
           .catch(err => {
             // An error occurred
+          });
+      };
+    },
+    renameModule(module) {
+      return () => {
+        const h = this.$createElement;
+        let newName = module._title;
+        const messageVNode = h("div", {}, [
+          "Новое название",
+          h("b-form-input", {
+            props: { value: module._title },
+            on: {
+              input: value => (newName = value)
+            }
+          })
+        ]);
+        this.$bvModal
+          .msgBoxConfirm([messageVNode], {
+            title: false,
+            buttonSize: "sm",
+            centered: true,
+            size: "sm"
+          })
+          .then(value => {
+            // this.boxOne = value;
+            this.$emit(`updateMetaModules`, { ...module, _title: newName });
+          })
+          .catch(e => {
+            console.error(e);
           });
       };
     }

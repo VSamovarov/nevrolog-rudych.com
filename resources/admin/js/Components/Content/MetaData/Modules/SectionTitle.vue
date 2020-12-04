@@ -1,34 +1,26 @@
 <template>
   <div>
     <div class="d-flex align-items-center">
-      <p class="text-black-50 small mr-4">{{ title }}</p>
+      <p class="text-black-50 small mr-4">Название секции</p>
       <p>
         <b-form-checkbox
           switch
-          :checked="module.sectionTitleShow"
-          @change="
-            $emit(`changeModule`, {
-              ...module,
-              sectionTitleShow: $event
-            })
-          "
-          >Включить</b-form-checkbox
+          :checked="getValue('show-section-title')"
+          @input="changeModule('show-section-title', $event || false)"
         >
+          Включить
+        </b-form-checkbox>
       </p>
     </div>
-    <div v-if="module.sectionTitleShow">
-      <MultilingualInput
-        title=""
-        :locales="locales"
-        :module="(module && module.sectionTitle) || null"
-        @changeModule="
-          $emit(`changeModule`, {
-            ...module,
-            sectionTitle: { ...module.sectionTitle, ...$event.content }
-          })
-        "
-      ></MultilingualInput>
-    </div>
+
+    <MultilingualInput
+      v-if="getValue('show-section-title')"
+      title=""
+      :locales="locales"
+      :module="getModule('section-title')"
+      @changeModule="changeModule('section-title', $event)"
+    ></MultilingualInput>
+
     <hr />
   </div>
 </template>
@@ -38,13 +30,38 @@ import MultilingualInput from "./MultilingualInput";
 export default {
   props: {
     module: Object,
-    locales: Object,
-    title: {
-      type: String,
-      default: "Название секции"
-    }
+    locales: Object
   },
-  components: { MultilingualInput }
+  components: { MultilingualInput },
+  methods: {
+    /**
+     * Общая часть
+     */
+    getValue(name) {
+      const value =
+        (this.module && this.module._value && this.module._value[name]) || null;
+      return value;
+    },
+
+    //?! Мутируем пропсы
+    getModule(name) {
+      if (this.module._value === undefined) {
+        this.$set(this.module, "_value", {});
+      }
+      if (this.module._value[name] === undefined) {
+        this.$set(this.module._value, name, {});
+      }
+      return this.module._value[name];
+    },
+
+    changeModule(name, value) {
+      if (this.module._value === undefined) {
+        this.$set(this.module, "_value", {});
+      }
+      this.$set(this.module._value, name, value);
+      this.$emit(`changeModule`, module);
+    }
+  }
 };
 </script>
 
