@@ -159,7 +159,7 @@ export default {
         this.$inertia.put(this.$route("admin.post.update", this.post_id), {
           type: this.post_type,
           ...this.modulesData,
-          metadata: modulesMetaData
+          metadata: this.modulesMetaData
         });
       } catch (e) {
         console.error(e);

@@ -25,18 +25,52 @@
     <button type="button" @click="addNewBlock">
       Добавить блок
     </button>
+    <hr />
+    <div class="row">
+      <div class="col-md-12">
+        <p class="text-black-50 small">Настройки</p>
+        <div class="d-flex flex-wrap align-items-center justify-content-around">
+          <b-form-checkbox
+            :checked="getValue('show-icone')"
+            @input="changeModule('show-icone', $event)"
+          >
+            Иконка
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            :checked="getValue('show-title')"
+            @input="changeModule('big-image', $event)"
+          >
+            Заглавие
+          </b-form-checkbox>
+
+          <div>
+            Цвет секции
+            <ColorSelection
+              :colors="colors"
+              :value="getValue('box-color')"
+              @input="changeModule('box-color', $event)"
+            ></ColorSelection>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+const colors = ["#984c8a", "#9baacb", "#503a87", "#212529"];
+
 import draggable from "vuedraggable";
 import { uid } from "./../../../../Helpers/Sting";
 import InfoBlock from "./InfoBlock";
+import ColorSelection from "../../../Common/ColorSelection";
 const titleModuleDefaul = "";
 export default {
   components: {
     draggable,
-    InfoBlock
+    InfoBlock,
+    ColorSelection
   },
   props: {
     module: Object,
@@ -46,6 +80,11 @@ export default {
       type: String,
       default: titleModuleDefaul
     }
+  },
+  data() {
+    return {
+      colors
+    };
   },
   computed: {
     draggableList: {

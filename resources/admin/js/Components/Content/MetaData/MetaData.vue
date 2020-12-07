@@ -83,14 +83,6 @@ export default {
           value: "ListInfoBloks"
         },
         {
-          text: "Многоязычное поле",
-          value: "MultilingualInput"
-        },
-        {
-          text: "Картинка",
-          value: "ImageInput"
-        },
-        {
           text: "Картинка с текстом",
           value: "ImageAndTextTwoRows"
         },
