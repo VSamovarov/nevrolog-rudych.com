@@ -1,6 +1,9 @@
 const mix = require("laravel-mix");
 require("laravel-mix-bundle-analyzer");
 require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manifest.json, а только обновлял данные
+
+mix.config.fileLoaderDirs.fonts = "admin/fonts";
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,6 +16,7 @@ require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manife
  */
 
 mix
+  .sass("resources/admin/scss/index.scss", "public/admin/css")
   .js("resources/admin/js/app.js", "public/admin/js")
   .postCss("resources/admin/css/app.css", "public/admin/css", [
     require("postcss-import"),

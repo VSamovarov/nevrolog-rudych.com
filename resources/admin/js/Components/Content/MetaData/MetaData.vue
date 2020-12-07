@@ -79,6 +79,10 @@ export default {
           value: null
         },
         {
+          text: "Инфо-блок",
+          value: "ListInfoBloks"
+        },
+        {
           text: "Многоязычное поле",
           value: "MultilingualInput"
         },

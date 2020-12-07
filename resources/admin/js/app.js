@@ -37,6 +37,7 @@ import {
   FormInputPlugin,
   FormFilePlugin,
   FormGroupPlugin,
+  FormRadioPlugin,
   ModalPlugin,
   SkeletonPlugin,
   AlertPlugin,
@@ -59,6 +60,7 @@ Vue.use(FormSelectPlugin);
 Vue.use(FormFilePlugin);
 Vue.use(FormGroupPlugin);
 Vue.use(FormTextareaPlugin);
+Vue.use(FormRadioPlugin);
 Vue.use(ModalPlugin);
 Vue.use(SkeletonPlugin);
 Vue.use(AlertPlugin);
