@@ -53,7 +53,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Модуль"
+      default: null
     },
     renameModule: {
       type: Function,

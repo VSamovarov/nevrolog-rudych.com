@@ -11,6 +11,15 @@
           Включить
         </b-form-checkbox>
       </p>
+      <p class="ml-4" v-if="getValue('show-section-title')">
+        <b-form-checkbox
+          switch
+          :checked="getValue('show-link-section-title')"
+          @input="changeModule('show-link-section-title', $event || false)"
+        >
+          Добавить ссылку
+        </b-form-checkbox>
+      </p>
     </div>
 
     <MultilingualInput
@@ -20,7 +29,20 @@
       :module="getModule('section-title')"
       @changeModule="changeModule('section-title', $event)"
     ></MultilingualInput>
-
+    <template
+      v-if="
+        getValue('show-section-title') && getValue('show-link-section-title')
+      "
+    >
+      <p class="text-black-50 small">Ссылка</p>
+      <b-form-group>
+        <b-form-input
+          :value="getValue('link-section-title')"
+          @input="changeModule('link-section-title', $event)"
+          trim
+        ></b-form-input>
+      </b-form-group>
+    </template>
     <hr />
   </div>
 </template>
@@ -43,7 +65,6 @@ export default {
       return value;
     },
 
-    //?! Мутируем пропсы
     getModule(name) {
       if (this.module._value === undefined) {
         this.$set(this.module, "_value", {});

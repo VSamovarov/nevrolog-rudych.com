@@ -9,19 +9,22 @@
         @end="drag = false"
       >
         <template v-for="block in blocks">
-          <div
-            class="card mb-3"
+          <ModuleWrapper
             :key="block.id"
+            class="movable meta-modules"
             :style="{ maxWidth: '30%', width: '30%' }"
+            :deleteModule="deleteModule(block)"
           >
-            <div class="card-header"><b-icon icon="arrows-move"></b-icon></div>
-            <div class="card-body">
-              <InfoBlock :module="block" :locales="locales"></InfoBlock>
-            </div>
-          </div>
+            <InfoBlock
+              :module="block"
+              :locales="locales"
+              :settings="showSettings"
+            ></InfoBlock>
+          </ModuleWrapper>
         </template>
       </draggable>
     </div>
+
     <button type="button" @click="addNewBlock">
       Добавить блок
     </button>
@@ -31,24 +34,37 @@
         <p class="text-black-50 small">Настройки</p>
         <div class="d-flex flex-wrap align-items-center justify-content-around">
           <b-form-checkbox
-            :checked="getValue('show-icone')"
+            :checked="showSettings.showIcone"
             @input="changeModule('show-icone', $event)"
           >
             Иконка
           </b-form-checkbox>
 
           <b-form-checkbox
-            :checked="getValue('show-title')"
-            @input="changeModule('big-image', $event)"
+            :checked="showSettings.showTitle"
+            @input="changeModule('show-title', $event)"
           >
             Заглавие
+          </b-form-checkbox>
+
+          <b-form-checkbox
+            :checked="showSettings.showText"
+            @input="changeModule('show-text', $event)"
+          >
+            Текст
+          </b-form-checkbox>
+          <b-form-checkbox
+            :checked="showSettings.showUrl"
+            @input="changeModule('show-url', $event)"
+          >
+            Ссылка
           </b-form-checkbox>
 
           <div>
             Цвет секции
             <ColorSelection
               :colors="colors"
-              :value="getValue('box-color')"
+              :value="getValue('box-color') === false"
               @input="changeModule('box-color', $event)"
             ></ColorSelection>
           </div>
@@ -65,12 +81,15 @@ import draggable from "vuedraggable";
 import { uid } from "./../../../../Helpers/Sting";
 import InfoBlock from "./InfoBlock";
 import ColorSelection from "../../../Common/ColorSelection";
+import ModuleWrapper from "./../../../Common/ModuleWrapper";
+const nameModule = "info-bloks";
 const titleModuleDefaul = "";
 export default {
   components: {
     draggable,
     InfoBlock,
-    ColorSelection
+    ColorSelection,
+    ModuleWrapper
   },
   props: {
     module: Object,
@@ -89,35 +108,56 @@ export default {
   computed: {
     draggableList: {
       get() {
-        const name = "info-bloks";
-        return this.getValue(name);
+        return this.getValue(nameModule);
       },
       set(value) {
-        const name = "info-bloks";
-        this.module._value[name] = Object.assign(
+        this.module._value[nameModule] = Object.assign(
           [],
-          this.getValue(name),
+          this.getValue(nameModule),
           value
         );
       }
     },
+    showSettings() {
+      return {
+        showIcone: this.getValue("show-icone") !== false,
+        showTitle: this.getValue("show-title") !== false,
+        showText: this.getValue("show-text") !== false,
+        showUrl: this.getValue("show-url") !== false
+      };
+    },
     blocks: function() {
-      const name = "info-bloks";
-      return this.getValue(name);
+      return this.getValue(nameModule);
     }
   },
   methods: {
-    //?! Мутируем пропсы
+    getCheckValueSetting(name) {
+      return this.getValue(name) === null || this.getValue(name) ? true : false;
+    },
+    deleteModule(module) {
+      return () => {
+        this.$bvModal
+          .msgBoxConfirm("Удалить модуль?")
+          .then(value => {
+            if (value)
+              this.module._value[nameModule].splice(
+                this.module._value[nameModule].indexOf(module),
+                1
+              );
+          })
+          .catch(err => {
+            // An error occurred
+          });
+      };
+    },
     addNewBlock() {
-      const name = "info-bloks";
-
       if (this.module._value === undefined) {
         this.$set(this.module, "_value", {});
       }
-      if (this.module._value[name] === undefined) {
-        this.$set(this.module._value, name, []);
+      if (this.module._value[nameModule] === undefined) {
+        this.$set(this.module._value, nameModule, []);
       }
-      this.module._value[name].push({
+      this.module._value[nameModule].push({
         id: uid(),
         _name: "InfoBlok"
       });
@@ -131,7 +171,6 @@ export default {
       return value;
     },
 
-    //?! Мутируем пропсы
     getModule(name) {
       if (this.module._value === undefined) {
         this.$set(this.module, "_value", {});
@@ -143,11 +182,10 @@ export default {
     },
 
     changeModule(name, value) {
-      const module = this.module || { _value: {} };
-      module._value = {
-        ...((this.module && this.module._value) || {}),
-        [name]: value
-      };
+      if (this.module._value === undefined) {
+        this.$set(this.module, "_value", {});
+      }
+      this.$set(this.module._value, name, value);
       this.$emit(`changeModule`, module);
     }
   }

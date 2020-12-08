@@ -90,7 +90,6 @@ export default {
       return value;
     },
 
-    //?! Мутируем пропсы
     getModule(name) {
       if (this.module._value === undefined) {
         this.$set(this.module, "_value", {});
@@ -102,11 +101,10 @@ export default {
     },
 
     changeModule(name, value) {
-      const module = this.module || { _value: {} };
-      module._value = {
-        ...((this.module && this.module._value) || {}),
-        [name]: value
-      };
+      if (this.module._value === undefined) {
+        this.$set(this.module, "_value", {});
+      }
+      this.$set(this.module._value, name, value);
       this.$emit(`changeModule`, module);
     }
   }
