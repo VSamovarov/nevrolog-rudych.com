@@ -13,9 +13,15 @@ class PostUpdateDto
     private $order;
     private $translations;
     private $thumbnail;
+    private $metadata;
 
 
-    public function __construct(array $data, array $translations, ?ThumbnailUpdateDto $thumbnail)
+    public function __construct(
+      array $data,
+      array $translations,
+      ?ThumbnailUpdateDto $thumbnail,
+      ?array $metadata
+    )
     {
         $this->type = $data['type'] ?? null;
         $this->status = $data['status'] ?? null;
@@ -24,6 +30,7 @@ class PostUpdateDto
         $this->order = $data['order'] ?? null;
         $this->translations = $translations;
         $this->thumbnail = $thumbnail;
+        $this->metadata = $metadata;
     }
 
 
@@ -82,5 +89,13 @@ class PostUpdateDto
     public function getThumbnail()
     {
         return $this->thumbnail;
+    }
+
+        /**
+     * Get the value of translations
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 }

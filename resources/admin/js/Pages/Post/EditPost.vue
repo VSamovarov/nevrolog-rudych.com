@@ -117,7 +117,7 @@ export default {
   data() {
     return {
       modulesData: {},
-      modulesMetaData: [],
+      modulesMetaData: this.main.metadata,
       overlay: false,
       post_id: this.main.id,
       post_type: this.main.type,

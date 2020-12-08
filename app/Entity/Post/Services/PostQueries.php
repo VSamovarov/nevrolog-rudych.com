@@ -79,7 +79,7 @@ final class PostQueries implements ServiceQueries
     } else {
       $post = $this->model->findOrFail($id);
     }
-    $post->load('translations');
+    $post->load('translations', 'metadata');
     $post->thumbnail = $post->getFirstMediaUrl('thumbnail');
     return $post;
   }

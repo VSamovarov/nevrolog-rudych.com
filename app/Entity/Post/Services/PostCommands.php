@@ -22,7 +22,6 @@ class PostCommands
     $this->tmpStorage = Storage::disk(UploadTmpFiles::STORAGE_DISK);
   }
 
-
   /**
    * Сохраняем данные Post
    *
@@ -56,6 +55,8 @@ class PostCommands
     }
 
     $this->updateThumbnail($post, $dto->getThumbnail());
+    $this->updateMetadata($post, $dto->getMetadata());
+
   }
 
   /**
@@ -95,5 +96,27 @@ class PostCommands
     $name = Helper::normalizeFileName($name ?? $path);
     $image = $post->addMedia($path)->usingFileName($name)->toMediaCollection($collection);
     return $image;
+  }
+
+  /**
+   * Обновляем метаданные
+   *
+   * Удаляем все, вставляем новые
+   *
+   * @param Post $post
+   * @param array|null $dto
+   * @return void
+   */
+  public function updateMetadata(Post $post, ?array $dto): void
+  {
+    $post->metadata()->delete();
+    foreach ($dto as $value) {
+      $post->metadata()->create([
+        '_title' => $value->get_title(),
+        '_name' => $value->get_name(),
+        '_value' => $value->get_value(),
+        'order' =>  $value->getOrder(),
+      ]);
+    }
   }
 }

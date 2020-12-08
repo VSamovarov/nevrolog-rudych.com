@@ -2,6 +2,7 @@
 
 namespace App\Entity\Post\Requests;
 
+use App\Entity\Post\Dto\MetadataUpdateDto;
 use App\Entity\Post\Dto\PostUpdateDto;
 use App\Entity\Post\Dto\PostUpdateTranslationsDto;
 use App\Entity\Post\Dto\ThumbnailUpdateDto;
@@ -40,6 +41,9 @@ class PostUpdateRequest extends FormRequest
         }
       ],
       'metadata' => 'nullable|array',
+      'metadata.*._name' => 'exclude_if:metadata,array|required|string',
+      'metadata.*._title' => 'exclude_if:metadata,array|string',
+      'metadata.*._value' => 'exclude_if:metadata,array|required|array',
     ];
   }
 
@@ -51,7 +55,8 @@ class PostUpdateRequest extends FormRequest
     return new PostUpdateDto(
       compact('type', 'status', 'created_at'),
       $this->getTranslationsDto(array_merge_recursive($this->input('seo-meta-data-module'), $this->input('main-content-module'))),
-      $this->getThumbnailDto($this->input('thumbnail-module'))
+      $this->getThumbnailDto($this->input('thumbnail-module')),
+      $this->getMetadataDto($this->input('metadata'))
     );
   }
 
@@ -76,18 +81,18 @@ class PostUpdateRequest extends FormRequest
   /**
    * Готовим DTO метаданных
    *
-   * data:Object
-   * id:"mbaeq-1606597286591"
-   * title:"Картинка с текстом"
-   * type:"ImageAndTextTwoRows"
-   *
    * @param [type] $data
    * @return void
    */
-  private function getMetadataDto($data)
+  private function getMetadataDto($data): ?array
   {
+    $metadata = [];
     if (empty($data)) {
       return null;
     }
+    foreach ($data as $i => $value) {
+      $metadata[] = new MetadataUpdateDto($value['_name'], $value['_title'], $value['_value'], $i );
+    }
+    return $metadata;
   }
 }
