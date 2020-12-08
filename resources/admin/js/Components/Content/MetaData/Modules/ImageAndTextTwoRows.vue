@@ -58,8 +58,11 @@ const colors = ["#984c8a", "#9baacb", "#503a87", "#212529", "#fbe7f8"];
 import ImageInput from "../Modules/ImageInput";
 import ColorSelection from "../../../Common/ColorSelection";
 import MultilingualEditor from "../Modules/Editor";
+import MatadataMixin from "./../mixin";
+
 const titleModuleDefaul = "";
 export default {
+  mixins: [MatadataMixin],
   data() {
     return {
       reverse: false,
@@ -78,34 +81,6 @@ export default {
     title: {
       type: String,
       default: titleModuleDefaul
-    }
-  },
-  methods: {
-    /**
-     * Общая часть
-     */
-    getValue(name) {
-      const value =
-        (this.module && this.module._value && this.module._value[name]) || null;
-      return value;
-    },
-
-    getModule(name) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      if (this.module._value[name] === undefined) {
-        this.$set(this.module._value, name, {});
-      }
-      return this.module._value[name];
-    },
-
-    changeModule(name, value) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      this.$set(this.module._value, name, value);
-      this.$emit(`changeModule`, module);
     }
   }
 };

@@ -32,23 +32,26 @@
       @changeModule="changeModule('text', $event)"
       v-if="settings.showText"
     ></MultilingualTextarea>
-    <p class="text-black-50 small">Ссылка</p>
-    <b-form-group>
-      <b-form-input
-        :value="getValue('link')"
-        @input="changeModule('link', $event)"
-        trim
-        v-if="settings.showUrl"
-      ></b-form-input>
-    </b-form-group>
+    <template v-if="settings.showUrl">
+      <p class="text-black-50 small">Ссылка</p>
+      <b-form-group>
+        <b-form-input
+          :value="getValue('link')"
+          @input="changeModule('link', $event)"
+          trim
+        ></b-form-input>
+      </b-form-group>
+    </template>
   </div>
 </template>
 
 <script>
 import MultilingualTextarea from "../Modules/MultilingualTextarea";
 import MultilingualInput from "../Modules/MultilingualInput";
+import MatadataMixin from "./../mixin";
 const titleModuleDefaul = "";
 export default {
+  mixins: [MatadataMixin],
   data() {
     return {
       reverse: false
@@ -66,35 +69,6 @@ export default {
     title: {
       type: String,
       default: titleModuleDefaul
-    }
-  },
-
-  methods: {
-    /**
-     * Общая часть
-     */
-    getValue(name) {
-      const value =
-        (this.module && this.module._value && this.module._value[name]) || null;
-      return value;
-    },
-
-    getModule(name) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      if (this.module._value[name] === undefined) {
-        this.$set(this.module._value, name, {});
-      }
-      return this.module._value[name];
-    },
-
-    changeModule(name, value) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      this.$set(this.module._value, name, value);
-      this.$emit(`changeModule`, module);
     }
   }
 };

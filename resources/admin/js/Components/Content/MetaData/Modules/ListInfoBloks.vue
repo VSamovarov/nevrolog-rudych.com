@@ -25,9 +25,9 @@
       </draggable>
     </div>
 
-    <button type="button" @click="addNewBlock">
+    <b-button @click="addNewBlock">
       Добавить блок
-    </button>
+    </b-button>
     <hr />
     <div class="row">
       <div class="col-md-12">
@@ -82,9 +82,11 @@ import { uid } from "./../../../../Helpers/Sting";
 import InfoBlock from "./InfoBlock";
 import ColorSelection from "../../../Common/ColorSelection";
 import ModuleWrapper from "./../../../Common/ModuleWrapper";
+import MatadataMixin from "./../mixin";
 const nameModule = "info-bloks";
 const titleModuleDefaul = "";
 export default {
+  mixins: [MatadataMixin],
   components: {
     draggable,
     InfoBlock,
@@ -106,6 +108,14 @@ export default {
     };
   },
   computed: {
+    showSettings() {
+      return {
+        showIcone: !(this.getValue("show-icone") === false),
+        showTitle: !(this.getValue("show-title") === false),
+        showText: !(this.getValue("show-text") === false),
+        showUrl: !(this.getValue("show-url") === false)
+      };
+    },
     draggableList: {
       get() {
         return this.getValue(nameModule);
@@ -117,14 +127,6 @@ export default {
           value
         );
       }
-    },
-    showSettings() {
-      return {
-        showIcone: this.getValue("show-icone") !== false,
-        showTitle: this.getValue("show-title") !== false,
-        showText: this.getValue("show-text") !== false,
-        showUrl: this.getValue("show-url") !== false
-      };
     },
     blocks: function() {
       return this.getValue(nameModule);
@@ -161,32 +163,6 @@ export default {
         id: uid(),
         _name: "InfoBlok"
       });
-    },
-    /**
-     * Общая часть
-     */
-    getValue(name) {
-      const value =
-        (this.module && this.module._value && this.module._value[name]) || null;
-      return value;
-    },
-
-    getModule(name) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      if (this.module._value[name] === undefined) {
-        this.$set(this.module._value, name, {});
-      }
-      return this.module._value[name];
-    },
-
-    changeModule(name, value) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      this.$set(this.module._value, name, value);
-      this.$emit(`changeModule`, module);
     }
   }
 };

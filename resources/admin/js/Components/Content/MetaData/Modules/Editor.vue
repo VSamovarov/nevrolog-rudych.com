@@ -23,7 +23,9 @@
 
 <script>
 import Editor from "./../../../Common/CkEditor/CkEditorClassic";
+import MatadataMixin from "./../mixin";
 export default {
+  mixins: [MatadataMixin],
   components: { Editor },
   props: {
     module: Object | null,
@@ -32,37 +34,6 @@ export default {
     title: {
       type: String,
       default: "Текст"
-    }
-  },
-  /**
-   * Общая часть
-   */
-  methods: {
-    /**
-     * Общая часть
-     */
-    getValue(name) {
-      const value =
-        (this.module && this.module._value && this.module._value[name]) || null;
-      return value;
-    },
-
-    getModule(name) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      if (this.module._value[name] === undefined) {
-        this.$set(this.module._value, name, {});
-      }
-      return this.module._value[name];
-    },
-
-    changeModule(name, value) {
-      if (this.module._value === undefined) {
-        this.$set(this.module, "_value", {});
-      }
-      this.$set(this.module._value, name, value);
-      this.$emit(`changeModule`, module);
     }
   }
 };
