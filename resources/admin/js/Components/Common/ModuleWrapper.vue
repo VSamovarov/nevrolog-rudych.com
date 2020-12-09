@@ -14,7 +14,7 @@
       <div
         v-click-outside="hide"
         class="dropdown dropleft"
-        v-if="renameModule || deleteModule"
+        v-if="renameModule || deleteModule || settingsModule"
       >
         <button
           class="btn btn-sm btn-light"
@@ -29,14 +29,21 @@
             @click="renameModule"
             v-if="typeof renameModule === 'function'"
           >
-            Переименовать модуль
+            Переименовать
+          </button>
+          <button
+            class="dropdown-item"
+            @click="settingsModule"
+            v-if="typeof settingsModule === 'function'"
+          >
+            Настройки
           </button>
           <button
             class="dropdown-item"
             @click="deleteModule"
             v-if="typeof deleteModule === 'function'"
           >
-            Удалить модуль
+            Удалить
           </button>
         </div>
       </div>
@@ -60,6 +67,10 @@ export default {
       default: null
     },
     deleteModule: {
+      type: Function,
+      default: null
+    },
+    settingsModule: {
       type: Function,
       default: null
     }

@@ -6,6 +6,8 @@ use App\Entity\Post\Post;
 
 class Metadata extends Model
 {
+  public $timestamps = false;
+
   protected  $casts  = [
     '_value' => 'array'
   ];

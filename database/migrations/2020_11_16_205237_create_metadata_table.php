@@ -23,7 +23,6 @@ class CreateMetadataTable extends Migration
       $table->string('_name')->index();
       $table->longText('_value')->nullable();
       $table->unsignedInteger('order')->default(10);
-      $table->timestamps();
     });
   }
 
