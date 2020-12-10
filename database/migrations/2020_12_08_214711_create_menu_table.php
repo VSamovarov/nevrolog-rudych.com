@@ -16,8 +16,8 @@ class CreateMenuTable extends Migration
       Schema::create('menu', function (Blueprint $table) {
         $table->bigIncrements('id');
         $table->unsignedInteger('order')->default(10);
-        $table->string('url');
-        $table->string('slug');
+        $table->string('url')->nullable();
+        $table->string('slug')->nullable();
         $table->nestedSet();
       });
     }

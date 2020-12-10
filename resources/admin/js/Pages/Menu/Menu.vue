@@ -7,7 +7,11 @@
             <h3 class="mb-5">{{ pageTitle }}</h3>
             <div v-for="mainMenu in menu" :key="mainMenu.id">
               <div class="d-flex">
-                <h4>{{ mainMenu.title[locale] }}</h4>
+                <h4>
+                  {{
+                    (mainMenu.title && mainMenu.title[locale]) || mainMenu.slug
+                  }}
+                </h4>
                 <small class="ml-3">{{ mainMenu.slug }}</small>
               </div>
               <MenuDraggable
@@ -42,62 +46,63 @@ import { uid } from "./../../Helpers/Sting";
 
 export default {
   components: { AdminLayout, MenuDraggable },
-  props: ["pageTitle", "locale", "locales"],
+  props: ["pageTitle", "locale", "locales", "menuTreeArray"],
   data() {
     return {
       overlay: false,
-      menu: [
-        {
-          id: uid(),
-          slug: "main",
-          title: { ru: "Главное меню", uk: "Головне меню" },
-          menu: [
-            {
-              id: uid(),
-              slug: "11menu",
-              title: { ru: "ru11menu", uk: "uk11menu" },
-              url: "/1menu",
-              menu: [
-                {
-                  id: uid(),
-                  slug: "12menu",
-                  title: { ru: "ru12menu", uk: "uk12menu" },
-                  url: "/12menu",
-                  menu: []
-                },
-                {
-                  id: uid(),
-                  slug: "13menu",
-                  title: { ru: "ru13menu", uk: "uk13menu" },
-                  url: "/13menu",
-                  menu: []
-                }
-              ]
-            },
-            {
-              id: uid(),
-              slug: "2menu",
-              title: { ru: "ru2menu", uk: "uk2menu" },
-              url: "/2menu",
-              menu: []
-            }
-          ]
-        },
-        {
-          id: uid(),
-          slug: "two",
-          title: { ru: "Второстепене", uk: "Другорядне" },
-          menu: [
-            {
-              id: uid(),
-              slug: "2menu",
-              title: { ru: "ru2menu", uk: "uk2menu" },
-              url: "/2menu",
-              menu: []
-            }
-          ]
-        }
-      ]
+      menu: this.menuTreeArray
+      // menu: [
+      //   {
+      //     id: uid(),
+      //     slug: "main",
+      //     title: { ru: "Главное меню", uk: "Головне меню" },
+      //     menu: [
+      //       {
+      //         id: uid(),
+      //         slug: "11menu",
+      //         title: { ru: "ru11menu", uk: "uk11menu" },
+      //         url: "/1menu",
+      //         menu: [
+      //           {
+      //             id: uid(),
+      //             slug: "12menu",
+      //             title: { ru: "ru12menu", uk: "uk12menu" },
+      //             url: "/12menu",
+      //             menu: []
+      //           },
+      //           {
+      //             id: uid(),
+      //             slug: "13menu",
+      //             title: { ru: "ru13menu", uk: "uk13menu" },
+      //             url: "/13menu",
+      //             menu: []
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         id: uid(),
+      //         slug: "2menu",
+      //         title: { ru: "ru2menu", uk: "uk2menu" },
+      //         url: "/2menu",
+      //         menu: []
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     id: uid(),
+      //     slug: "two",
+      //     title: { ru: "Второстепене", uk: "Другорядне" },
+      //     menu: [
+      //       {
+      //         id: uid(),
+      //         slug: "2menu",
+      //         title: { ru: "ru2menu", uk: "uk2menu" },
+      //         url: "/2menu",
+      //         menu: []
+      //       }
+      //     ]
+      //   }
+      // ]
     };
   },
   methods: {

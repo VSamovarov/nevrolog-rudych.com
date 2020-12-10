@@ -9,8 +9,7 @@
       >
         <b-icon v-if="!visible" icon="chevron-down"></b-icon>
         <b-icon v-if="visible" icon="chevron-up"></b-icon>
-        {{ locale }}
-        {{ item.title[locale] }}
+        {{ (item.title && item.title[locale]) || item.slug }}
         <span
           class="text-secondary"
           :style="{

@@ -7,5 +7,5 @@ class MenuTranslation extends Model
 {
   use HasFactory;
   public $timestamps = false;
-  protected $fillable = ['title'];
+  protected $fillable = ['title','lang'];
 }
