@@ -1,36 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Providers;
 
-use App\Entity\Feedback\Feedback;
-use App\Entity\Feedback\Services\FeedbackQueries;
-use App\Entity\Menu\Menu;
 use App\Entity\Menu\Services\MenuQueries;
-use App\Entity\Post\Post;
-use App\Entity\Post\Services\PostQueries;
-use App\Services\Helper;
-use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
-use App\Services\ConfigsLoader\ConfigsLoader;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
-class TestController extends Controller
+class ComposerMenuServiceProvider extends ServiceProvider
 {
     /**
-     * Handle the incoming request.
+     * Register services.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function __invoke()
+    public function register()
     {
-      $_value = '12345';
+        //
+    }
 
-      $instance = app()->make(MenuQueries::class);
-      $menu = $instance->getMenuTreeArray('main');
-      $menu = array_shift($menu)['menu'];
-      $menuMew = $this->setActiveItems($menu,request()->path());
-      dd($menuMew);
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+      View::composer('front.modules.main-menu', function($view) {
+        $view->with(['mainMenuItems' => $this->getMenu('main')]);
+      });
+    }
 
+    private function getMenu($slug)
+    {
+      $instance = $this->app->make(MenuQueries::class);
+      $menu = $instance->getMenuTreeArray($slug);
+      $menu = $this->setActiveItems(array_shift($menu)['menu'],request()->path());
+      return $menu;
     }
 
     /**
@@ -41,7 +46,7 @@ class TestController extends Controller
      * @param string $path
      * @return array
      */
-    public function setActiveItems(array $menu, string $path): array
+    private function setActiveItems(array $menu, string $path): array
     {
       $path = trim($path,'/');
       foreach($menu as $i=>$item) {
