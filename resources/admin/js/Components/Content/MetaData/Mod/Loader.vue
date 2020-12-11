@@ -16,13 +16,14 @@
           :deleteModule="deleteModule(module)"
           :renameModule="renameModule(module)"
         >
-          <ModulesLoader
+          <component
+            :is="module._name"
             :module="module"
             :locales="locales"
             :post="post"
-            @changeModule="changeModule"
+            @changeModule="changeModule(module, $event)"
           >
-          </ModulesLoader>
+          </component>
         </ModuleWrapper>
       </template>
     </draggable>
@@ -52,27 +53,25 @@
 </template>
 
 <script>
-import ModulesLoader from "./../MetaData/ModulesLoader";
 import draggable from "vuedraggable";
-import { uid } from "./../../../Helpers/Sting";
-import ModuleWrapper from "./../../Common/ModuleWrapper";
+import { uid } from "./../../../../Helpers/Sting";
+import ModuleWrapper from "./../../../Common/ModuleWrapper";
+
+/**
+ * Модули
+ */
+import MainBanner from "./MainBanner";
 
 export default {
-  components: { ModulesLoader, draggable, ModuleWrapper },
+  components: {
+    draggable,
+    ModuleWrapper,
+    MainBanner
+  },
   props: ["modules", "locales", "post"],
   data() {
     return {
-      /**
-       * Отображаем меню выбора модулей
-       */
       showSelectedNewModules: false,
-      /**
-       * ! Надо как то переделать
-       * Id модулей, которые уже загружены.
-       * Необходимы чтоб поле заглавие секции
-       * загружалось уже после отображение асинхронного компонента
-       */
-      loaded: {},
       newModules: [
         {
           text: "-- Выбрать модуль --",
@@ -118,11 +117,9 @@ export default {
       this.$emit("addNewMetaModule", {
         _title: text, //Заглавие в админке
         _name: value, //Название шаблона
+        _value: {},
         id: uid()
       });
-    },
-    changeModule(module) {
-      this.$emit("updateMetaModules", module);
     },
     deleteModule(module) {
       return () => {
@@ -135,6 +132,9 @@ export default {
             // An error occurred
           });
       };
+    },
+    changeModule(module, data) {
+      this.$emit("updateMetaModules", module, data);
     },
     renameModule(module) {
       return () => {
@@ -157,8 +157,7 @@ export default {
             size: "sm"
           })
           .then(value => {
-            // this.boxOne = value;
-            this.$emit(`updateMetaModules`, { ...module, _title: newName });
+            module._title = newName;
           })
           .catch(e => {
             console.error(e);

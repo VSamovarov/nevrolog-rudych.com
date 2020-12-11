@@ -88,7 +88,8 @@ import SeoMetaModule from "./../../Components/Modules/SeoMetaModule";
 import DateModule from "./../../Components/Modules/DateModule";
 import PostStatusModule from "./../../Components/Modules/PostStatusModule";
 import ThumbnailModule from "./../../Components/Modules/ThumbnailModule";
-import MetaData from "./../../Components/Content/MetaData/MetaData";
+// import MetaData from "./../../Components/Content/MetaData/MetaData";
+import MetaData from "./../../Components/Content/MetaData/Mod/Loader";
 
 import { merge } from "lodash";
 
@@ -135,10 +136,14 @@ export default {
       const index = this.modulesMetaData.findIndex(item => item === module);
       this.modulesMetaData.splice(index, 1);
     },
-    updateMetaModules(module) {
+    updateMetaModules(module, data) {
       this.modulesMetaData.map(item => {
-        if (item.id === module.id) {
-          item = Object.assign({}, item, merge(item, module));
+        if (item === module) {
+          item._value = Object.assign(
+            {},
+            item._value,
+            merge(item._value, data)
+          );
         }
         return item;
       });
