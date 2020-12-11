@@ -16,6 +16,11 @@
       color: $gray-900;
     }
   }
+  &__item.current > a,
+  &__sub_navbar > .current > a {
+    text-decoration: underline;
+    text-decoration-color: $brand-color;
+  }
   & > &__item {
     font-size: 22px;
     line-height: 1em;

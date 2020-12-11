@@ -1,43 +1,20 @@
-<ul class="main-navbar">
-    <li class="main-navbar__item"><a class="" href="index.html">Home</a>
-    </li>
-    <li class="main-navbar__item"><a class="" href="about.html">About</a>
-    </li>
-    <li class="main-navbar__item main-navbar__has-submenu "><a class="" href="services.html">Services</a>
-        <!-- RD main-navbar Dropdown-->
-        <ul class="main-navbar__sub_navbar">
-            <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="single-service.html">Single Service</a></li>
-        </ul>
-    </li>
-    <li class="main-navbar__item main-navbar__has-submenu"><a class="" href="#">Blog</a>
-        <!-- RD main-navbar Dropdown-->
-        <ul class="main-navbar__sub_navbar">
-            <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="grid-blog.html">Grid Blog</a></li>
-            <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="sidebar-blog.html">Sidebar Blog</a></li>
-            <li class="rd-dropdown-item"><a class="rd-dropdown-link" href="single-blog-post.html">Single Blog Post</a>
-            </li>
-        </ul>
-    </li>
-    <li class="main-navbar__item main-navbar__has-submenu"><a class="" href="#">Pages</a>
+{{-- @dump($mainMenuItems) --}}
 
-        <ul class="main-navbar__sub_navbar">
-            <li class="main-navbar__item"><a class="" href="careers.html">Careers</a>
-            </li>
-            <li class="main-navbar__item"><a class="" href="single-job.html">Single
-                    Job</a></li>
-            <li class="main-navbar__item"><a class="" href="team.html">Team</a></li>
-            <li class="main-navbar__item"><a class="" href="blog-layouts.html">Blog
-                    Layouts</a></li>
-            <li class="main-navbar__item"><a class="" href="about-us.html">About Us</a>
-            </li>
-            <li class="main-navbar__item"><a class="" href="modern-gallery.html">Modern
-                    Gallery</a></li>
-            <li class="main-navbar__item"><a class="" href="grid-gallery.html">Grid
-                    Gallery</a></li>
-            <li class="main-navbar__item"><a class="" href="masonry-gallery.html">Masonry Gallery</a></li>
-        </ul>
-
-    </li>
-    <li class="main-navbar__item"><a class="" href="contacts.html">Contacts</a>
-    </li>
-</ul>
+@if ($mainMenuItems)
+    <ul class="main-navbar">
+      @foreach ($mainMenuItems as $item)
+        <li class="main-navbar__item @if(!empty($item['menu'])) main-navbar__has-submenu @endif @if(!empty($item['active'])) current @endif">
+          <a class="{{$item['url']}}" href="index.html">{{$item['title'][app()->getLocale()]}}</a>
+          @if (!empty($item['menu']))
+            <ul class="main-navbar__sub_navbar">
+              @foreach ($item['menu'] as $subitem)
+                <li class="@if(!empty($subitem['active'])) current @endif">
+                  <a href="grid-blog.html">{{$subitem['title'][app()->getLocale()]}}</a>
+                </li>
+              @endforeach
+            </ul>
+          @endif
+        </li>
+      @endforeach
+    </ul>
+@endif
