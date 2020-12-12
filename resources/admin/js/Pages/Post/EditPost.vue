@@ -69,6 +69,11 @@
               :status="main.status"
               @updateDataModules="updateDataModules"
             ></PostStatusModule>
+            <PostSlugModule
+              :slugs="slugs"
+              :slug="main.slug"
+              @updateDataModules="updateDataModules"
+            ></PostSlugModule>
             <ThumbnailModule
               :src="main.thumbnail"
               @updateDataModules="updateDataModules"
@@ -87,6 +92,7 @@ import MainContentModule from "./../../Components/Modules/MainContentModule";
 import SeoMetaModule from "./../../Components/Modules/SeoMetaModule";
 import DateModule from "./../../Components/Modules/DateModule";
 import PostStatusModule from "./../../Components/Modules/PostStatusModule";
+import PostSlugModule from "./../../Components/Modules/PostSlugModule";
 import ThumbnailModule from "./../../Components/Modules/ThumbnailModule";
 // import MetaData from "./../../Components/Content/MetaData/MetaData";
 import MetaData from "./../../Components/Content/MetaData/Mod/Loader";
@@ -111,10 +117,11 @@ export default {
     MainContentModule,
     DateModule,
     PostStatusModule,
+    PostSlugModule,
     ThumbnailModule,
     MetaData
   },
-  props: ["main", "locales", "statuses"],
+  props: ["main", "locales", "statuses", "slugs"],
   data() {
     return {
       modulesData: {},

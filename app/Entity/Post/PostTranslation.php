@@ -10,5 +10,5 @@ class PostTranslation extends Model
     use HasFactory;
     public $timestamps = false;
     // 'excerpt' => $translation->getExcerpt(),
-    protected $fillable = ['title', 'content', 'excerpt', 'metatitle', 'metadescription', 'metakeys', 'slug'];
+    protected $fillable = ['lang','title', 'content', 'excerpt', 'metatitle', 'metadescription', 'metakeys', 'slug'];
 }

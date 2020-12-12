@@ -9,7 +9,12 @@
           <h1>{{ pageTitle }}</h1>
         </b-col>
         <b-col md="2" class="d-flex align-items-center justify-content-end">
-          <b-button>Добавить</b-button>
+          <inertia-link
+            :href="$route('admin.post.create', { type: query.type })"
+            class="btn btn-secondary"
+          >
+            Добавить
+          </inertia-link>
         </b-col>
       </b-row>
     </b-container>

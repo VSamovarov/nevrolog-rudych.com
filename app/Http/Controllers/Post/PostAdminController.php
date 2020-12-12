@@ -34,9 +34,10 @@ class PostAdminController extends Controller
     );
   }
 
-  public function create($type)
+  public function create(Request $request, PostCommands $commands)
   {
-    //
+    $item = $commands->create($request->input('type'));
+    return Redirect::route('admin.post.edit', $item->id);
   }
 
   public function store($type, Request $request)
@@ -54,15 +55,17 @@ class PostAdminController extends Controller
     return Inertia::render(
       'Post/EditPost',
       [
-        'pageTitle' => __('admin.post-edit.title'),
+        'pageTitle' => 'Редактирование документа',
         'main' => $services->byId($id),
-        'statuses' => $services->getStatuses()
+        'statuses' => $services->getStatuses(),
+        'slugs' => $services->getSlugs()
       ]
     );
   }
 
   public function update($id, PostUpdateRequest $request, PostCommands $commands)
   {
+
     $commands->update($id, $request->getDto());
 
     return Redirect::route('admin.post.edit', $id);

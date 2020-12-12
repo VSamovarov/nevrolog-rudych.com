@@ -35,6 +35,16 @@ final class PostQueries implements ServiceQueries
   }
 
   /**
+   * Все ярлыки
+   *
+   * @return array
+   */
+  public function getSlugs(): array
+  {
+    return $this->model->getSlugs();
+  }
+
+  /**
    * Формируем запрос
    *
    * @param array $values - значения фильтра

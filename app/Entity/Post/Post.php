@@ -82,6 +82,16 @@ class Post extends Model implements HasMedia
     return config('post_settings.statuses');
   }
 
+    /**
+   * Все статусы постов (из настроек)
+   *
+   * @return array|null
+   */
+  public function getSlugs(): ?array
+  {
+    return config('post_settings.slugs');
+  }
+
   /**
    * Количество Постов на странице
    *

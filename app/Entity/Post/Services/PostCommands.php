@@ -10,16 +10,17 @@ use App\Services\Storage\UploadTmpFiles;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Helper;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use VSamovarov\LaravelLocalizer\Localizer;
 
 class PostCommands
 {
-  private $queries;
   private $tmpStorage;
+  private $localizer;
 
-  public function __construct(PostQueries $queries)
+  public function __construct(Localizer $localizer)
   {
-    $this->queries = $queries;
     $this->tmpStorage = Storage::disk(UploadTmpFiles::STORAGE_DISK);
+    $this->localizer = $localizer;
   }
 
   /**
@@ -35,6 +36,7 @@ class PostCommands
     if ($dto->getStatus()) $post->status = $dto->getStatus();
     if ($dto->getUser_id()) $post->user_id = $dto->getUser_id();
     if ($dto->getCreated_at()) $post->created_at = $dto->getCreated_at();
+    if ($dto->getSlug()) $post->slug = $dto->getSlug();
 
     $post->save();
 
@@ -175,5 +177,24 @@ class PostCommands
     public function massRestore(array $ids)
     {
         Post::onlyTrashed('id', $ids)->restore();
+    }
+
+    public function create(string $type)
+    {
+      $item =  new Post;
+      $item->type = $type;
+      $item->status = 'draft';
+      $item->user_id = request()->user()->id;
+      $item->save();
+
+      foreach($this->localizer->getSlagsSupportedLocales() as $lang) {
+        $item->translations()->create(
+          [
+            'lang' => $lang,
+            'title' => 'New document',
+          ]
+        );
+      }
+      return $item;
     }
 }
