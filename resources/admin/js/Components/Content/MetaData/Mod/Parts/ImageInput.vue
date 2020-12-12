@@ -5,7 +5,7 @@
       :class="{ deleted: deleted }"
       class="p-0 m-0 text-center preview w-100 btn btn-link"
     >
-      <img :src="value.src || null" />
+      <img :src="preview" />
       <p v-if="!deleted" class="p-0 m-0 text-left d-block change-image">
         Изменить
       </p>
@@ -37,7 +37,8 @@ export default {
       route: this.$route("admin.api.post.add-image", this.post.id),
       alerts: {},
       deleted: false,
-      overlay: false
+      overlay: false,
+      preview: this.value.src || null
     };
   },
   methods: {
@@ -54,6 +55,7 @@ export default {
           }
         });
         //Отправляем данные вверх
+        this.preview = data;
         this.$emit("input", { ...this.value, src: data });
         this.alerts = {};
       } catch (e) {

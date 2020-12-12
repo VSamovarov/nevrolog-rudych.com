@@ -18,10 +18,10 @@
         >
           <component
             :is="module._name"
-            :module="module"
+            :value="module._value"
             :locales="locales"
             :post="post"
-            @changeModule="changeModule(module, $event)"
+            @input="$emit(`updateMetaModules`, module, $event)"
           >
           </component>
         </ModuleWrapper>
@@ -60,13 +60,13 @@ import ModuleWrapper from "./../../../Common/ModuleWrapper";
 /**
  * Модули
  */
-import MainBanner from "./MainBanner";
+import RepeaterMainBanner from "./RepeaterMainBanner";
 
 export default {
   components: {
     draggable,
     ModuleWrapper,
-    MainBanner
+    RepeaterMainBanner
   },
   props: ["modules", "locales", "post"],
   data() {
@@ -92,6 +92,10 @@ export default {
         {
           text: "Большой баннер",
           value: "MainBanner"
+        },
+        {
+          text: "Много главных баннеров",
+          value: "RepeaterMainBanner"
         }
       ]
     };
@@ -133,9 +137,7 @@ export default {
           });
       };
     },
-    changeModule(module, data) {
-      this.$emit("updateMetaModules", module, data);
-    },
+
     renameModule(module) {
       return () => {
         const h = this.$createElement;

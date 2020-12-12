@@ -6,7 +6,7 @@
           :locales="locales"
           :post="post"
           :value="getValue('image') || {}"
-          @input="changeModule('image', $event)"
+          @input="$emit('input', { ...value, image: $event })"
         ></ImageInput>
       </div>
       <div class="col-md-8">
@@ -14,38 +14,37 @@
         <MultilingualInput
           :locales="locales"
           :value="getValue('title') || {}"
-          @input="changeModule('title', $event)"
+          @input="$emit('input', { ...value, title: $event })"
         ></MultilingualInput>
 
         <p class="text-black-50 small">Текст</p>
         <MultilingualTextarea
           :locales="locales"
           :value="getValue('text') || {}"
-          @input="changeModule('text', $event)"
+          @input="$emit('input', { ...value, text: $event })"
         ></MultilingualTextarea>
         <p class="text-black-50 small">Ссылка</p>
         <b-form-group>
           <b-form-input
             :value="getValue('link') || ''"
-            @input="changeModule('link', $event)"
+            @input="$emit('input', { ...value, link: $event })"
             trim
           ></b-form-input>
         </b-form-group>
         <p class="text-black-50 small">Текст кнопки</p>
         <MultilingualInput
           :locales="locales"
-          :value="getValue('action-name') || {}"
-          @input="changeModule('action-name', $event)"
+          :value="getValue('action_name') || {}"
+          @input="$emit('input', { ...value, action_name: $event })"
         ></MultilingualInput>
       </div>
     </div>
   </div>
 </template>
 <script>
-import MultilingualInput from "./Parts/MultilingualInput";
-import MultilingualTextarea from "./Parts/MultilingualTextarea";
-import ImageInput from "./Parts/ImageInput";
-const titleModuleDefaul = "";
+import MultilingualInput from "./MultilingualInput";
+import MultilingualTextarea from "./MultilingualTextarea";
+import ImageInput from "./ImageInput";
 export default {
   components: {
     MultilingualInput,
@@ -53,27 +52,16 @@ export default {
     ImageInput
   },
   props: {
-    module: Object,
+    value: Object,
     settings: Object,
     locales: Object,
-    post: Object,
-    title: {
-      type: String,
-      default: titleModuleDefaul
-    }
+    post: Object
   },
   methods: {
     getValue(name) {
-      let value =
-        this.module &&
-        this.module._value &&
-        this.module._value[name] !== undefined
-          ? this.module._value[name]
-          : null;
-      return value;
-    },
-    changeModule(name, value) {
-      this.$emit(`changeModule`, { [name]: value });
+      return this.value && this.value[name] !== undefined
+        ? this.value[name]
+        : null;
     }
   }
 };
