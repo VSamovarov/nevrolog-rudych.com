@@ -19,20 +19,20 @@ class FeedbackAdminController extends Controller
     const MASS_ACTIONS_ALLOWED = ['delete', 'restore', 'viewed', 'not-viewed'];
     public $indexMenuItems = [
         [
-            'name' => 'all'
+            'name' => 'Все'
         ],
         [
-            'name' => 'viewed',
+            'name' => 'Просмотренные',
             'parameter' => 'viewed',
             'value' =>  1,
         ],
         [
-            'name' => 'not-viewed',
+            'name' => 'Новые',
             'parameter' => 'viewed',
             'value' =>  0,
         ],
         [
-            'name' => 'deleted',
+            'name' => 'Удаленные',
             'parameter' => 'deleted'
         ]
     ];
