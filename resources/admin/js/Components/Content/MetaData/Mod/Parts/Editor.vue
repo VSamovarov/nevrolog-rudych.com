@@ -1,9 +1,8 @@
 <template>
   <div>
-    <p v-if="title" class="text-black-50 small">{{ title }}</p>
     <b-tabs small>
       <b-tab
-        v-for="(values, lang) in locales"
+        v-for="(langData, lang) in locales"
         :key="lang"
         :title="lang"
         vertical
@@ -11,8 +10,8 @@
       >
         <b-form-group>
           <Editor
-            :value="getValue([lang])"
-            @input="changeModule(lang, $event)"
+            :value="value[lang] || null"
+            @input="$emit('input', { ...value, [lang]: $event })"
             :post_id="post.id"
           ></Editor>
         </b-form-group>
@@ -22,19 +21,13 @@
 </template>
 
 <script>
-import Editor from "./../../../Common/CkEditor/CkEditorClassic";
-import MatadataMixin from "./../mixin";
+import Editor from "./../../../../Common/CkEditor/CkEditorClassic";
 export default {
-  mixins: [MatadataMixin],
   components: { Editor },
   props: {
-    module: Object | null,
+    value: Object,
     locales: Object,
-    post: Object,
-    title: {
-      type: String,
-      default: "Текст"
-    }
+    post: Object
   }
 };
 </script>

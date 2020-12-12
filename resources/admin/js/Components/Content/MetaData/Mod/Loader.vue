@@ -16,6 +16,11 @@
           :deleteModule="deleteModule(module)"
           :renameModule="renameModule(module)"
         >
+          <SectionTitle
+            :value="module._value"
+            :locales="locales"
+            @input="$emit(`updateMetaModules`, module, $event)"
+          ></SectionTitle>
           <component
             :is="module._name"
             :value="module._value"
@@ -56,17 +61,20 @@
 import draggable from "vuedraggable";
 import { uid } from "./../../../../Helpers/Sting";
 import ModuleWrapper from "./../../../Common/ModuleWrapper";
-
+import SectionTitle from "./Parts/SectionTitle";
 /**
  * Модули
  */
 import RepeaterMainBanner from "./RepeaterMainBanner";
+import TextEditor from "./TextEditor";
 
 export default {
   components: {
     draggable,
     ModuleWrapper,
-    RepeaterMainBanner
+    RepeaterMainBanner,
+    TextEditor,
+    SectionTitle
   },
   props: ["modules", "locales", "post"],
   data() {
@@ -87,11 +95,7 @@ export default {
         },
         {
           text: "Текстовый редактор",
-          value: "Editor"
-        },
-        {
-          text: "Большой баннер",
-          value: "MainBanner"
+          value: "TextEditor"
         },
         {
           text: "Много главных баннеров",

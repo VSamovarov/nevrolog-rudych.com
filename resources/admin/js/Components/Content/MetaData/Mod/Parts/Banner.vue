@@ -2,6 +2,7 @@
   <div>
     <div class="row">
       <div class="col-md-4">
+        <p class="text-black-50 small">Картинка</p>
         <ImageInput
           :locales="locales"
           :post="post"

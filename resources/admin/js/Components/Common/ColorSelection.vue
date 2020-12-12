@@ -42,8 +42,7 @@ export default {
       default: []
     },
     value: {
-      type: String || null,
-      type: null
+      type: String
     }
   },
   data() {
