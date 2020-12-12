@@ -57,6 +57,8 @@ class PostCommands
     }
 
     $this->updateThumbnail($post, $dto->getThumbnail());
+
+
     $this->updateMetadata($post, $dto->getMetadata());
 
   }
@@ -112,13 +114,15 @@ class PostCommands
   public function updateMetadata(Post $post, ?array $dto): void
   {
     $post->metadata()->delete();
-    foreach ($dto as $value) {
-      $post->metadata()->create([
-        '_title' => $value->get_title(),
-        '_name' => $value->get_name(),
-        '_value' => $value->get_value(),
-        'order' =>  $value->getOrder(),
-      ]);
+    if($dto) {
+      foreach ($dto as $value) {
+        $post->metadata()->create([
+          '_title' => $value->get_title(),
+          '_name' => $value->get_name(),
+          '_value' => $value->get_value(),
+          'order' =>  $value->getOrder(),
+        ]);
+      }
     }
   }
 

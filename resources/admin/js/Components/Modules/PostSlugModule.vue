@@ -1,13 +1,15 @@
 <template>
   <ModuleWrapper title="Ярлык">
-    <b-form-group>
-      <b-form-select
-        v-model="slugModule"
-        :options="slugs"
-        size="sm"
-      ></b-form-select>
+    <b-form-group
+      :label="slugModule"
+      description="Используется для специальных страниц"
+    >
+      <b-form-select v-model="slugModule" :options="slugs" size="sm">
+        <template #first>
+          <b-form-select-option :value="null">Без ярлыка</b-form-select-option>
+        </template>
+      </b-form-select>
     </b-form-group>
-    <div class="small">{{ slugModule }}</div>
   </ModuleWrapper>
 </template>
 

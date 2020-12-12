@@ -26,7 +26,7 @@ class PostUpdateRequest extends FormRequest
 
     return [
       'type' => ['required', 'string', app(PostType::class)],
-      'post-slug-module' => 'unique:posts,slug',
+      'post-slug-module' => 'nullable|sometimes|unique:posts,slug',
       'post-status-module' => ['required', 'string', app(PostStatus::class)],
       'date-module' => 'date',
       'main-content-module.*' => [app(SupportedLocaleCheckArrayKey::class)],
