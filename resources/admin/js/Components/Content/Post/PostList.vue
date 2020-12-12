@@ -69,8 +69,8 @@ export default {
         { key: "id", label: "", class: "id" },
         { key: "title", label: "Название", class: "title" },
         { key: "slug", label: "Ярлык", class: "slug" },
-        { key: "date_add", label: "Созданный", class: "date_add text-nowrap" },
-        { key: "status", label: "Статус", class: "status" },
+        { key: "date", label: "Созданный", class: "date text-nowrap" },
+        // { key: "status", label: "Статус", class: "status" },
         { key: "action", label: "Действие", class: "action" }
       ]
     };

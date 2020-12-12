@@ -75,7 +75,6 @@ abstract class ModelFilter
         foreach ($this->input as $key => $val) {
             // Call all local methods on filter
             $method = $this->getFilterMethod($key);
-
             if ($this->methodIsCallable($method)) {
                 $this->{$method}($val);
             }

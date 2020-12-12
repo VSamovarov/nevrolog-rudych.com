@@ -138,6 +138,8 @@ class PostCommands
         if ($item->trashed()) {
             return $item->forceDelete();
         } else {
+            $item->slug = null;
+            $item->save();
             return $item->delete();
         }
     }
@@ -162,6 +164,11 @@ class PostCommands
      */
     public function massDelete(array $ids)
     {
+      /**
+       * Отвязываем все Ярлыки
+       */
+
+       Post::whereIn('id', $ids)->update(['slug' => null]);
       /**
        * Удаленные, удаляем окончательно
        */

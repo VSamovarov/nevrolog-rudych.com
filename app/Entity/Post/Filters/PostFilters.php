@@ -44,6 +44,7 @@ class PostFilters extends ModelFilter
     public function status(?string $value)
     {
         if (!empty($value)) {
+            //Это Scope. Его определение находится в App\Entity\Post\Traits\PostScope
             $this->query->status($value);
         }
     }
@@ -58,7 +59,7 @@ class PostFilters extends ModelFilter
     public function slug(?string $value)
     {
         if (!empty($value)) {
-            $this->query->slug($value);
+            $this->query->where('slug', $value);
         }
     }
 
