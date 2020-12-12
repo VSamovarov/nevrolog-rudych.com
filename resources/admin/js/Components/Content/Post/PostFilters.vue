@@ -18,6 +18,10 @@
         <div class="filters__title">Название</div>
         <b-input v-model="filters.title"></b-input>
       </div>
+      <div class="mr-2 filters">
+        <div class="filters__title">Ярлык</div>
+        <b-input v-model="filters.slug"></b-input>
+      </div>
     </div>
     <div class="align-self-end mb-2">
       <b-button @click="setFilters"><Icon icon="funnel-fill"></Icon></b-button>
@@ -27,17 +31,17 @@
 </template>
 
 <script>
-import Icon from './../../Common/Icon'
+import Icon from "./../../Common/Icon";
 const defaultFilters = {
   date_to: null,
   date_from: null,
-  title: null,
-}
+  title: null
+};
 export default {
   components: {
     Icon
   },
-  props: ['query'],
+  props: ["query"],
   data() {
     return {
       filters: {
@@ -48,15 +52,13 @@ export default {
   },
   methods: {
     setFilters() {
-      this.$emit('setQuery', this.filters)
+      this.$emit("setQuery", this.filters);
     },
     clearFilters() {
-      this.$emit('setQuery', {...this.filters,...defaultFilters})
+      this.$emit("setQuery", { ...this.filters, ...defaultFilters });
     }
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

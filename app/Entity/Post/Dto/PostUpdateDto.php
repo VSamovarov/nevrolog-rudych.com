@@ -7,6 +7,7 @@ use App\Entity\Post\Dto\ThumbnailUpdateDto;
 class PostUpdateDto
 {
     private $type;
+    private $slug;
     private $status;
     private $created_at;
     private $user_id;
@@ -24,6 +25,7 @@ class PostUpdateDto
     )
     {
         $this->type = $data['type'] ?? null;
+        $this->slug = $data['slug'] ?? null;
         $this->status = $data['status'] ?? null;
         $this->created_at = $data['created_at'] ?? null;
         $this->user_id = $data['user_id'] ?? null;
@@ -42,6 +44,15 @@ class PostUpdateDto
     {
         return $this->type;
     }
+
+      /**
+   * Get the value of type
+   */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
 
     /**
      * Get the value of status

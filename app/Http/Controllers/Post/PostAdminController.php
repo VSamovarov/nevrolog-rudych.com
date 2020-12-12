@@ -72,4 +72,25 @@ class PostAdminController extends Controller
   {
     //
   }
+
+  public function massActions(Request $request, PostCommands $commands)
+  {
+
+      $this->validate($request, [
+          'name' => 'required|in:' . implode(',', self::MASS_ACTIONS_ALLOWED),
+          'data' => 'required|array',
+          'data.*' => 'integer'
+      ]);
+      $ids = $request->input('data');
+      switch ($request->input('name')) {
+          case 'delete':
+              $commands->massDelete($ids);
+              break;
+          case 'restore':
+              $commands->massRestore($ids);
+              break;
+      }
+
+      return Redirect::route('admin.post.index',['type'=>$request->input('type')]);
+  }
 }

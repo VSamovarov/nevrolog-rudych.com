@@ -28,7 +28,7 @@ class Post extends Model implements HasMedia
 
   protected $appends = ['date_add'];
 
-  protected $filterableParameters = ['date_to', 'date_from', 'status', 'q', 'title', 'content'];
+  protected $filterableParameters = ['date_to', 'date_from', 'status', 'q', 'title', 'content', 'slug'];
 
   /**
    * Аксессоры

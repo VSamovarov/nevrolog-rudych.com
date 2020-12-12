@@ -25,6 +25,7 @@ class PostUpdateRequest extends FormRequest
 
     return [
       'type' => ['required', 'string', app(PostType::class)],
+      'slug' => 'exists:App\Entity\Post,slug',
       'post-status-module' => ['required', 'string', app(PostStatus::class)],
       'date-module' => 'date',
       'main-content-module.*' => [app(SupportedLocaleCheckArrayKey::class)],
@@ -50,10 +51,11 @@ class PostUpdateRequest extends FormRequest
   public function getDto(): PostUpdateDto
   {
     $type = $this->input('type');
+    $slug = $this->input('slug');
     $status = $this->input('post-status-module');
     $created_at = $this->input('date-module');
     return new PostUpdateDto(
-      compact('type', 'status', 'created_at'),
+      compact('type', 'slug', 'status', 'created_at'),
       $this->getTranslationsDto(array_merge_recursive($this->input('seo-meta-data-module'), $this->input('main-content-module'))),
       $this->getThumbnailDto($this->input('thumbnail-module')),
       $this->getMetadataDto($this->input('metadata'))

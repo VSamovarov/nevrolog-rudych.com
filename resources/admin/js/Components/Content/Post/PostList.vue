@@ -12,7 +12,6 @@
       :fields="tableFields"
       :tbody-tr-class="rowClass"
     >
-
       <template v-slot:head(id)>
         <span class="text-info">
           <!-- Выбор всех строк -->
@@ -21,19 +20,27 @@
       </template>
       <template v-slot:cell(id)="data">
         <!-- Выбор строки -->
-        <b-form-checkbox :checked="data.rowSelected" @change="selectRow(data.index,$event)"></b-form-checkbox>
+        <b-form-checkbox
+          :checked="data.rowSelected"
+          @change="selectRow(data.index, $event)"
+        ></b-form-checkbox>
       </template>
       <template v-slot:cell(title)="data">
         <!-- название -->
         {{ data.item.title }}
       </template>
+      <template v-slot:cell(slug)="data">
+        <!-- Ярлык -->
+        {{ data.item.slug }}
+      </template>
       <template v-slot:cell(action)="data">
         <div class="d-flex justify-content-around">
+          <!-- Редактировать -->
           <inertia-link
             class="btn btn-sm mx-1 edit-button  btn-secondary"
             v-if="!data.item.deleted_at"
             :href="$route('admin.post.edit', data.item.id)"
-            >
+          >
             <b-icon icon="pencil-fill"></b-icon>
           </inertia-link>
           <b-btn
@@ -43,9 +50,7 @@
           >
             <b-icon icon="shift-fill"></b-icon>
           </b-btn>
-          <b-btn
-            class="mx-1"
-            @click="itemDelete(data.item.id)">
+          <b-btn class="mx-1" @click="itemDelete(data.item.id)">
             <b-icon icon="trash-fill"></b-icon>
           </b-btn>
         </div>
@@ -56,17 +61,18 @@
 
 <script>
 export default {
-  props: ['items'],
+  props: ["items"],
   data() {
     return {
       itemShowId: false,
       tableFields: [
         { key: "id", label: "", class: "id" },
         { key: "title", label: "Название", class: "title" },
+        { key: "slug", label: "Ярлык", class: "slug" },
         { key: "date_add", label: "Созданный", class: "date_add text-nowrap" },
         { key: "status", label: "Статус", class: "status" },
-        { key: "action", label: "Действие", class: "action" },
-      ],
+        { key: "action", label: "Действие", class: "action" }
+      ]
     };
   },
   methods: {
@@ -75,95 +81,65 @@ export default {
      */
     rowClass(item, type) {
       let rowClass = [];
-      if (!item || type !== 'row') return;
+      if (!item || type !== "row") return;
 
-      if (item.viewed) rowClass.push('viewed');
-      if (!!item.deleted_at) rowClass.push('deleted');
-      return rowClass.join(' ');
-    },
-    /**
-     * Изменяем статус просмотра
-     *
-     */
-    feedbackViewStatusChange(id, status) {
-        status = status ? 1 : 0;
-        axios.patch( this.$route('admin.api.feedback.viewed-status',id), {status:status})
-        .then(response => {
-          this.feedbackData.forEach((item) => {
-            if(item.id === id)  {
-              item.viewed = status;
-            }
-          })
-        });
-    },
-    /**
-     * просматриваемый feedback
-     */
-    showFeedback(id) {
-      if(!id) return false;
-      this.feedbackShowId = id;
-    //this.feedbackViewStatusChange(id, 1)
-      this.$bvModal.show('modal-feedback-show-item')
+      if (item.viewed) rowClass.push("viewed");
+      if (!!item.deleted_at) rowClass.push("deleted");
+      return rowClass.join(" ");
     },
     /**
      * Удаление строки
      */
     itemDelete(id) {
-      this.confirmModal('Удалить сообщение?')
-      .then(value => {
-        if(value) {
-          axios.delete(this.$route('admin.api.feedback.destroy',id))
-          .then(
-            response => {
-              this.feedbackData.forEach((item) => {
-                if(item.id === id)  {
-                  item.deleted_at = true;
-                }
-              });
-            }
-          );
+      this.confirmModal("Удалить?").then(value => {
+        if (value) {
+          axios
+            .delete(this.$route("admin.api.post.destroy", id))
+            .then(response => {
+              if (response.data === true) {
+                const index = this.items.findIndex(item => item.id === id);
+                this.items.splice(index, 1);
+              }
+            });
         }
       });
     },
     itemRestore(id) {
-          axios.patch(this.$route('admin.api.feedback.restore',id))
-          .then(
-            response => {
-              this.feedbackData.forEach((item) => {
-                if(item.id === id)  {
-                  item.deleted_at = false;
-                }
-              });
-            }
-          );
+      axios.patch(this.$route("admin.api.post.restore", id)).then(response => {
+        if (response.data === true) {
+          const index = this.items.findIndex(item => item.id === id);
+          this.items.splice(index, 1);
+        }
+      });
     },
     /**
      * Окно подтверждения
      */
     confirmModal(msg) {
-      return this.$bvModal.msgBoxConfirm( msg, {
-        title: 'Подтвердите',
-        size: 'sm',
-        buttonSize: 'sm',
-        okVariant: 'danger',
-        okTitle: 'Да',
-        cancelTitle: 'Нет',
-        footerClass: 'p-2',
-        hideHeaderClose: true,
-        centered: true
-      })
-      .then(value => {
-        return value;
-      })
-      .catch(err => {
-        // An error occurred
-      })
+      return this.$bvModal
+        .msgBoxConfirm(msg, {
+          title: "Подтвердите",
+          size: "sm",
+          buttonSize: "sm",
+          okVariant: "danger",
+          okTitle: "Да",
+          cancelTitle: "Нет",
+          footerClass: "p-2",
+          hideHeaderClose: true,
+          centered: true
+        })
+        .then(value => {
+          return value;
+        })
+        .catch(err => {
+          // An error occurred
+        });
     },
     /**
      * Выбор строк таблицы-->
      */
     onRowSelected(items) {
-      this.$emit('rowSelected', items);
+      this.$emit("rowSelected", items);
     },
     selectRow(index, checked) {
       if (checked) {
@@ -178,27 +154,26 @@ export default {
       } else {
         this.$refs.selectableTable.clearSelected();
       }
-    },
+    }
     /**
      * Выбор строк таблицы<--
-    */
+     */
   }
 };
-
-
 </script>
 
 <style>
-  .index-feedback tbody tr.deleted, .index-feedback.deleted tbody tr {
-    display: none;
-  }
-  .index-feedback.deleted tr.deleted {
-    display: table-row;
-  }
-  .index-feedback.all tbody tr {
-    font-weight: bold;
-  }
-  .index-feedback.all tbody tr.viewed {
-    font-weight: normal;
-  }
+.index-feedback tbody tr.deleted,
+.index-feedback.deleted tbody tr {
+  display: none;
+}
+.index-feedback.deleted tr.deleted {
+  display: table-row;
+}
+.index-feedback.all tbody tr {
+  font-weight: bold;
+}
+.index-feedback.all tbody tr.viewed {
+  font-weight: normal;
+}
 </style>

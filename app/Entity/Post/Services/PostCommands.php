@@ -119,4 +119,61 @@ class PostCommands
       ]);
     }
   }
+
+  /**
+   * Удаление
+   *
+   * @param integer $id
+   * @return void
+   */
+    public function destroy(int $id)
+    {
+        $item = Post::withTrashed()->findOrFail($id);
+        if ($item->trashed()) {
+            return $item->forceDelete();
+        } else {
+            return $item->delete();
+        }
+    }
+
+    /**
+     * Восстановление удаленного (soft deleted)
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function restore(int $id)
+    {
+        $item = Post::withTrashed()->findOrFail($id);
+        return $item->restore();
+    }
+
+    /**
+     * Массово удаляем
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function massDelete(array $ids)
+    {
+      /**
+       * Удаленные, удаляем окончательно
+       */
+      Post::onlyTrashed()->whereIn('id', $ids)->forceDelete();
+      /**
+       * Soft Deleted
+       */
+      Post::whereIn('id', $ids)->delete();
+    }
+
+    /**
+     * Массово восстанавливаем
+     *
+     * @param array $ids
+     * @return void
+     */
+    public function massRestore(array $ids)
+    {
+        Post::onlyTrashed('id', $ids)->restore();
+    }
 }

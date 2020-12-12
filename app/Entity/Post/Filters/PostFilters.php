@@ -48,6 +48,20 @@ class PostFilters extends ModelFilter
         }
     }
 
+
+    /**
+     * Ярлык
+     *
+     * @param string|null $value
+     * @return void
+     */
+    public function slug(?string $value)
+    {
+        if (!empty($value)) {
+            $this->query->slug($value);
+        }
+    }
+
     /**
      * Поиск по таблице post_translations
      *

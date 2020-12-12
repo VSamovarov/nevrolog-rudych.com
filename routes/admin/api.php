@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Feedback\FeedbackAdminApiController;
-use App\Http\Controllers\Post\PostIndexApiAdminController;
+use App\Http\Controllers\Post\PostApiAdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Common\Api\UploadTmpFilesController;
@@ -29,7 +29,12 @@ Route::delete('/feedback/{id}/delete', [FeedbackAdminApiController::class, 'dest
 Route::patch('/feedback/{id}/restore', [FeedbackAdminApiController::class, 'restore'])->name('feedback.restore');
 
 
-Route::get('/post', PostIndexApiAdminController::class)->middleware(['localizer-api'])->name('post.index');
+Route::get('/post', [PostApiAdminController::class,'index'])->middleware(['localizer-api'])->name('post.index');
+
+Route::delete('/post/{id}/delete', [PostApiAdminController::class, 'destroy'])->name('post.destroy');
+
+Route::patch('/post/{id}/restore', [PostApiAdminController::class, 'restore'])->name('post.restore');
+
 
 Route::post('/files/upload', UploadTmpFilesController::class)->name('tmp-files-upload');
 Route::post('/post/{id}/add-image', AddImageToContentPostApiAdminController::class)->name('post.add-image');
