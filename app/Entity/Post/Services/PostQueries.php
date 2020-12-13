@@ -95,6 +95,20 @@ final class PostQueries implements ServiceQueries
   }
 
   /**
+   * Возвращаем данные по ярлыку
+   *
+   * @param string $slug
+   * @return Post
+   */
+  public function getBySlug(string $slug): Post
+  {
+    $post = $this->model->where('slug',$slug)->first();
+    if(!$post) abort(404);
+    $post->load('translations', 'metadata');
+    $post->thumbnail = $post->getFirstMediaUrl('thumbnail');
+    return $post;
+  }
+  /**
    * Количество сущностей
    *
    * @param array $values - значения фильтра

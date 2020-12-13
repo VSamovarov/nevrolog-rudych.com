@@ -1,7 +1,9 @@
 @extends('front.layouts.main')
 
 @section('content')
-
+  @if(!empty($main->metadata) && !empty($main->metadata['items']))
+    @include('front.modules.metadata.metadata-loader',['modules'=>$main->metadata['items']])
+  @endif
   @include('front.pages.main-page-content.sect-1')
   @include('front.pages.main-page-content.sect-2')
   @include('front.pages.main-page-content.sect-4')

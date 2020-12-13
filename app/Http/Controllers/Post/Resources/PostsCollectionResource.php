@@ -12,7 +12,7 @@ class PostsCollectionResource extends ResourceCollection
         return
             $this->collection->transform(
                 function ($item) {
-                    return new PostResource($item);
+                  return new PostResource($item);
                 }
             );
     }

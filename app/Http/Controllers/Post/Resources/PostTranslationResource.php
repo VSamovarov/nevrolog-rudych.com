@@ -15,8 +15,8 @@ class PostTranslationResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this->title,
-            'lang' => $this->lang
+            'title' => $this->title ?? '--Noname--',
+            'lang' => $this->lang ?? app()->getLocale()
         ];
     }
 }

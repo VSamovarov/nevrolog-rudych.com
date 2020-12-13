@@ -33,12 +33,20 @@ class PostCommands
   {
     $post = Post::findOrFail($id);
 
+    /**
+     * ! Прежде чем сохранить ярлык, отвязываем его от других постов
+     */
+    if ($dto->getSlug()) {
+      Post::where('slug', $dto->getSlug())->update(['slug' => null]);
+      $post->slug = $dto->getSlug();
+    }
+
     if ($dto->getStatus()) $post->status = $dto->getStatus();
     if ($dto->getUser_id()) $post->user_id = $dto->getUser_id();
     if ($dto->getCreated_at()) $post->created_at = $dto->getCreated_at();
-    if ($dto->getSlug()) $post->slug = $dto->getSlug();
-
     $post->save();
+
+
 
     foreach ($dto->getTranslations() as $translation) {
 

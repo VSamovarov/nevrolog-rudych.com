@@ -94,6 +94,10 @@ export default {
           value: "ImageAndTextTwoRows"
         },
         {
+          text: "Главный баннер",
+          value: "MainBanner"
+        },
+        {
           text: "Текстовый редактор",
           value: "TextEditor"
         },

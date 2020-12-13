@@ -8,7 +8,7 @@
         @start="drag = true"
         @end="drag = false"
       >
-        <template v-for="block in value.repeat || []">
+        <template v-for="block in blocks">
           <ModuleWrapper
             :key="block.id"
             class="movable meta-modules"
@@ -74,6 +74,14 @@ export default {
             // An error occurred
           });
       };
+    }
+  },
+  computed: {
+    blocks() {
+      if (!this.value.repeat) {
+        this.addNewBlock();
+      }
+      return this.value.repeat;
     }
   }
 };

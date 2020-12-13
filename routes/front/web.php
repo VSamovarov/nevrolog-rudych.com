@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -16,12 +17,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () {
-  return view('front.pages.main');
-});
-Route::get('/posts', function () {
-  return view('front.pages.index-posts');
-});
+Route::get('/', [PostController::class,'slug'])->name('main-page');
+// Route::get('/posts', function () {
+//   return view('front.pages.index-posts');
+// });
 
 
-Route::get('/test', TestController::class);
+// Route::get('/test', TestController::class);
+
+
+Route::get('/{slug}', [PostController::class,'slug'])->name('slug-page');
