@@ -68,6 +68,7 @@ import SectionTitle from "./Parts/SectionTitle";
 import RepeaterMainBanner from "./RepeaterMainBanner";
 import TextEditor from "./TextEditor";
 import ImageAndTextTwoRows from "./ImageAndTextTwoRows";
+import RepeaterInfoBox from "./RepeaterInfoBox";
 
 export default {
   components: {
@@ -76,6 +77,7 @@ export default {
     RepeaterMainBanner,
     TextEditor,
     ImageAndTextTwoRows,
+    RepeaterInfoBox,
     SectionTitle
   },
   props: ["modules", "locales", "post"],
@@ -89,7 +91,7 @@ export default {
         },
         {
           text: "Инфо-блок",
-          value: "ListInfoBloks"
+          value: "RepeaterInfoBox"
         },
         {
           text: "Картинка с текстом",
