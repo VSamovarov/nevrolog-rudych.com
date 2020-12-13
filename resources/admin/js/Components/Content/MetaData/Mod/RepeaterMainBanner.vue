@@ -24,9 +24,11 @@
         </template>
       </draggable>
     </div>
-    <b-button @click="addNewBlock">
-      Добавить блок
-    </b-button>
+    <div class="text-right">
+      <b-button size="sm" @click="addNewBlock">
+        Добавить блок
+      </b-button>
+    </div>
   </div>
 </template>
 

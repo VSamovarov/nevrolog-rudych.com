@@ -67,6 +67,7 @@ import SectionTitle from "./Parts/SectionTitle";
  */
 import RepeaterMainBanner from "./RepeaterMainBanner";
 import TextEditor from "./TextEditor";
+import ImageAndTextTwoRows from "./ImageAndTextTwoRows";
 
 export default {
   components: {
@@ -74,6 +75,7 @@ export default {
     ModuleWrapper,
     RepeaterMainBanner,
     TextEditor,
+    ImageAndTextTwoRows,
     SectionTitle
   },
   props: ["modules", "locales", "post"],
@@ -92,10 +94,6 @@ export default {
         {
           text: "Картинка с текстом",
           value: "ImageAndTextTwoRows"
-        },
-        {
-          text: "Главный баннер",
-          value: "MainBanner"
         },
         {
           text: "Текстовый редактор",
