@@ -73,6 +73,18 @@ class Post extends Model implements HasMedia
   }
 
   /**
+   * Все настройки определенного типа поста
+   *
+   * @param string $type
+   * @return array
+   */
+  public function getSettingsType(string $type): array
+  {
+    $types = $this->getTypes($type);
+    return $type[$type]??[];
+  }
+
+  /**
    * Все статусы постов (из настроек)
    *
    * @return array|null

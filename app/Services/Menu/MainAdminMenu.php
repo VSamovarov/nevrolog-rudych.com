@@ -49,9 +49,15 @@ class MainAdminMenu
             'title' => 'Настройки',
             'href' => '/admin/setting',
             'active' => $this->request->is('*/setting'),
-            'icon' => 'chat-right'
+            'icon' => 'gear'
         ];
 
+        $items[] = [
+          'title' => 'Меню',
+          'href' => '/admin/menu',
+          'active' => $this->request->is('*/menu'),
+          'icon' => 'ui-radios'
+        ];
         return  $items;
     }
 }

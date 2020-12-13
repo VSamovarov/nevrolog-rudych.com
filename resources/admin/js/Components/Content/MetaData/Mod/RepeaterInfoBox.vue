@@ -25,10 +25,20 @@
         </template>
       </draggable>
     </div>
-    <div class="text-right">
-      <b-button size="sm" @click="addNewBlock">
-        Добавить блок
-      </b-button>
+    <div class="d-flex flex-wrap justify-content-between align-items-center">
+      <div v-if="show.icone">
+        <a
+          href="http://cms.devoffice.com/repack/packs/linearicons/"
+          target="_blank"
+          >Все иконки</a
+        >
+      </div>
+      <div></div>
+      <div class="text-right">
+        <b-button size="sm" @click="addNewBlock">
+          Добавить блок
+        </b-button>
+      </div>
     </div>
     <hr />
     <div class="row">

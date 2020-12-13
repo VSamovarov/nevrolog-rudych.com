@@ -52,13 +52,15 @@ class PostAdminController extends Controller
 
   public function edit($id, PostQueries $services)
   {
+    $main = $services->byId($id);
     return Inertia::render(
       'Post/EditPost',
       [
         'pageTitle' => 'Редактирование документа',
-        'main' => $services->byId($id),
+        'main' => $main,
         'statuses' => $services->getStatuses(),
-        'slugs' => $services->getSlugs()
+        'slugs' => $services->getSlugs(),
+        'settings' => $services->getType($main->type),
       ]
     );
   }

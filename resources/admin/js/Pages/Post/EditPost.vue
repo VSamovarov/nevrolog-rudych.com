@@ -10,7 +10,7 @@
                   md="10"
                   class="d-flex align-items-center justify-content-between"
                 >
-                  <h1>{{ $page.pageTitle }}</h1>
+                  <h1>{{ settings.name }}: {{ $page.pageTitle }}</h1>
                 </b-col>
                 <b-col
                   md="2"
@@ -34,19 +34,21 @@
                 @updateDataModules="updateDataModules"
               ></MainContentModule>
             </b-container>
-            <hr />
-            <b-container fluid class="my-5">
-              <MetaData
-                :modules="modulesMetaData"
-                :locales="locales"
-                :post="main"
-                @updateMetaModules="updateMetaModules"
-                @addNewMetaModule="addNewMetaModule"
-                @draggableMetaModules="draggableMetaModules"
-                @removeMetaModules="removeMetaModules"
-              ></MetaData>
-            </b-container>
-            <hr />
+            <div v-if="settings.modules['modules-meta-data'] !== false">
+              <hr />
+              <b-container fluid class="my-5">
+                <MetaData
+                  :modules="modulesMetaData"
+                  :locales="locales"
+                  :post="main"
+                  @updateMetaModules="updateMetaModules"
+                  @addNewMetaModule="addNewMetaModule"
+                  @draggableMetaModules="draggableMetaModules"
+                  @removeMetaModules="removeMetaModules"
+                ></MetaData>
+              </b-container>
+              <hr />
+            </div>
             <b-container fluid class="my-5">
               <SeoMetaModule
                 v-if="main.translations"
@@ -73,11 +75,13 @@
               :slugs="slugs"
               :slug="main.slug"
               @updateDataModules="updateDataModules"
+              v-if="settings.modules['post-slug-module'] !== false"
             ></PostSlugModule>
             <ThumbnailModule
               :src="main.thumbnail"
               @updateDataModules="updateDataModules"
               @updateAlerts="updateAlerts"
+              v-if="settings.modules['thumbnail-module'] !== false"
             ></ThumbnailModule>
           </b-col>
         </b-row>
@@ -121,7 +125,7 @@ export default {
     ThumbnailModule,
     MetaData
   },
-  props: ["main", "locales", "statuses", "slugs"],
+  props: ["main", "locales", "statuses", "slugs", "settings"],
   data() {
     return {
       modulesData: {},
