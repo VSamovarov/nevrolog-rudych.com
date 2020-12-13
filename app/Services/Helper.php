@@ -48,4 +48,21 @@ final class Helper
 
     return $name;
   }
+
+  /**
+   * Возвращаем локализованное значение
+   */
+  public static function getLocalized($value)
+  {
+
+    if(is_array($value)) {
+      if(isset($value[app()->getLocale()])) {
+        $value = $value[app()->getLocale()];
+      } else {
+        $value = array_shift($value);
+      }
+    }
+    if(!is_string($value)) $value = '';
+    return $value;
+  }
 }
