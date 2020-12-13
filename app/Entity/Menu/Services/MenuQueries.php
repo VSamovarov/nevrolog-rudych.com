@@ -51,7 +51,7 @@ class MenuQueries
       $node = $this->createEmptyMenu($slug);
     }
 
-    $tree = $this->model->with('translations')->descendantsAndSelf($node->id)->toTree()->toArray();
+    $tree = $this->model->with('translation')->descendantsAndSelf($node->id)->toTree()->toArray();
     return $this->treeAdapter($tree);
   }
 
@@ -75,7 +75,7 @@ class MenuQueries
    * @param array $exclude
    * @return array
    */
-  private function treeAdapter(array $tree, array $exclude = ['_lft', '_rgt', 'translations']): array
+  private function treeAdapter(array $tree, array $exclude = ['_lft', '_rgt', 'translation']): array
   {
     $new = array();
     foreach($tree as $i=>$item) {
@@ -86,7 +86,7 @@ class MenuQueries
             $value = $this->treeAdapter($value,$exclude );
           }
         }
-        if($key === 'translations') {
+        if($key === 'translation') {
           $new[$i] = array_merge($new[$i], $this->translationsAdapter($value));
         }
         if(!in_array($key, $exclude)) {
@@ -102,9 +102,10 @@ class MenuQueries
   {
     $new = [];
     foreach($properties as $property) {
-      foreach($translations as $translation) {
-        $new[$property][$translation['lang']] = $translation[$property];
-      }
+      $new[$property] = $translations[$property];
+      // foreach($translations as $translation) {
+      //   $new[$property] = $translation[$property];
+      // }
     }
     return $new;
   }

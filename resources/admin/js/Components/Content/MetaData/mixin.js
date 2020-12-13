@@ -18,6 +18,8 @@ const myMixin = {
       if (this.module._value[name] === undefined) {
         this.$set(this.module._value, name, {});
       }
+
+
       return this.module._value[name];
     },
 
