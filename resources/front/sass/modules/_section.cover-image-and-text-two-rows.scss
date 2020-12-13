@@ -3,6 +3,14 @@
   & * {
     color: white;
   }
+  .row {
+    flex-direction: row-reverse;
+    padding-left: 4rem;
+  }
+  .cover-image-and-text-two-rows__image {
+    right: auto;
+    left: 0;
+  }
 }
 
 .cover-image-and-text-two-rows__image {
@@ -20,12 +28,12 @@
 
 .section.cover-image-and-text-two-rows.reverse {
   .cover-image-and-text-two-rows__image {
-    right: auto;
-    left: 0;
+    right: 0;
+    left: auto;
   }
   .row {
-    flex-direction: row-reverse !important;
-    padding-left: 4rem;
+    flex-direction: row !important;
+    padding-left: 0;
   }
 }
 @include breakpoint(map-get($grid-breakpoints, "md")) {
