@@ -36,7 +36,7 @@ class PostCommands
     /**
      * ! Прежде чем сохранить ярлык, отвязываем его от других постов
      */
-    if ($dto->getSlug()) {
+    if ($dto->getSlug() !== $post->slug) {
       Post::where('slug', $dto->getSlug())->update(['slug' => null]);
       $post->slug = $dto->getSlug();
     }
