@@ -15,7 +15,7 @@
     <div class="container">
       <div class="row">
         @foreach ($data["repeat"] as $item)
-          <div class="col-md-4 col-sm-6">
+          <div class="col">
             @if (isset($item['show-link']) && $item['show-link'] === false || empty($item['link']) )
             <div class="info-block">
             @else
