@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-show="show.icone">
+    <div v-show="showicone">
       <p class="text-black-50 small">Иконка</p>
       <div class="d-flex">
         <span class="mr-4" :class="preview" :style="{ fontSize: `2rem` }">
@@ -10,7 +10,7 @@
         </b-form-group>
       </div>
     </div>
-    <div v-show="show.title">
+    <div v-show="showtitle">
       <p class="text-black-50 small">Заглавие</p>
       <MultilingualInput
         :locales="locales"
@@ -18,7 +18,7 @@
         @input="$emit('input', { ...value, title: $event })"
       ></MultilingualInput>
     </div>
-    <div v-show="show.text">
+    <div v-show="showtext">
       <p class="text-black-50 small">Текст</p>
       <MultilingualTextarea
         :locales="locales"
@@ -26,7 +26,7 @@
         @input="$emit('input', { ...value, text: $event })"
       ></MultilingualTextarea>
     </div>
-    <div v-show="show.link">
+    <div v-show="showlink">
       <p class="text-black-50 small">Ссылка</p>
       <b-form-group>
         <b-form-input
@@ -50,7 +50,11 @@ export default {
   props: {
     value: Object,
     locales: Object,
-    show: Object
+
+    showicone: Boolean,
+    showtext: Boolean,
+    showtitle: Boolean,
+    showlink: Boolean
   },
   data() {
     return {

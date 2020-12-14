@@ -16,26 +16,26 @@
       <div class="row">
         @foreach ($data["repeat"] as $item)
           <div class="col">
-            @if (isset($item['show-link']) && $item['show-link'] === false || empty($item['link']) )
+            @if (isset($data['show-link']) && $data['show-link'] === false || empty($item['link']) )
             <div class="info-block">
             @else
             <a href="{{$item['link']}}" class="info-block">
             @endif
-              @if ( empty($item['show-icone']) || $item['show-icone'] === true)
+              @if ( !isset($data['show-icone']) || $data['show-icone']??false )
               <div class="info-block__icon">
                 <span class="{{$item['icone']??''}}"></span>
               </div>
               @endif
               <div class="info-block__text_wrapper">
-                @if (empty($item['show-icone']) || $item['show-icone'] === true)
+                @if ( !isset($data['show-title']) || $data['show-title']??false)
                   <div class="info-block__title">{{ App\Services\Helper::getLocalized($item['title']??'') }}</div>
                 @endif
-                @if (empty($item['show-text']) || $item['show-text'] === true)
+                @if ( !isset($data['show-text']) || $data['show-text']??false)
                 <div class="info-block__text">{{ App\Services\Helper::getLocalized($item['text']??'') }}</div>
                 @endif
               </div>
             </div>
-            @if (isset($item['show-link']) && $item['show-link'] === false || empty($item['link']) )
+            @if (isset($data['show-link']) && $data['show-link'] === false || empty($item['link']) )
             </div>
             @else
             </a>

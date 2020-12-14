@@ -18,15 +18,18 @@
             <InfoBox
               :value="block"
               :locales="locales"
-              :show="show"
               @input="changeBlock(block, $event)"
+              :showicone="value['show-icone'] !== false"
+              :showtext="value['show-text'] !== false"
+              :showtitle="value['show-title'] !== false"
+              :showlink="value['show-link'] !== false"
             ></InfoBox>
           </ModuleWrapper>
         </template>
       </draggable>
     </div>
     <div class="d-flex flex-wrap justify-content-between align-items-center">
-      <div v-if="show.icone">
+      <div v-if="value['show-icone']">
         <a
           href="http://cms.devoffice.com/repack/packs/linearicons/"
           target="_blank"
@@ -50,31 +53,31 @@
             <div class="d-flex flex-wrap justify-content-around">
               <b-form-checkbox
                 class="mx-3"
-                :checked="show.icone"
-                @input="setShow('icone', $event)"
+                :checked="value['show-icone']"
+                @input="$emit('input', { ...value, ['show-icone']: $event })"
               >
                 Иконка
               </b-form-checkbox>
 
               <b-form-checkbox
                 class="mx-3"
-                :checked="show.title"
-                @input="setShow('title', $event)"
+                :checked="value['show-title']"
+                @input="$emit('input', { ...value, ['show-title']: $event })"
               >
                 Заглавие
               </b-form-checkbox>
 
               <b-form-checkbox
                 class="mx-3"
-                :checked="show.text"
-                @input="setShow('text', $event)"
+                :checked="value['show-text']"
+                @input="$emit('input', { ...value, ['show-text']: $event })"
               >
                 Текст
               </b-form-checkbox>
               <b-form-checkbox
                 class="mx-3"
-                :checked="show.link"
-                @input="setShow('link', $event)"
+                :checked="value['show-link']"
+                @input="$emit('input', { ...value, ['show-link']: $event })"
               >
                 Ссылка
               </b-form-checkbox>
@@ -124,20 +127,10 @@ export default {
   },
   data() {
     return {
-      colors,
-      show: {
-        icone: !(this.getValue("show-icone") === false),
-        title: !(this.getValue("show-title") === false),
-        text: !(this.getValue("show-text") === false),
-        link: !(this.getValue("show-link") === false)
-      }
+      colors
     };
   },
   methods: {
-    setShow(name, val) {
-      this.show[name] = val;
-      this.$emit("input", { ...this.value, [name]: val });
-    },
     addNewBlock() {
       // this.value.push({ id: uid() });
       if (this.value.repeat === undefined) {
