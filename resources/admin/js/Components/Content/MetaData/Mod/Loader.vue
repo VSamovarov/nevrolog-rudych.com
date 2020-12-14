@@ -40,7 +40,7 @@
     ></b-form-select>
     <button
       type="button"
-      class="btn btn-link"
+      class="btn btn-primary"
       v-if="!showSelectedNewModules"
       @click="showSelectedNewModules = true"
     >
@@ -66,7 +66,7 @@ import SectionTitle from "./Parts/SectionTitle";
  * Модули
  */
 import RepeaterMainBanner from "./RepeaterMainBanner";
-import TextEditor from "./TextEditor";
+import RepeaterTextEditor from "./RepeaterTextEditor";
 import ImageAndTextTwoRows from "./ImageAndTextTwoRows";
 import RepeaterInfoBox from "./RepeaterInfoBox";
 
@@ -75,7 +75,7 @@ export default {
     draggable,
     ModuleWrapper,
     RepeaterMainBanner,
-    TextEditor,
+    RepeaterTextEditor,
     ImageAndTextTwoRows,
     RepeaterInfoBox,
     SectionTitle
@@ -99,10 +99,10 @@ export default {
         },
         {
           text: "Текстовый редактор",
-          value: "TextEditor"
+          value: "RepeaterTextEditor"
         },
         {
-          text: "Много главных баннеров",
+          text: "Баннер",
           value: "RepeaterMainBanner"
         }
       ]
