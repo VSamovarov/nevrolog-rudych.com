@@ -9,7 +9,7 @@
       </div>
     </div>
   @endif
-  </section>
+
   <div class="container">
     <div class="row">
       @foreach ($data["repeat"] as $item)
@@ -21,4 +21,5 @@
       @endforeach
     </div>
   </div>
+  </section>
 @endif
