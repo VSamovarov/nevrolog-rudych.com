@@ -23,13 +23,22 @@
                       {{ section.descriptions }}
                     </h6>
                     <p class="card-text">
-                      <component
-                        v-for="input in section.inputs"
-                        :is="componentType(input.type)"
-                        :data="input"
-                        :key="input.name"
-                        v-model="values[input.name]"
-                      ></component>
+                      <template v-for="input in section.inputs">
+                        <p
+                          class="text-black-50 small"
+                          :key="`name-${input.name}`"
+                        >
+                          {{ input.label }}
+                        </p>
+                        <component
+                          :is="componentType(input.type)"
+                          :data="input"
+                          :key="input.name"
+                          :locales="locales"
+                          :locale="locale"
+                          v-model="values[input.name]"
+                        ></component>
+                      </template>
                     </p>
                   </div>
                 </div>
@@ -52,9 +61,20 @@ import AdminLayout from "./../Layouts/AdminLayout";
 import Input from "./../Components/Common/Values/InputValue";
 import TextArea from "./../Components/Common/Values/TextAreaValue";
 import FileValue from "./../Components/Common/Values/FileValue";
+import Editor from "./../Components/Common/Values/Editor";
+import MultilingualTextarea from "./../Components/Common/Values/MultilingualTextarea";
+import MultilingualInput from "./../Components/Common/Values/MultilingualInput";
 export default {
-  components: { AdminLayout, Input, TextArea, FileValue },
-  props: ["pageTitle", "config", "settings"],
+  components: {
+    AdminLayout,
+    Input,
+    TextArea,
+    FileValue,
+    MultilingualTextarea,
+    MultilingualInput,
+    Editor
+  },
+  props: ["pageTitle", "config", "settings", "locales", "locale"],
   data() {
     return {
       overlay: false,
@@ -72,6 +92,16 @@ export default {
           break;
         case "textarea":
           return "TextArea";
+          break;
+        case "language-textarea":
+          return "MultilingualTextarea";
+          break;
+        case "editor":
+          return "Editor";
+          break;
+          break;
+        case "language-input":
+          return "MultilingualInput";
           break;
         default:
           return "Input";

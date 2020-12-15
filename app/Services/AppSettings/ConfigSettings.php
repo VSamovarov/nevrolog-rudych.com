@@ -99,6 +99,7 @@ class ConfigSettings
         $settingName = $setting['name'];
         $type = $setting['type'];
         switch ($type) {
+
           case 'image':
           case 'file':
             // !Нереализованный функционал
@@ -108,11 +109,16 @@ class ConfigSettings
             break;
           case 'checkbox':
             $value = $request->has($settingName)? true : false;
+            break;
+          case 'language-input':
+          case 'language-textarea':
+          case 'editor':
+            $value = $request->input($settingName)?? [];
+            break;
           default:
             $value = $request->input($settingName)?? null;
             break;
         }
-        $value = $request->get($settingName);
         $this->storage->set($settingName, $value);
         $this->cleanUpSettings();
     }

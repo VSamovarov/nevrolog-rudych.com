@@ -12,7 +12,6 @@
           <Editor
             :value="value[lang] || null"
             @input="$emit('input', { ...value, [lang]: $event })"
-            :post_id="post.id"
           ></Editor>
         </b-form-group>
       </b-tab>
@@ -26,8 +25,7 @@ export default {
   components: { Editor },
   props: {
     value: Object,
-    locales: Object,
-    post: Object
+    locales: Object
   }
 };
 </script>
