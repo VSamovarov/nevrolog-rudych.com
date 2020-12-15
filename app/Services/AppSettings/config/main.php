@@ -5,7 +5,6 @@ return [
       'app' => [
           'title' => 'Основные настройки',
           'descriptions' => 'Основные настройки сайта', // (optional)
-          'icon' => 'fa fa-cog', // (optional)
 
           'inputs' => [
               [
@@ -27,24 +26,87 @@ return [
           ]
       ],
       'email' => [
-          'title' => 'Email Settings',
-          'descriptions' => 'How app email will be sent.',
-          'icon' => 'fa fa-envelope',
+          'title' => 'Почтовый ящик для обратной связи',
+          // 'descriptions' => 'How app email will be sent.',
 
           'inputs' => [
               [
-                  'name' => 'from_email',
+                  'name' => 'site-email-first',
                   'type' => 'email',
-                  'label' => 'From Email',
+                  'label' => 'Главный email',
                   'placeholder' => 'Application from email',
-                  'rules' => 'required|email',
+                  'rules' => '',
               ],
               [
-                  'name' => 'from_name',
-                  'type' => 'text',
-                  'label' => 'Email from Name',
-                  'placeholder' => 'Email from Name',
+                  'name' => 'site-email-two',
+                  'type' => 'email',
+                  'label' => 'Второстепенный email',
+                  'placeholder' => 'Application from email',
+                  'rules' => '',
               ]
+          ]
+      ],
+      'phones' => [
+          'title' => 'Телефоны для обратной связи',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-phone-first',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-phone-two',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-phone-three',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ]
+          ]
+      ],
+      'address' => [
+          'title' => 'Адрес',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-address',
+                  'type' => 'language-textarea',
+                  'label' => 'Адрес',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-address-map',
+                  'type' => 'textarea',
+                  'label' => 'Карта - код Google Maps',
+                  'rules' => '',
+              ],
+          ]
+      ],
+      'social' => [
+          'title' => 'Социальные сети',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-instagram',
+                  'type' => 'text',
+                  'label' => 'Instagram',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-facebook',
+                  'type' => 'text',
+                  'label' => 'Facebook',
+                  'rules' => '',
+              ],
           ]
       ]
   ],

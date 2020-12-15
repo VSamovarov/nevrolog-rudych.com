@@ -7,15 +7,13 @@
                 </span>
                 <span class="hamburger-label">Menu</span>
             </button>
-
-
             <a class="brand" href="index.html">
                 <span class="brand__img">
                   <img src="{{ asset('img/logo-nejrologia.svg') }}" alt="кабинет невролога">
                 </span>
                 <span class="brand__text">
-                  <span class="brand__title">Кабинет невролога</span>
-                  <span class="brand__caption">Катерина Рудич</span>
+                  <span class="brand__title">{{ App\Services\Helper::getLocalized(settings()->get('site-title','')) }}</span>
+                  <span class="brand__caption">{{ App\Services\Helper::getLocalized(settings()->get('site-sub-title','')) }}</span>
                 </span>
             </a>
 
@@ -24,12 +22,27 @@
             <div class="contacts">
                 <div class="contacts__icon"><span class="linearicons-telephone2"></span></div>
                 <div class="contacts__content">
+                    @if (settings()->get('site-phone-first',''))
+                      <p>
+                        <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-first','')) }}">
+                          {{settings()->get('site-phone-first','')}}
+                        </a>
+                      </p>
+                    @endif
+                    @if (settings()->get('site-phone-two',''))
+                      <p>
+                        <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-two','')) }}">
+                          {{settings()->get('site-phone-two','')}}
+                        </a>
+                      </p>
+                    @endif
+                    @if (settings()->get('site-phone-three',''))
                     <p>
-                      <a class="text-nowrap" href="tel:#">1-800-1234-567</a>
-                    <p>
+                      <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-three','') )}}">
+                        {{settings()->get('site-phone-three','')}}
+                      </a>
                     </p>
-                    <a class="text-nowrap" href="tel:#">1-800-8763-765</a>
-                    </p>
+                    @endif
                 </div>
             </div>
 
@@ -37,8 +50,7 @@
                 <div class="contacts__icon"><span class="linearicons-location"></span></div>
                 <div class="contacts__content">
                     <p>
-                        <a class="" href="#">2130 Fulton Street, San
-                            Diego, CA 94117-1080</a>
+                        {!! App\Services\Helper::getLocalized(settings()->get('site-address','')) !!}
                     </p>
                 </div>
             </div>

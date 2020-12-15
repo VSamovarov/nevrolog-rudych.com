@@ -6,13 +6,11 @@
         @include('front.modules.call-back-form')
       </div>
       <div class="col-md-6 google-maps">
-        @php
-            $map='<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d10162.66134585356!2d30.536877!3d50.447334!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xbe4a6a87072f3a75!2z0JLQtdGA0YXQvtCy0L3QsNGPINCg0LDQtNCwINCj0LrRgNCw0LjQvdGL!5e0!3m2!1sru!2sua!4v1606084741591!5m2!1sru!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>';
-        @endphp
+
         <div class="google-maps__wrapper" id="google-maps">
             <iframe class="map-adress__map lazyload" width="100%" height="100%" frameborder="0" scrolling="no"
                 marginheight="0" marginwidth="0"
-                src="{{ App\Services\Helper::parsingMapsHtmlCode($map,app()->getLocale()) }}">
+                src="{{ App\Services\Helper::parsingMapsHtmlCode(settings()->get('site-address-map',''),app()->getLocale()) }}">
             </iframe>
         </div>
       </div>
@@ -26,12 +24,27 @@
         <div class="contacts justify-content-center">
             <div class="contacts__icon"><span class="linearicons-telephone2"></span></div>
             <div class="contacts__content">
-                <p>
-                  <a class="text-nowrap" href="tel:#">1-800-1234-567</a>
-                <p>
-                </p>
-                <a class="text-nowrap" href="tel:#">1-800-8763-765</a>
-                </p>
+                    @if (settings()->get('site-phone-first',''))
+                      <p>
+                        <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-first','')) }}">
+                          {{settings()->get('site-phone-first','')}}
+                        </a>
+                      </p>
+                    @endif
+                    @if (settings()->get('site-phone-two',''))
+                      <p>
+                        <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-two','')) }}">
+                          {{settings()->get('site-phone-two','')}}
+                        </a>
+                      </p>
+                    @endif
+                    @if (settings()->get('site-phone-three',''))
+                    <p>
+                      <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-three','') )}}">
+                        {{settings()->get('site-phone-three','')}}
+                      </a>
+                    </p>
+                    @endif
             </div>
         </div>
       </div>
@@ -40,8 +53,7 @@
             <div class="contacts__icon"><span class="linearicons-location"></span></div>
             <div class="contacts__content">
                 <p>
-                    <a class="" href="#">2130 Fulton Street, San
-                        Diego, CA 94117-1080</a>
+                  {!! App\Services\Helper::getLocalized(settings()->get('site-address','')) !!}
                 </p>
             </div>
         </div>
