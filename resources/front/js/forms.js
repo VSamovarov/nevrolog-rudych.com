@@ -12,7 +12,7 @@ delegate(document.body, "form[data-form-name=feedback-form]", "submit", e => {
   axios
     .post("api/feedback-form", formData)
     .then(response => {
-      insertSuccessMessage(form, "f333csdfasssd");
+      insertSuccessMessage(form, response.data);
       setWarnings(form, []); //Просто очищаем форму
     })
     .catch(error => {
@@ -32,7 +32,7 @@ delegate(document.body, "form[data-form-name=feedback-form]", "submit", e => {
     });
 });
 
-function insertSuccessMessage(form, message = "ddfdfdfd") {
+function insertSuccessMessage(form, message) {
   const div = document.createElement("div");
   div.className = "feed-back-form__success-message";
   div.innerHTML = message;

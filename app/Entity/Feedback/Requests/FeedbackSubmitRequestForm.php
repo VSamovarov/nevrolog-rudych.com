@@ -35,6 +35,6 @@ class FeedbackSubmitRequestForm extends FormRequest
 
     public function getDto(): FeedbackCreateDto
     {
-      return new FeedbackCreateDto($this->name, $this->email, $this->phone, $this->message, '');
+      return new FeedbackCreateDto($this->name, $this->email, $this->phone, $this->message, Carbon::now());
     }
 }

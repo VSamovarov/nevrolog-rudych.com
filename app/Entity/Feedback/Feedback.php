@@ -6,12 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Services\Filters\Filterable;
+use Illuminate\Notifications\Notifiable;
 
 class Feedback extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use Filterable;
+    use Notifiable;
 
     protected $dates = ['deleted_at'];
     protected $fillable = ['name', 'email', 'phone', 'message', 'form_data'];

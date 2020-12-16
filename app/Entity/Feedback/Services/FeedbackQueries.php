@@ -48,7 +48,7 @@ final class FeedbackQueries implements ServiceQueries
     public function index(array $values = [], $per_page = 0): object
     {
 
-        $builder = $this->queryBuilder($values);
+        $builder = $this->queryBuilder($values)->orderBy('created_at','desc');
         $paginator = $builder->paginate($per_page);
         //Так makeHidden работает нормально
         $paginator->data = $paginator->makeHidden(['form_data']);

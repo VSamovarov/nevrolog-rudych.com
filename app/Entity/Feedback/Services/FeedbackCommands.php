@@ -20,6 +20,13 @@ final class FeedbackCommands
         $this->model = $model;
     }
 
+    /**
+     * Обновляем
+     *
+     * @param integer $id
+     * @param FeedbackCreateDto $dto
+     * @return void
+     */
     public function update(int $id, FeedbackCreateDto $dto)
     {
         $feedback = $this->model::findOrFail($id);
@@ -29,6 +36,23 @@ final class FeedbackCommands
         $feedback->message = $dto->getMessage();
         $feedback->created_at = $dto->getCreated_at();
         return $feedback->save();
+    }
+
+    /**
+     * Создаем новый
+     *
+     * @param FeedbackCreateDto $dto
+     * @return void
+     */
+    public function create(FeedbackCreateDto $dto): Feedback
+    {
+        $feedback = new Feedback();
+        $feedback->name = $dto->getName();
+        $feedback->phone = $dto->getPhone();
+        $feedback->email = $dto->getEmail();
+        $feedback->message = $dto->getMessage();
+        $feedback->save();
+        return $feedback;
     }
 
     /**
