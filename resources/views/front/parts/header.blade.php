@@ -7,7 +7,7 @@
                 </span>
                 <span class="hamburger-label">Menu</span>
             </button>
-            <a class="brand" href="index.html">
+            <a class="brand" href="/">
                 <span class="brand__img">
                   <img src="{{ asset('img/logo-nejrologia.svg') }}" alt="кабинет невролога">
                 </span>

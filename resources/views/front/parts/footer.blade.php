@@ -6,7 +6,7 @@
         </div>
         <hr />
         <div class="footer__footer">
-            <a class="brand" href="index.html">
+            <a class="brand" href="/">
                 <span class="brand__img">
                   <img src="{{ asset('img/logo-nejrologia.svg') }}" alt="кабинет невролога">
                 </span>
