@@ -3,55 +3,110 @@
 return [
   'sections' => [
       'app' => [
-          'title' => 'General Settings',
-          'descriptions' => 'Application general settings.', // (optional)
-          'icon' => 'fa fa-cog', // (optional)
+          'title' => 'Основные настройки',
+          'descriptions' => 'Основные настройки сайта', // (optional)
 
           'inputs' => [
               [
-                  'name' => 'app_name', // unique key for setting
-                  'type' => 'text', // type of input can be text, number, textarea, select, boolean, checkbox etc.
-                  'label' => 'App Name', // label for input
+                  'name' => 'site-title', // unique key for setting
+                  'label' => 'Название сайта', // label for input
+                  'type' => 'language-input',
                   // optional properties
-                  'placeholder' => 'Application Name', // placeholder for input
                   'class' => 'form-control', // override global input_class
                   'style' => '', // any inline styles
-                  'rules' => 'required|min:2|max:20', // validation rules for this input
-                  'value' => 'QCode', // any default value
-                  'hint' => 'You can set the app name here' // help block text for input
               ],
-              // [
-              //     'name' => 'logo',
-              //     'type' => 'image',
-              //     'label' => 'Upload logo',
-              //     'hint' => 'Must be an image and cropped in desired size',
-              //     'rules' => 'image|max:500',
-              //     'disk' => 'public', // which disk you want to upload
-              //     'path' => 'app', // path on the disk,
-              //     'preview_class' => 'thumbnail',
-              //     'preview_style' => 'height:40px'
-              // ]
+              [
+                  'name' => 'site-sub-title', // unique key for setting
+                  'label' => 'Название сайта - подзаголовок', // label for input
+                  'type' => 'language-input',
+                  // optional properties
+                  'class' => 'form-control', // override global input_class
+                  'style' => '', // any inline styles
+              ],
           ]
       ],
       'email' => [
-          'title' => 'Email Settings',
-          'descriptions' => 'How app email will be sent.',
-          'icon' => 'fa fa-envelope',
+          'title' => 'Почтовый ящик для обратной связи',
+          // 'descriptions' => 'How app email will be sent.',
 
           'inputs' => [
               [
-                  'name' => 'from_email',
+                  'name' => 'site-email-first',
                   'type' => 'email',
-                  'label' => 'From Email',
+                  'label' => 'Главный email',
                   'placeholder' => 'Application from email',
-                  'rules' => 'required|email',
+                  'rules' => '',
               ],
               [
-                  'name' => 'from_name',
-                  'type' => 'text',
-                  'label' => 'Email from Name',
-                  'placeholder' => 'Email from Name',
+                  'name' => 'site-email-two',
+                  'type' => 'email',
+                  'label' => 'Второстепенный email',
+                  'placeholder' => 'Application from email',
+                  'rules' => '',
               ]
+          ]
+      ],
+      'phones' => [
+          'title' => 'Телефоны для обратной связи',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-phone-first',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-phone-two',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-phone-three',
+                  'type' => 'text',
+                  'label' => '',
+                  'rules' => '',
+              ]
+          ]
+      ],
+      'address' => [
+          'title' => 'Адрес',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-address',
+                  'type' => 'language-textarea',
+                  'label' => 'Адрес',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-address-map',
+                  'type' => 'textarea',
+                  'label' => 'Карта - код Google Maps',
+                  'rules' => '',
+              ],
+          ]
+      ],
+      'social' => [
+          'title' => 'Социальные сети',
+          // 'descriptions' => 'How app email will be sent.',
+
+          'inputs' => [
+              [
+                  'name' => 'site-instagram',
+                  'type' => 'text',
+                  'label' => 'Instagram',
+                  'rules' => '',
+              ],
+              [
+                  'name' => 'site-facebook',
+                  'type' => 'text',
+                  'label' => 'Facebook',
+                  'rules' => '',
+              ],
           ]
       ]
   ],

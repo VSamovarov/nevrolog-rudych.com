@@ -21,6 +21,17 @@ function UploadAdapterPlugin(editor) {
 
 export default {
   props: ["value", "post_id"],
+  props: ["value", "post_id"],
+  props: {
+    value: {
+      value: Object,
+      default: {}
+    },
+    value: {
+      post_id: Number,
+      default: null
+    }
+  },
   methods: {
     changeContent(value) {}
   },

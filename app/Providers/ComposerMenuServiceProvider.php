@@ -25,7 +25,7 @@ class ComposerMenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      View::composer('front.modules.main-menu', function($view) {
+      View::composer('front.layouts.main', function($view) {
         $view->with(['mainMenuItems' => $this->getMenu('main')]);
       });
     }

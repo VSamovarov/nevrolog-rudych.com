@@ -1,9 +1,5 @@
 <template>
-  <b-form-group
-    :description="data.hint"
-    :label="data.label"
-    :state="data.state"
-  >
+  <b-form-group :description="data.hint" :state="data.state">
     <b-form-input
       :type="data.type || `text`"
       :value="value"
