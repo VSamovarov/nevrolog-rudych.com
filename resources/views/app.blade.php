@@ -13,14 +13,14 @@
 
     <!-- Styles -->
 
-    <link rel="stylesheet" href="{{ mix('admin/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('a/css/app.css') }}">
 
     <!-- Scripts -->
     {{-- <script
         src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
     --}}
     @routes
-    <script src="{{ mix('admin/js/app.js') }}" defer></script>
+    <script src="{{ mix('a/js/app.js') }}" defer></script>
 </head>
 
 <body class="font-sans antialiased">

@@ -2,7 +2,7 @@ const mix = require("laravel-mix");
 require("laravel-mix-bundle-analyzer");
 require("laravel-mix-merge-manifest"); //Чтоб не затирал mix-manifest.json, а только обновлял данные
 
-mix.config.fileLoaderDirs.fonts = "admin/fonts";
+mix.config.fileLoaderDirs.fonts = "a/fonts";
 
 /*
  |--------------------------------------------------------------------------
@@ -16,9 +16,9 @@ mix.config.fileLoaderDirs.fonts = "admin/fonts";
  */
 
 mix
-  .sass("resources/admin/scss/index.scss", "public/admin/css")
-  .js("resources/admin/js/app.js", "public/admin/js")
-  .postCss("resources/admin/css/app.css", "public/admin/css", [
+  .sass("resources/admin/scss/index.scss", "public/a/css")
+  .js("resources/admin/js/app.js", "public/a/js")
+  .postCss("resources/admin/css/app.css", "public/a/css", [
     require("postcss-import"),
     require("tailwindcss"),
     require("cssnano")({
