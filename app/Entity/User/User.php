@@ -19,6 +19,8 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+    public const ROLE_EDITOR = 'editor';
+    public const ROLE_ADMIN = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -67,5 +69,18 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function hasAccessToAdminPanel(): bool
+    {
+        return in_array($this->role, [self::ROLE_ADMIN]);
+    }
+
+    public function scopeRole($query, $role = '')
+    {
+        if (empty($role)) {
+            return $query;
+        }
+        return $query->where('role', '=', $role);
     }
 }

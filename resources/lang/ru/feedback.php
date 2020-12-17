@@ -4,7 +4,7 @@ return [
     'title'   => "Обратная связь",
     'name'   => "Имя",
     'email'   => "Email",
-    'telephone'   => "Телефон",
+    'phone'   => "Телефон",
     'message'   => "Сообщение",
     'date'   => "Дата",
     'send'   => "Отправить",

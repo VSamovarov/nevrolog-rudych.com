@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class NewFeedbackAdmin extends Notification
 {
     use Queueable;
-
+    private $feedback;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($feedback)
     {
-        //
+      $this->feedback = $feedback;
     }
 
     /**
@@ -41,13 +41,13 @@ class NewFeedbackAdmin extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting(__("Сообщение от {$notifiable->name}"))
+            ->greeting(__("Сообщение от ") . $this->feedback->name)
             ->line('----')
-            ->line(__("E-mail: ") . $notifiable->email)
-            ->line(__("Telephone: ") . $notifiable->phone)
+            ->line(__("E-mail: ") . $this->feedback->email)
+            ->line(__("Telephone: ") . $this->feedback->phone)
             ->line(__("Сообщение:"))
-            ->line($notifiable->message)
-            ->from($notifiable->name, $notifiable->email); //От кого отправляем
+            ->line($this->feedback->message)
+            ->from($this->feedback->name, $this->feedback->email); //От кого отправляем
     }
 
     /**

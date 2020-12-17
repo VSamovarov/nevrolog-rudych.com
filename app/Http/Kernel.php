@@ -65,6 +65,7 @@ class Kernel extends HttpKernel
 
         'check-type-post' => \App\Entity\Post\Middleware\CheckPostType::class,
 
-        'localizer-api' => \App\Http\Middleware\LocalizerApiMiddleware::class
+        'localizer-api' => \App\Http\Middleware\LocalizerApiMiddleware::class,
+        'access-to-panel' => \App\Http\Middleware\hasAccessToAdminPanel::class
     ];
 }
