@@ -41,9 +41,13 @@ class NewFeedbackAdmin extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting(__("Сообщение от {$notifiable->name}"))
+            ->line('----')
+            ->line(__("E-mail: ") . $notifiable->email)
+            ->line(__("Telephone: ") . $notifiable->phone)
+            ->line(__("Сообщение:"))
+            ->line($notifiable->message)
+            ->from($notifiable->name, $notifiable->email); //От кого отправляем
     }
 
     /**

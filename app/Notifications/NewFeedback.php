@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Services\Helper;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -10,17 +11,6 @@ use Illuminate\Notifications\Notification;
 class NewFeedback extends Notification
 {
     use Queueable;
-
-    /**
-     * Create a new notification instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Get the notification's delivery channels.
      *
@@ -29,7 +19,7 @@ class NewFeedback extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+      return ['mail'];
     }
 
     /**
@@ -41,9 +31,20 @@ class NewFeedback extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Здравствуйте!')
+            ->line(__("Спасибо,") . $notifiable->name . '!')
+            ->line(__("Мы получили ваше сообщение!"))
+            ->line("----")
+            ->line(__("E-mail: ") . $notifiable->email)
+            ->line(__("Telephone: ") . $notifiable->phone)
+            ->line(__("Сообщение:"))
+            ->line($notifiable->message)
+            ->line("----")
+            ->line(__("Мы ответим в ближайшее время!"))
+            ->from(
+              Helper::getLocalized(settings()->get('site-email-first', config('mail.from.address', ''))),
+              Helper::getLocalized(settings()->get('site-email-from', config('mail.from.name', '')))
+            ); //От кого отправляем
     }
 
     /**

@@ -31,6 +31,12 @@ return [
 
           'inputs' => [
               [
+                  'name' => 'site-email-from',
+                  'type' => 'language-input',
+                  'label' => 'От кого, в заголовке письма',
+                  'rules' => '',
+              ],
+              [
                   'name' => 'site-email-first',
                   'type' => 'email',
                   'label' => 'Главный email',
