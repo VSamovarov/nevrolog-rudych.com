@@ -46,8 +46,7 @@ class NewFeedbackAdmin extends Notification
             ->line(__("E-mail: ") . $this->feedback->email)
             ->line(__("Telephone: ") . $this->feedback->phone)
             ->line(__("Сообщение:"))
-            ->line($this->feedback->message)
-            ->from($this->feedback->name, $this->feedback->email); //От кого отправляем
+            ->line($this->feedback->message); //От кого отправляем
     }
 
     /**

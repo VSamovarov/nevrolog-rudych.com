@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Notifications\NewFeedback;
 use App\Notifications\NewFeedbackAdmin;
 use Illuminate\Support\Facades\Notification;
+use Log;
 
 class FeedbackSubmitController extends Controller
 {
@@ -16,9 +17,10 @@ class FeedbackSubmitController extends Controller
   public function __invoke(FeedbackSubmitRequestForm $request, FeedbackCommands $commands)
   {
     $feedback = $commands->create($request->getDto());
-    // if(!empty($feedback->email)) $feedback->notify(new NewFeedback);
+    Log::write('info', $feedback->email);
+    if(!empty($feedback->email)) $feedback->notify(new NewFeedback);
 
-    // Notification::send(User::all(), new NewFeedbackAdmin($feedback));
+    Notification::send(User::all(), new NewFeedbackAdmin($feedback));
 
     $message = "<div><h4>" . __('feedback.received_title'). "</h4>" . __('feedback.received_content') . "</div>";
     return response()->json($message);

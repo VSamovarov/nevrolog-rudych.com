@@ -7,6 +7,7 @@ window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 require("./menus");
 require("./gallery");
 require("./forms");
+require("./imask");
 // require("./popup.js");
 // require("./feedback-popup.js");
 
