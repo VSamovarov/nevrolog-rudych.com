@@ -41,7 +41,7 @@ trait Translatable
         if (
             $this->relationLoaded('translations')
             && $this->translations
-            && $this->translations->getAttribute($this->getLocaleKey()) == $locale
+            && !empty($this->translations->firstWhere($this->getLocaleKey(), $locale))
         ) {
             return $this->translations->firstWhere($this->getLocaleKey(), $locale);
         } else {

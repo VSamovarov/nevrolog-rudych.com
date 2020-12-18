@@ -44,6 +44,20 @@ return [
               'thumbnail-module'=> true,
               'post-slug-module'=> false,
             ]
+        ],
+        'fak' => [
+            'name' => 'Вопросы и ответы',
+            'taxonomy' => [],
+            'icon' => 'question-circle',
+            'modules'=> [
+              'date-module'=> false,
+              'main-content-module'=> true,
+              'post-status-module'=> true,
+              'seo-meta-data-module'=> false,
+              'modules-meta-data'=> false,
+              'thumbnail-module'=> false,
+              'post-slug-module'=> false,
+            ]
         ]
     ],
 

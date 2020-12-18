@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
+    <!-- Metatags -->
+    @include('front.parts.metatags')
     <!-- Styles -->
     <link href="{{ mix('front/css/index.css') }}" rel="stylesheet">
 
