@@ -9,10 +9,11 @@
         end
       >
         <b-form-group>
-          <Editor
+          <CkEditor
             :value="value[lang] || null"
+            :post_id="post.id"
             @input="$emit('input', { ...value, [lang]: $event })"
-          ></Editor>
+          ></CkEditor>
         </b-form-group>
       </b-tab>
     </b-tabs>
@@ -20,12 +21,13 @@
 </template>
 
 <script>
-import Editor from "./../../../../Common/CkEditor/CkEditorClassic";
+import CkEditor from "./../../../../Common/CkEditor/CkEditorClassic";
 export default {
-  components: { Editor },
+  components: { CkEditor },
   props: {
     value: Object,
-    locales: Object
+    locales: Object,
+    post: Object
   }
 };
 </script>

@@ -7,6 +7,7 @@ return [
             'name' => 'Страницы',
             'taxonomy' => [],
             'icon' => 'bookmark',
+            'generate-page-header-image' => true, //Из thumbnail-module
             'modules'=> [
               'date-module'=> true,
               'main-content-module'=> true,
@@ -14,7 +15,7 @@ return [
               'seo-meta-data-module'=> true,
               'modules-meta-data'=> true,
               'modules-meta-data'=> true,
-              'thumbnail-module'=> false,
+              'thumbnail-module'=> true,
             ]
         ],
         'news' => [

@@ -80,8 +80,8 @@ class Post extends Model implements HasMedia
    */
   public function getSettingsType(string $type): array
   {
-    $types = $this->getTypes($type);
-    return $type[$type]??[];
+    $types = $this->getTypes();
+    return $types[$type]??[];
   }
 
   /**
@@ -123,6 +123,9 @@ class Post extends Model implements HasMedia
     $this->addMediaCollection('thumbnail')
       ->singleFile();
 
+    $this->addMediaCollection('page-header')
+      ->singleFile();
+
     $this->addMediaCollection('page-thumbnail')
       ->singleFile();
 
@@ -140,6 +143,13 @@ class Post extends Model implements HasMedia
       ->sharpen(10)
       ->nonQueued()
       ->withResponsiveImages();
+
+    $this->addMediaConversion('page-header')
+      ->performOnCollections('page-header') //для других коллекций не будет выполняться
+      ->fit(Manipulations::FIT_CROP, 2000, 500)
+      ->sharpen(10)
+      ->withResponsiveImages();
+
 
     $this->addMediaConversion('content')
       ->performOnCollections('post-content')

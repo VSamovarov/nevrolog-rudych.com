@@ -5,7 +5,6 @@ namespace App\Entity\Post\Services;
 use App\Entity\Post\Dto\PostUpdateDto;
 use App\Entity\Post\Dto\ThumbnailUpdateDto;
 use App\Entity\Post\Post;
-use App\Entity\Post\Services\PostQueries;
 use App\Services\Storage\UploadTmpFiles;
 use Illuminate\Support\Facades\Storage;
 use App\Services\Helper;
@@ -89,10 +88,24 @@ class PostCommands
 
     if (empty($dto->getPath())) { // Удаляем миниатюру (очищаем коллекцию)
       $post->clearMediaCollection($collectionName);
+
+      //Удаляем картинку для шапки страницы, если есть такая опция в конфиге
+      $post->clearMediaCollection('page-header');
+
     } else { // Заменяем
-      $post->addMedia($this->tmpStorage->path($dto->getPath()))
-        ->usingFileName($dto->getName())
-        ->toMediaCollection($collectionName);
+
+      if($post->getSettingsType($post->type)['generate-page-header-image']) {
+        //Генерируем картинку для шапки страницы, если есть такая опция в конфиге
+        $post->addMedia($this->tmpStorage->path($dto->getPath()))
+          ->usingFileName($dto->getName())
+          ->toMediaCollection('page-header');
+      } else {
+        //Генерим обыкновенную миниатюру
+        $post->addMedia($this->tmpStorage->path($dto->getPath()))
+          ->usingFileName($dto->getName())
+          ->toMediaCollection($collectionName);
+      }
+
     }
   }
 

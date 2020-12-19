@@ -90,7 +90,6 @@ final class PostQueries implements ServiceQueries
       $post = $this->model->findOrFail($id);
     }
     $post->load('translations', 'metadata');
-    $post->thumbnail = $post->getFirstMediaUrl('thumbnail');
     return $post;
   }
 
@@ -105,7 +104,6 @@ final class PostQueries implements ServiceQueries
     $post = $this->model->where('slug',$slug)->first();
     if(!$post) abort(404);
     $post->load('translations', 'metadata');
-    $post->thumbnail = $post->getFirstMediaUrl('thumbnail');
     return $post;
   }
   /**

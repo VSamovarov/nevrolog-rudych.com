@@ -44,7 +44,7 @@ mix.webpackConfig({
 if (mix.inProduction()) {
 } else {
   // mix.sourceMaps(true, "source-map").webpackConfig({
-  //     devtool: "inline-source-map"
+  //   devtool: "inline-source-map"
   // });
 }
 
