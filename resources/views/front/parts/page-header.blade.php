@@ -1,8 +1,15 @@
-<div class="section page-header bg-image" style="background-image: url({{ asset('img/breadcrumbs-image-1.jpg') }});">
-    <div class="container">
+<div class="section page-header bg-image">
+    @if ($main->thumbnail->img('page-header'))
+      <img class="bg-image__image lazyload" data-srcset="{{ $main->thumbnail->getSrcset('page-header') }}" data-sizes="auto" />
+    @endif
+    {{-- <div class="container">
         @include('front.modules.breadcrumbs')
-    </div>
-    <div class="container">
-        <h1 class="page-title">Large Features</h1>
+    </div> --}}
+
+    <div class="container section__body page-header__text">
+        <h1 class="page-title page-header__title">{{ $main->translateOrDefault()->title }}</h1>
+        @if ($main->translateOrDefault()->excerpt)
+          {{ $main->translateOrDefault()->excerpt }}
+        @endif
     </div>
 </div>

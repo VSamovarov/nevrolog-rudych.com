@@ -1,7 +1,11 @@
 .page-header {
-    padding: map-get($spacers, 4) 0;
-    margin-bottom: map-get($spacers, 5);
-    @include breakpoint(map-get($grid-breakpoints, "lg")) {
-        padding: map-get($spacers, 5) 0;
-    }
+  padding: map-get($spacers, 4) 0;
+  margin-bottom: map-get($spacers, 5);
+  &__title {
+    @include ms-respond(font-size, 5);
+    font-weight: normal;
+  }
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    padding: map-get($spacers, 5) 0;
+  }
 }

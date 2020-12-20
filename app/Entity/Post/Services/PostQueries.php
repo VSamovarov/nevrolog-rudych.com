@@ -89,8 +89,7 @@ final class PostQueries implements ServiceQueries
     } else {
       $post = $this->model->findOrFail($id);
     }
-    $post->load('translations', 'metadata');
-    return $post;
+    return $this->loadPostData($post);
   }
 
   /**
@@ -103,7 +102,17 @@ final class PostQueries implements ServiceQueries
   {
     $post = $this->model->where('slug',$slug)->first();
     if(!$post) abort(404);
-    $post->load('translations', 'metadata');
+    return $this->loadPostData($post);
+  }
+
+  private function loadPostData(Post $post): Post
+  {
+    $post->load('translations', 'metadata', 'media');
+    if($post->getSettingsType($post->type)['generate-page-header-image']) {
+      $post->thumbnail = $post->getMedia('page-header')[0];
+    } else {
+      $post->thumbnail = $post->getMedia('thumbnail')[0];
+    }
     return $post;
   }
   /**
