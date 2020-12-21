@@ -77,7 +77,7 @@ return [
         'services' => 'Услуги',
     ],
 
-    'per_page' => 4,
+    'per_page' => 15,
 
 
 
