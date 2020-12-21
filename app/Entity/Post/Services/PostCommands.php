@@ -94,16 +94,17 @@ class PostCommands
 
     } else { // Заменяем
 
-      if($post->getSettingsType($post->type)['generate-page-header-image']) {
-        //Генерируем картинку для шапки страницы, если есть такая опция в конфиге
-        $post->addMedia($this->tmpStorage->path($dto->getPath()))
-          ->usingFileName($dto->getName())
-          ->toMediaCollection('page-header');
-      } else {
+      if(empty($post->getSettingsType($post->type)['generate-page-header-image'])) {
         //Генерим обыкновенную миниатюру
         $post->addMedia($this->tmpStorage->path($dto->getPath()))
           ->usingFileName($dto->getName())
           ->toMediaCollection($collectionName);
+
+      } else {
+        //Генерируем картинку для шапки страницы, если есть такая опция в конфиге
+        $post->addMedia($this->tmpStorage->path($dto->getPath()))
+          ->usingFileName($dto->getName())
+          ->toMediaCollection('page-header');
       }
 
     }

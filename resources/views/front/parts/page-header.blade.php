@@ -1,5 +1,5 @@
 <div class="section page-header bg-image">
-    @if ($main->thumbnail->img('page-header'))
+    @if ($main->thumbnail && $main->thumbnail->img('page-header'))
       <img class="bg-image__image lazyload" data-srcset="{{ $main->thumbnail->getSrcset('page-header') }}" data-sizes="auto" />
     @endif
     {{-- <div class="container">

@@ -70,9 +70,8 @@ final class PostQueries implements ServiceQueries
    */
   public function index(array $values = [], ?int $per_page = null): object
   {
-
     if (empty($per_page)) $per_page = $this->model->getPerPage();
-    return $this->queryBuilder($values)->with('translation')->paginate($per_page);
+    return $this->queryBuilder($values)->with('translation','media')->paginate($per_page);
   }
 
   /**
@@ -108,10 +107,11 @@ final class PostQueries implements ServiceQueries
   private function loadPostData(Post $post): Post
   {
     $post->load('translations', 'metadata', 'media');
-    if($post->getSettingsType($post->type)['generate-page-header-image']) {
-      $post->thumbnail = $post->getMedia('page-header')[0];
+    if(empty($post->getSettingsType($post->type)['generate-page-header-image'])) {
+      $post->thumbnail = $post->getMedia('thumbnail')[0]??null;
     } else {
-      $post->thumbnail = $post->getMedia('thumbnail')[0];
+      $post->thumbnail = $post->getMedia('page-header')[0]??null;
+
     }
     return $post;
   }

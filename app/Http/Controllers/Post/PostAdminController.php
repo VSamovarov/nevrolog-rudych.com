@@ -53,7 +53,7 @@ class PostAdminController extends Controller
   public function edit($id, PostQueries $services)
   {
     $main = $services->byId($id);
-    $main->thumbnail = $main->thumbnail->getUrl();
+    $main->thumbnail = $main->thumbnail?$main->thumbnail->getUrl():null;
     return Inertia::render(
       'Post/EditPost',
       [

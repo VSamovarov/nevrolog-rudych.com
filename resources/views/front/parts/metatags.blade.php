@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="{{ strip_tags(App\Services\Helper::getLocalized(settings()->get('site-title',config('app.name')))) }}" />
 
 @if($main->thumbnail)
-<meta property="og:image:url" content="{{ $main->thumbnail }}" />
+<meta property="og:image:url" content="{{ $main->thumbnail->getUrl() }}" />
 @endif
 
 <meta name="twitter:card" content="summary" />
