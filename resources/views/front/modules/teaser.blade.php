@@ -1,7 +1,7 @@
 <div class="teaser  {{ $item->type }}">
     <!-- Post Modern-->
     <div class="teaser__thumbnail proportional-block">
-        <a class="proportional-block__content_wrapper" href="{{ t_route('post.show',['type'=>$item->type, 'id'=>$item->id]) }}>
+        <a class="proportional-block__content_wrapper" href="{{ t_route('post.show',['type'=>$item->type, 'id'=>$item->id]) }}">
             @if (
               !empty($item->media)
               && !empty($item->getMedia('thumbnail'))
