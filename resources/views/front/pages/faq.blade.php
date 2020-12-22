@@ -4,7 +4,7 @@
   @if(!empty($main->metadata))
     @include('front.modules.metadata.metadata-loader',['modules'=>$main->metadata])
   @endif
-  @dump($items)
+
   @if($items->total() > 0)
 
   <div class="container">
@@ -15,7 +15,7 @@
                 {{ $item->translation->title }}
               </h2>
               <div class="pl-5">
-                {{ $item->translation->content }}
+                {!! $item->translation->content !!}
               </div>
             </div>
             <hr>
@@ -23,7 +23,7 @@
       </div>
   </div>
   <div class="container">
-    {!! $items->links() !!}
+    {{ $items->links() }}
   </div>
   @else
   @endif
