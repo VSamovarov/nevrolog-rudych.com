@@ -46,7 +46,7 @@ return [
               'post-slug-module'=> false,
             ]
         ],
-        'fak' => [
+        'faq' => [
             'name' => 'Вопросы и ответы',
             'taxonomy' => [],
             'icon' => 'question-circle',

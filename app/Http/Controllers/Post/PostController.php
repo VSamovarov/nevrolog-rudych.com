@@ -13,7 +13,7 @@ class PostController extends Controller
     const FOLDER_TEMPLATES = 'front.pages';
     const DEFAULT_PAGE_TEMPLATE_NAME = 'page';
     const DEFAULT_INDEX_TEMPLATE_NAME = 'index';
-    const DEFAULT_POST_TEMPLATE_NAME = 'post';
+    const DEFAULT_POST_TEMPLATE_NAME = 'post-single';
 
     public function slug($slug='', PostQueries $queries)
     {
@@ -37,10 +37,11 @@ class PostController extends Controller
 
     public function show($type, $id,  Request $request, PostQueries $queries)
     {
-      $main = $queries->getBySlug($type);
+      $main = $queries->byId($id);
+      $type_data = $queries->getBySlug($type);
       return view(
         $this->getTemplate("{$type}-post", self::DEFAULT_POST_TEMPLATE_NAME),
-        compact('main')
+        compact('main','type_data')
       );
     }
 
