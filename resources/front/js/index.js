@@ -9,6 +9,7 @@ require("./menus");
 require("./gallery");
 require("./forms");
 require("./imask");
+require("./button-back-up");
 // require("./popup.js");
 // require("./feedback-popup.js");
 

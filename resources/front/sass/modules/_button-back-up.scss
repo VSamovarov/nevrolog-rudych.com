@@ -1,0 +1,37 @@
+.button-back-up {
+  display: none;
+  position: fixed;
+  right: 2rem;
+  bottom: 20vh;
+
+  &:before {
+    content: "↑";
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    width: 3rem;
+    height: 3rem;
+    color: white;
+    background: $brand-color;
+    border-radius: 50%;
+  }
+}
+
+.button-back-up.show {
+  display: inline-block;
+  animation: myfadeIn 1s;
+  animation-direction: reverse;
+}
+
+@keyframes myfadeIn {
+  0% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

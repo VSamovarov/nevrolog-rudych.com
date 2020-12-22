@@ -45,7 +45,7 @@ class PostUpdateRequest extends FormRequest
       'metadata' => 'nullable|array',
       'metadata.*._name' => 'exclude_if:metadata,array|required|string',
       'metadata.*._title' => 'exclude_if:metadata,array|string',
-      'metadata.*._value' => 'exclude_if:metadata,array|required|array',
+      'metadata.*._value' => 'exclude_if:metadata,array|nullable|array',
     ];
   }
 

@@ -111,7 +111,12 @@ final class PostQueries implements ServiceQueries
       $post->thumbnail = $post->getMedia('thumbnail')[0]??null;
     } else {
       $post->thumbnail = $post->getMedia('page-header')[0]??null;
+    }
 
+    if(!empty($post->metadata)) {
+      foreach($post->metadata as $data) {
+        $data->add_data = $this->metadataAddons($data);
+      }
     }
     return $post;
   }
@@ -160,5 +165,26 @@ final class PostQueries implements ServiceQueries
   public function getPerPage(): int
   {
     return $this->model->getPerPage();
+  }
+
+  /**
+   * Дополнительные данные для метаданных
+   * ! Необходим рефакторинг
+   */
+
+  public function metadataAddons($item)
+  {
+    // dd($item->_name);
+    $data = [];
+    switch ($item->_name) {
+      case 'LastNews':
+        $data = $this->queryBuilder(['type'=>'news','status'=>'publish'])->with('translation','media')->limit('2')->get();
+        break;
+
+      default:
+        # code...
+        break;
+    }
+    return $data;
   }
 }

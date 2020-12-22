@@ -1,7 +1,7 @@
 {
-    "/front/js/index.js": "/front/js/index.js?id=be2b8f6d751569236964",
-    "/front/css/index.css": "/front/css/index.css?id=d6dca4a1b2c4edf490e2",
-    "/a/js/app.js": "/a/js/app.js?id=5fd1179842a452895af4",
-    "/a/css/index.css": "/a/css/index.css?id=d41d8cd98f00b204e980",
-    "/a/css/app.css": "/a/css/app.css?id=d3f5b8599fa0e7cfea11"
+    "/front/js/index.js": "/front/js/index.js",
+    "/front/css/index.css": "/front/css/index.css",
+    "/a/js/app.js": "/a/js/app.js",
+    "/a/css/index.css": "/a/css/index.css",
+    "/a/css/app.css": "/a/css/app.css"
 }

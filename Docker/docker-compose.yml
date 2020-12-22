@@ -42,7 +42,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      # - ./db-dump/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./db-dump/dump.sql:/docker-entrypoint-initdb.d/dump.sql
       - db-data:/var/lib/mysql/data
     env_file:
       - ./db.env

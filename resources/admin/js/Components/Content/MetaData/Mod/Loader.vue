@@ -69,6 +69,8 @@ import RepeaterMainBanner from "./RepeaterMainBanner";
 import RepeaterTextEditor from "./RepeaterTextEditor";
 import ImageAndTextTwoRows from "./ImageAndTextTwoRows";
 import RepeaterInfoBox from "./RepeaterInfoBox";
+import FeedbackWithMapAndContacts from "./FeedbackWithMapAndContacts";
+import LastNews from "./LastNews";
 
 export default {
   components: {
@@ -78,7 +80,9 @@ export default {
     RepeaterTextEditor,
     ImageAndTextTwoRows,
     RepeaterInfoBox,
-    SectionTitle
+    SectionTitle,
+    FeedbackWithMapAndContacts,
+    LastNews
   },
   props: ["modules", "locales", "post"],
   data() {
@@ -104,6 +108,14 @@ export default {
         {
           text: "Баннер",
           value: "RepeaterMainBanner"
+        },
+        {
+          text: "Форма обрратной связи с картой и контактами",
+          value: "FeedbackWithMapAndContacts"
+        },
+        {
+          text: "Последние новости",
+          value: "LastNews"
         }
       ]
     };

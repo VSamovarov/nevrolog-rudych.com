@@ -22,7 +22,7 @@
         </h4>
         <div class="teaser__meta">
             <div class="teaser__data">
-                <time datetime="2019">{{ $item->created_at }}</time>
+                <time datetime="{{ $item->created_at }}">{{ $item->date_add }}</time>
             </div>
             {{-- <div class="teaser__tags">
                 @foreach ($item->tags as $tag)

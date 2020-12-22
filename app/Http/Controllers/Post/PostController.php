@@ -18,26 +18,29 @@ class PostController extends Controller
     public function slug($slug='', PostQueries $queries)
     {
       if(empty($slug)) $slug = self::MAIN_PAGE_SLUG;
+      $main = $queries->getBySlug($slug);
       return view(
         $this->getTemplate($slug,self::DEFAULT_PAGE_TEMPLATE_NAME),
-        ['main'=>$queries->getBySlug($slug)]
+        compact('main')
       );
     }
 
     public function index($type, Request $request, PostQueries $queries)
     {
       $items = $queries->index( array_merge($request->all(),['status'=>'publish', 'type'=>$type ]));
+      $main = $queries->getBySlug($type);
       return view(
         $this->getTemplate($type, self::DEFAULT_INDEX_TEMPLATE_NAME),
-        ['main' => $queries->getBySlug($type),'items'=>$items]
+        compact('items','main')
       );
     }
 
     public function show($type, $id,  Request $request, PostQueries $queries)
     {
+      $main = $queries->getBySlug($type);
       return view(
         $this->getTemplate("{$type}-post", self::DEFAULT_POST_TEMPLATE_NAME),
-        ['main' => $queries->byId($id)]
+        compact('main')
       );
     }
 
