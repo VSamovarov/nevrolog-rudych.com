@@ -8,23 +8,16 @@
   @if($items->total() > 0)
 
   <div class="container">
-      <div class="row">
-          @foreach ($items as $item)
-            <div class="mb-4">
-              <h2>
-                {{ $item->translation->title }}
-              </h2>
-              <div class="pl-5">
-                {!! $item->translation->content !!}
-              </div>
-            </div>
-            <hr>
-          @endforeach
-      </div>
+    @foreach ($items as $item)
+    <div class="accordion">
+      <button class="accordion__button"><div class="pr-5">{{ $item->translation->title }}</div></button>
+      <div class="accordion__panel">{!! $item->translation->content !!}</div>
+    </div>
+    @endforeach
   </div>
   <div class="container">
     {{ $items->links() }}
   </div>
-  @else
+    @else
   @endif
 @endsection

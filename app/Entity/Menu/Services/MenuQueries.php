@@ -51,7 +51,7 @@ class MenuQueries
       $node = $this->createEmptyMenu($slug);
     }
 
-    $tree = $this->model->with('translation')->descendantsAndSelf($node->id)->toTree()->toArray();
+    $tree = $this->model->with('translations')->descendantsAndSelf($node->id)->toTree()->toArray();
     return $this->treeAdapter($tree);
   }
 
@@ -86,7 +86,8 @@ class MenuQueries
             $value = $this->treeAdapter($value,$exclude );
           }
         }
-        if($key === 'translation') {
+        if($key === 'translations') {
+
           $new[$i] = array_merge($new[$i], $this->translationsAdapter($value));
         }
         if(!in_array($key, $exclude)) {
@@ -101,11 +102,11 @@ class MenuQueries
   private function translationsAdapter(array $translations, $properties=['title']): array
   {
     $new = [];
+
     foreach($properties as $property) {
-      $new[$property] = $translations[$property];
-      // foreach($translations as $translation) {
-      //   $new[$property] = $translation[$property];
-      // }
+      foreach($translations as $translation) {
+        $new[$property][$translation['lang']] = $translation[$property];
+      }
     }
     return $new;
   }

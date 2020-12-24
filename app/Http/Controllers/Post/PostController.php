@@ -27,7 +27,9 @@ class PostController extends Controller
 
     public function index($type, Request $request, PostQueries $queries)
     {
-      $items = $queries->index( array_merge($request->all(),['status'=>'publish', 'type'=>$type ]));
+      $per_page = null;
+      if($type === 'faq') $per_page = 100;
+      $items = $queries->index( array_merge($request->all(),['status'=>'publish', 'type'=>$type ]), $per_page);
       $main = $queries->getBySlug($type);
       return view(
         $this->getTemplate($type, self::DEFAULT_INDEX_TEMPLATE_NAME),

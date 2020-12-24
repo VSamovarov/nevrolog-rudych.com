@@ -10,6 +10,7 @@ require("./gallery");
 require("./forms");
 require("./imask");
 require("./button-back-up");
+require("./accordion");
 // require("./popup.js");
 // require("./feedback-popup.js");
 
