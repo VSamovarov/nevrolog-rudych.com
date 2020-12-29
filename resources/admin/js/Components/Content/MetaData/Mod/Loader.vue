@@ -69,6 +69,7 @@ import RepeaterMainBanner from "./RepeaterMainBanner";
 import RepeaterTextEditor from "./RepeaterTextEditor";
 import ImageAndTextTwoRows from "./ImageAndTextTwoRows";
 import RepeaterInfoBox from "./RepeaterInfoBox";
+import ServiceOffer from "./ServiceOffer";
 import FeedbackWithMapAndContacts from "./FeedbackWithMapAndContacts";
 import LastNews from "./LastNews";
 
@@ -81,6 +82,7 @@ export default {
     ImageAndTextTwoRows,
     RepeaterInfoBox,
     SectionTitle,
+    ServiceOffer,
     FeedbackWithMapAndContacts,
     LastNews
   },
@@ -116,6 +118,10 @@ export default {
         {
           text: "Последние новости",
           value: "LastNews"
+        },
+        {
+          text: "Предложение Услуги",
+          value: "ServiceOffer"
         }
       ]
     };
