@@ -1,0 +1,45 @@
+.section.service-offer-section {
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+    border-bottom: 1px solid rgba($brand-color, 20%);
+  }
+}
+
+.service-offer {
+  position: relative;
+  &__image {
+    height: 300px;
+    margin-bottom: 1.4rem;
+  }
+  &__title {
+    @include ms-respond(font-size, 1);
+    color: $brand-color;
+  }
+  &__offer {
+    font-size: 1.2em;
+    color: $brand-color-dark;
+    margin-bottom: 1.4rem;
+    & > * {
+      margin-right: 1rem;
+    }
+  }
+
+  @include breakpoint(map-get($grid-breakpoints, "lg")) {
+    display: flex;
+    margin-right: -2rem;
+    margin-left: -2rem;
+    &__image,
+    &__description {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+    &__image {
+      width: 33%;
+      min-height: 500px;
+    }
+    &__description {
+      width: 67%;
+    }
+  }
+}
