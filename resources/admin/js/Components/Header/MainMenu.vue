@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand href="#">Nevrolog-Rudych</b-navbar-brand>
+    <b-navbar-brand href="/">Nevrolog-Rudych</b-navbar-brand>
     <b-navbar-toggle target="main-menu-collapse"></b-navbar-toggle>
     <b-collapse id="main-menu-collapse" is-nav>
       <b-navbar-nav v-if="items">
@@ -19,16 +19,16 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
-  </b-navbar>
-</template>>
+  </b-navbar> </template
+>>
 
 <script>
 import MainMenuItem from "./MainMenuItem";
 export default {
   props: ["items"],
   components: {
-    MainMenuItem,
-  },
+    MainMenuItem
+  }
 };
 </script>
 
