@@ -5,13 +5,7 @@
     <style>
     .section.info-block-section.c-{{ Illuminate\Support\Str::slug($data["box-color"]??'') }} { --info-block-color: {{$data["box-color"]??''}};}
     </style>
-    @if ( !empty($data['show-section-title']) && !empty($data['section-title']) )
-      <div class="container section__title">
-        <div class="h1 text-center">
-          {{ App\Services\Helper::getLocalized($data['section-title']) }}
-        </div>
-      </div>
-    @endif
+    @include('front.modules.metadata.module-title')
     <div class="container">
       <div class="row">
         @foreach ($data["repeat"] as $item)

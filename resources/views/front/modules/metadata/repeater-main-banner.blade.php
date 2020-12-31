@@ -1,12 +1,6 @@
 @if (isset($data["repeat"]) && is_array($data["repeat"]) && count($data["repeat"]) > 0)
   <section class="section padding-none" style="background-color:#9baacb">
-    @if ( !empty($data['show-section-title']) && !empty($data['section-title']) )
-      <div class="container section__title">
-        <div class="h1 text-center">
-          {{ App\Services\Helper::getLocalized($data['section-title']) }}
-        </div>
-      </div>
-    @endif
+  @include('front.modules.metadata.module-title')
   @foreach ($data["repeat"] as $item)
     <div class="container main-banner">
       <div class="main-banner__wrapper" style="background-image: url({{ $item['image']['src'] }});">

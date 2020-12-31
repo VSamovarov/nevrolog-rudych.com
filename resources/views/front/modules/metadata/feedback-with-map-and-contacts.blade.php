@@ -1,11 +1,5 @@
 <section class="section adress-and-callback-form padding-none" style="background: #fdf5fc">
-  @if ( !empty($data['show-section-title']) && !empty($data['section-title']) )
-    <div class="container section__title">
-      <div class="h1 text-center">
-        {{ App\Services\Helper::getLocalized($data['section-title']) }}
-      </div>
-    </div>
-  @endif
+  @include('front.modules.metadata.module-title')
   <div class="container">
     <div class="row">
       <div class="col-md-6 pr-5 py-5">
