@@ -28,4 +28,4 @@ Route::get('/', [PostController::class,'slug'])->name('main-page');
 
 Route::get('/{type}', [PostController::class,'index'])->where('type','news|articles|faq')->name('post.index');
 Route::get('/{slug}', [PostController::class,'slug'])->name('slug-page');
-Route::get('/{type}/{id}', [PostController::class,'show'])->name('post.show');
+Route::get('/{type}/{slug}', [PostController::class,'show'])->name('post.show');

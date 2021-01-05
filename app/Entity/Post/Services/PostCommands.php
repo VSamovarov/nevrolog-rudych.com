@@ -63,7 +63,6 @@ class PostCommands
           'metatitle' => $translation->getMetatitle(),
           'metadescription' => $translation->getMetadescription(),
           'metakeys' => $translation->getMetakeys(),
-          'slug' => $translation->getSlug()
         ]
       );
     }

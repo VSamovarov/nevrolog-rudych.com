@@ -4,6 +4,7 @@ namespace App\Entity\Post\Services;
 
 use App\Entity\Post\Post;
 use App\Services\Contracts\ServiceQueries;
+use App\Services\Helper;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use VSamovarov\LaravelLocalizer\Localizer;
@@ -99,9 +100,15 @@ final class PostQueries implements ServiceQueries
    */
   public function getBySlug(string $slug): Post
   {
-    $post = $this->model->where('slug',$slug)->first();
-    if(!$post) abort(404);
-    return $this->loadPostData($post);
+
+    $id = Helper::getIdBySlug($slug, $this->getIdPrefix());
+    if(empty($id)) {
+      $post = $this->model->where('slug',$slug)->first();
+      if(!$post) abort(404);
+      return $this->loadPostData($post);
+    } else {
+      return $this->byId($id);
+    }
   }
 
   private function loadPostData(Post $post): Post
@@ -166,6 +173,17 @@ final class PostQueries implements ServiceQueries
   {
     return $this->model->getPerPage();
   }
+
+  /**
+   * Используем для идентификации в локализованных ярлыках
+   *
+   * @return string
+   */
+  public function getIdPrefix(): string
+  {
+    return $this->model->getIdPrefix();
+  }
+
 
   /**
    * Дополнительные данные для метаданных

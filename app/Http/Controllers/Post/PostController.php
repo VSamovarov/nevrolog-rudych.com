@@ -20,7 +20,7 @@ class PostController extends Controller
       if(empty($slug)) $slug = self::MAIN_PAGE_SLUG;
       $main = $queries->getBySlug($slug);
       return view(
-        $this->getTemplate($slug,self::DEFAULT_PAGE_TEMPLATE_NAME),
+        $this->getTemplate($slug, self::DEFAULT_PAGE_TEMPLATE_NAME),
         compact('main')
       );
     }
@@ -37,9 +37,13 @@ class PostController extends Controller
       );
     }
 
-    public function show($type, $id,  Request $request, PostQueries $queries)
+    public function show($type, $slug,  Request $request, PostQueries $queries)
     {
-      $main = $queries->byId($id);
+      $main = $queries->getBySlug($slug);
+      /**
+       * Тут можно реализовать функционал редиректа на правильный $slug
+       * если $slug и $main->translateOrDefault()->slug не совпадают
+       */
       $type_data = $queries->getBySlug($type);
       return view(
         $this->getTemplate("{$type}-post", self::DEFAULT_POST_TEMPLATE_NAME),

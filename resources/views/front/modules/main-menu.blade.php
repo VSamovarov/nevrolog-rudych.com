@@ -17,5 +17,6 @@
           @endif
         </li>
       @endforeach
+      @include('front.modules.lang-menu')
     </ul>
 @endif

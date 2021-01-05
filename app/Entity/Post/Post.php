@@ -105,6 +105,16 @@ class Post extends Model implements HasMedia
   }
 
   /**
+   * Используем для идентификации в локализованных ярлыках
+   *
+   * @return string
+   */
+  static function getIdPrefix(): string
+  {
+    return config('post_settings.id-prefix','--p');
+  }
+
+  /**
    * Количество Постов на странице
    *
    * @return integer

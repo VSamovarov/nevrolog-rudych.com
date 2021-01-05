@@ -1,7 +1,7 @@
 <div class="teaser  {{ $item->type }}">
     <!-- Post Modern-->
     <div class="teaser__thumbnail proportional-block">
-        <a class="proportional-block__content_wrapper" href="{{ t_route('post.show',['type'=>$item->type, 'id'=>$item->id]) }}">
+        <a class="proportional-block__content_wrapper" href="{{ t_route('post.show',['type'=>$item->type, 'slug'=>$item->translation->slug]) }}">
             @if (
               !empty($item->media)
               && !empty($item->getMedia('thumbnail'))
@@ -18,7 +18,7 @@
     </div>
     <div class="teaser__text">
         <h4 class="teaser__title">
-            <a href="{{ t_route('post.show',['type'=>$item->type, 'id'=>$item->id]) }}">{{ $item->translation->title }}</a>
+            <a href="{{ t_route('post.show',['type'=>$item->type, 'slug'=>$item->translation->slug]) }}">{{ $item->translation->title }}</a>
         </h4>
         <div class="teaser__meta">
             <div class="teaser__data">

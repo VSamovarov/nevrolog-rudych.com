@@ -11,7 +11,6 @@ class PostUpdateTranslationsDto
     private $metatitle;
     private $metadescription;
     private $metakeys;
-    private $slug;
 
     public function __construct(array $data)
     {
@@ -22,7 +21,6 @@ class PostUpdateTranslationsDto
         $this->metatitle = $data['metatitle'] ?? null;
         $this->metadescription = $data['metadescription'] ?? null;
         $this->metakeys = $data['metakeys'] ?? null;
-        $this->slug = $data['slug'] ?? null;
     }
 
     /**
@@ -41,13 +39,6 @@ class PostUpdateTranslationsDto
         return $this->title;
     }
 
-    /**
-     * Get the value of slug
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
 
     /**
      * Get the value of metakeys

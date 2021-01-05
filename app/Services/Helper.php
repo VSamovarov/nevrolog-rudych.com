@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Entity\Post\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 /**
@@ -64,5 +66,42 @@ final class Helper
     }
     if(!is_string($value)) $value = '';
     return $value;
+  }
+
+  /**
+   * Ищем ID в ярлыке
+   *
+   * @param string $slug - ярлык
+   * @param string $prefix - 'blabla[--p]21"
+   * @return integer|null
+   */
+  public static function getIdBySlug(string $slug, string $prefix): ?int
+  {
+    $id = null;
+    if( ($pos = strrpos($slug, $prefix)) !== false ) {
+      $id = substr($slug, $pos  + strlen($prefix));
+      if(!is_numeric($id)) $id = null;
+    }
+    return $id;
+  }
+
+
+  /**
+  * генерим многоязычные для постов
+  *
+  * @param Request $request
+  * @param Post $post
+  * @return array
+  */
+  public function localizedLinks(Request $request, Post $post): array
+  {
+    $links = [];
+    $routeName = Str::after($request->route()->getName(), '.');
+    $parameters = $request->route()->parameters();
+    foreach (app('localizer')->getSupportedLocales() as $locale) {
+      $parameters = array_merge($parameters, ['slug'=>$post->translateOrDefault()->slug ]);
+      $links[$locale['slug']] = t_route($routeName, $parameters, $locale['slug'], $absolute = true);
+    }
+    return $links;
   }
 }

@@ -79,6 +79,7 @@ return [
 
     'per_page' => 15,
 
-
-
+    #Используем для идентификации в локализованных ярлыках ()
+    # /news/prezentuemo-onlayn-shkolu-z-infuziynoi-terapii-basic-fluid-management-in-oncology<--p>394
+    'id-prefix' => '--p',
 ];

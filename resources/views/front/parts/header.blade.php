@@ -64,6 +64,7 @@
             <div class="main-menu">
                 @include('front.modules.main-menu')
             </div>
+
             <div class="search"></div>
         </div>
     </div>

@@ -12,7 +12,9 @@ delegate(
   "click",
   function(e) {
     if (e.target.classList.contains("rd-dropdown-link")) return;
+    if (e.target.closest(".main-navbar__sub_navbar")) return;
     e.preventDefault();
+
     const element = e.target.closest(".main-navbar__has-submenu");
     if (element.classList.contains("active")) {
       element.classList.remove("active");
