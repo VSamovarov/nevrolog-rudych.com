@@ -28,27 +28,33 @@
         </b-form-checkbox>
       </p>
     </div>
-
-    <MultilingualInput
-      v-if="getValue('show-section-title')"
-      :locales="locales"
-      :value="getValue('section-title') || {}"
-      @input="$emit('input', { ...value, 'section-title': $event })"
-    ></MultilingualInput>
-    <template
-      v-if="
-        getValue('show-section-title') && getValue('show-link-section-title')
-      "
-    >
-      <p class="text-black-50 small">Ссылка</p>
-      <b-form-group>
-        <b-form-input
-          :value="getValue('link-section-title')"
-          @input="$emit('input', { ...value, 'link-section-title': $event })"
-          trim
-        ></b-form-input>
-      </b-form-group>
-    </template>
+    <b-tabs small v-if="getValue('show-section-title')">
+      <b-tab
+        class="py-2"
+        v-for="(langData, lang) in locales"
+        :key="lang"
+        :title="lang"
+      >
+        <p class="text-black-50 small">Название</p>
+        <b-form-group>
+          <b-form-input
+            trim
+            :value="getValueMultilang('section-title', lang)"
+            @input="setValueMultilang('section-title', lang, $event)"
+          ></b-form-input>
+        </b-form-group>
+        <template v-if="getValue('show-link-section-title')">
+          <p class="text-black-50 small">Url</p>
+          <b-form-group>
+            <b-form-input
+              trim
+              :value="getValueMultilang('link-section-title', lang)"
+              @input="setValueMultilang('link-section-title', lang, $event)"
+            ></b-form-input>
+          </b-form-group>
+        </template>
+      </b-tab>
+    </b-tabs>
     <hr />
   </div>
 </template>
@@ -57,13 +63,23 @@
 import MultilingualInput from "./MultilingualInput";
 export default {
   props: {
-    value: Object,
+    value: Object | Array,
     locales: Object
   },
   components: { MultilingualInput },
   methods: {
     getValue(name) {
       return this.value[name] || null;
+    },
+    getValueMultilang(name, lang) {
+      let input = this.value[name] || {};
+      return input[lang] || null;
+    },
+    setValueMultilang(name, lang, value) {
+      this.$emit("input", {
+        ...this.value,
+        [name]: { ...this.value[name], [lang]: value }
+      });
     }
   }
 };
