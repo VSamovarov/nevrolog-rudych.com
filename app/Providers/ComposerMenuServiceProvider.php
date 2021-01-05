@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Entity\Menu\Services\MenuQueries;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class ComposerMenuServiceProvider extends ServiceProvider
 {
@@ -49,8 +50,11 @@ class ComposerMenuServiceProvider extends ServiceProvider
     private function setActiveItems(array $menu, string $path): array
     {
       $path = trim($path,'/');
+      $localePrefix = app('localizer')->getLocale();
+      if(app('localizer')->isHideDefaultLocaleInURL() && $localePrefix === app('localizer')->getDefaultLocale()) $localePrefix = '';
       foreach($menu as $i=>$item) {
-        if($path === trim($item['url'],'/')) { //!<-Тут проверка на совпадение
+        $url = $item['url'][app('localizer')->getLocale()]??null;
+        if($url && $path === trim($url,'/')) { //!<-Тут проверка на совпадение
           $menu[$i]['active'] = true;
           return $menu;
         }

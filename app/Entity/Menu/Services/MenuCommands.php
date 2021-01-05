@@ -4,6 +4,7 @@ namespace App\Entity\Menu\Services;
 
 use App\Entity\Menu\Menu;
 use App\Entity\Menu\Services\MenuQueries;
+use Illuminate\Support\Str;
 use VSamovarov\LaravelLocalizer\Localizer;
 
 class MenuCommands
@@ -94,11 +95,15 @@ class MenuCommands
   private function saveTranslations($node, $item):void
   {
     foreach($this->locales as $lang) {
+      $url = $item['url'][$lang]??null;
+      if( strpos($url, '://') === false ) {
+        $url = Str::start($url,'/');
+      }
       $node->translations()->updateOrCreate(
         ['lang' => $lang],
         [
           'title' => $item['title'][$lang]??null,
-          'url' => $item['url'][$lang]??null
+          'url' => $url
         ]
         );
     }
