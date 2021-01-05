@@ -32,7 +32,6 @@ class MenuCommands
     if(isset($areas[$slug])) {
       $attributes =  [
         'order'=>10,
-        'url'=>null,
         'slug'=>$slug
       ];
       $node = new $this->model(
@@ -44,7 +43,8 @@ class MenuCommands
         $node->translations()->updateOrCreate(
           ['lang' => $lang],
           [
-            'title' => $areas[$slug]??null
+            'title' => $areas[$slug]??null,
+            'url' =>  null
           ]
           );
       }
@@ -75,7 +75,6 @@ class MenuCommands
     foreach ($menu as $order=>$item) {
         $attributes =  [
             'order'=>$order,
-            'url'=>$item['url']??null,
             'slug'=>$item['slug']??null
         ];
         $node = new $this->model(
@@ -98,7 +97,8 @@ class MenuCommands
       $node->translations()->updateOrCreate(
         ['lang' => $lang],
         [
-          'title' => $item['title'][$lang]??null
+          'title' => $item['title'][$lang]??null,
+          'url' => $item['url'][$lang]??null
         ]
         );
     }

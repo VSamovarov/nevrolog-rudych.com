@@ -21,6 +21,7 @@ class CreateMenuTranslationsTable extends Migration
             ->onDelete('cascade');
           $table->string('lang', 4)->index();
           $table->string('title')->nullable();
+          $table->string('url')->nullable();
           $table->unique(['menu_id', 'lang']);
         });
     }

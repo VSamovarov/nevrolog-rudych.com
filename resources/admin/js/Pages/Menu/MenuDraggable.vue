@@ -51,6 +51,7 @@ export default {
      * Готовлю экшены для передачи в пропсы
      */
     setActions(item) {
+      console.log(item);
       return [
         { name: "Настройки", callback: this.settingsModule(item) },
         { name: "Удалить", callback: this.deleteMenu(item) }

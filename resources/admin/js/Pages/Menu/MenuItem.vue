@@ -18,7 +18,6 @@
             maxWidth: '50%'
           }"
         >
-          {{ item.url }}
         </span>
       </div>
       <div v-if="actions" class="dropdown dropleft" v-click-outside="hide">

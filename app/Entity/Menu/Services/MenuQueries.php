@@ -99,7 +99,13 @@ class MenuQueries
     return $new;
   }
 
-  private function translationsAdapter(array $translations, $properties=['title']): array
+  /**
+   * Формируем вывод для API (убираем лишнюю инфу)
+   * @param array $translations релейшин из таблицы переводов
+   * @param array $properties только те свойства, которые оставляем
+   * @return array
+   */
+  private function translationsAdapter(array $translations, array $properties=['title','url']): array
   {
     $new = [];
 
@@ -124,7 +130,6 @@ class MenuQueries
     if(isset($areas[$slug])) {
       $attributes =  [
         'order'=>10,
-        'url'=>null,
         'slug'=>$slug
       ];
       $node = new $this->model(
@@ -136,7 +141,8 @@ class MenuQueries
         $node->translations()->updateOrCreate(
           ['lang' => $lang],
           [
-            'title' => $areas[$slug]??null
+            'title' => $areas[$slug]??null,
+            'url' => null
           ]
           );
       }

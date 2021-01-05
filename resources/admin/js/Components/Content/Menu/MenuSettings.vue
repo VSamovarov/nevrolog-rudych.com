@@ -7,9 +7,11 @@
       @input="settings.title = { ...settings.title, ...$event }"
     ></multilingual-text-input>
     <p>Url</p>
-    <b-form-group>
-      <b-form-input v-model="settings.url" trim></b-form-input>
-    </b-form-group>
+    <multilingual-text-input
+      :value="settings.url"
+      :locales="locales"
+      @input="settings.url = { ...settings.url, ...$event }"
+    ></multilingual-text-input>
   </div>
 </template>
 

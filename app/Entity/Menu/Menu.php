@@ -16,7 +16,7 @@ class Menu extends Model
   protected $table = 'menu';
   public $timestamps = false;
 
-  protected $fillable = ['order', 'url', 'slug'];
+  protected $fillable = ['order', 'slug'];
 
   /**
    * Области меню

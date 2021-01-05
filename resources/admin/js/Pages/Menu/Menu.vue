@@ -51,58 +51,6 @@ export default {
     return {
       overlay: false,
       menu: this.menuTreeArray
-      // menu: [
-      //   {
-      //     id: uid(),
-      //     slug: "main",
-      //     title: { ru: "Главное меню", uk: "Головне меню" },
-      //     menu: [
-      //       {
-      //         id: uid(),
-      //         slug: "11menu",
-      //         title: { ru: "ru11menu", uk: "uk11menu" },
-      //         url: "/1menu",
-      //         menu: [
-      //           {
-      //             id: uid(),
-      //             slug: "12menu",
-      //             title: { ru: "ru12menu", uk: "uk12menu" },
-      //             url: "/12menu",
-      //             menu: []
-      //           },
-      //           {
-      //             id: uid(),
-      //             slug: "13menu",
-      //             title: { ru: "ru13menu", uk: "uk13menu" },
-      //             url: "/13menu",
-      //             menu: []
-      //           }
-      //         ]
-      //       },
-      //       {
-      //         id: uid(),
-      //         slug: "2menu",
-      //         title: { ru: "ru2menu", uk: "uk2menu" },
-      //         url: "/2menu",
-      //         menu: []
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     id: uid(),
-      //     slug: "two",
-      //     title: { ru: "Второстепене", uk: "Другорядне" },
-      //     menu: [
-      //       {
-      //         id: uid(),
-      //         slug: "2menu",
-      //         title: { ru: "ru2menu", uk: "uk2menu" },
-      //         url: "/2menu",
-      //         menu: []
-      //       }
-      //     ]
-      //   }
-      // ]
     };
   },
   methods: {
@@ -111,7 +59,7 @@ export default {
         id: uid(),
         slug: menuItem.slug,
         title: {},
-        url: "",
+        url: {},
         menu: []
       });
     },
