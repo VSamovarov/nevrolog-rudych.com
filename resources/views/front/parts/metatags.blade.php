@@ -24,3 +24,6 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="{{ $main->translateOrDefault()->title }}" />
 @endif
+
+<link href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" type="image/x-icon">
