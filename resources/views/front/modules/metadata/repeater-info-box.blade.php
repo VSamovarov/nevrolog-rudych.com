@@ -13,7 +13,7 @@
             @if (isset($data['show-link']) && $data['show-link'] === false || empty($item['link']) )
             <div class="info-block">
             @else
-            <a href="{{$item['link']}}" class="info-block">
+            <a href="{{App\Services\Helper::getLocalized($item['link']??'')}}" class="info-block">
             @endif
               @if ( !isset($data['show-icone']) || $data['show-icone']??false )
               <div class="info-block__icon">

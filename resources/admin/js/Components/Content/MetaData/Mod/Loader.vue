@@ -197,7 +197,7 @@ export default {
 </script>
 
 <style>
-.meta-modules .nav-tabs,
+/* .meta-modules .nav-tabs,
 .meta-modules .nav-tabs .nav-link {
   border: none;
 }
@@ -207,5 +207,5 @@ export default {
 .meta-modules .nav-tabs .nav-link.active {
   background: var(--ck-color-switch-button-off-hover-background);
   color: #fff;
-}
+} */
 </style>

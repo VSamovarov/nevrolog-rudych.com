@@ -13,10 +13,10 @@
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown text="User" right>
+        <!-- <b-nav-item-dropdown text="User" right>
           <b-dropdown-item href="#">Account</b-dropdown-item>
           <b-dropdown-item href="#">Settings</b-dropdown-item>
-        </b-nav-item-dropdown>
+        </b-nav-item-dropdown> -->
       </b-navbar-nav>
     </b-collapse>
   </b-navbar> </template

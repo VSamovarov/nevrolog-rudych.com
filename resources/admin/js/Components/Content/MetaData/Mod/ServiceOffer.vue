@@ -11,12 +11,6 @@
         ></ImageInput>
       </div>
       <div class="col-md-8">
-        <p class="text-black-50 small">Название</p>
-        <MultilingualInput
-          :locales="locales"
-          :value="getValue('title') || {}"
-          @input="$emit('input', { ...value, title: $event })"
-        ></MultilingualInput>
         <div class="row">
           <div class="col-md-6">
             <p class="text-black-50 small">Цена</p>
@@ -39,14 +33,32 @@
             </b-form-group>
           </div>
         </div>
-        <p class="text-black-50 small">Текст</p>
-        <Editor
-          :locales="locales"
-          :value="getValue('text') || {}"
-          :post="post"
-          @input="$emit('input', { ...value, text: $event })"
-        >
-        </Editor>
+        <b-tabs small>
+          <b-tab
+            class="py-2"
+            v-for="(langData, lang) in locales"
+            :key="lang"
+            :title="lang"
+          >
+            <p class="text-black-50 small">Заглавие</p>
+            <b-form-group>
+              <b-form-input
+                trim
+                :value="getValueMultilang('title', lang)"
+                @input="setValueMultilang('title', lang, $event)"
+              ></b-form-input>
+            </b-form-group>
+
+            <p class="text-black-50 small">Текст</p>
+            <b-form-group>
+              <CkEditor
+                :value="getValueMultilang('text', lang)"
+                :post_id="post.id"
+                @input="setValueMultilang('text', lang, $event)"
+              ></CkEditor>
+            </b-form-group>
+          </b-tab>
+        </b-tabs>
       </div>
     </div>
     <hr />
@@ -70,14 +82,12 @@
 const colors = ["#984c8a", "#9baacb", "#503a87", "#212529", "#fbe7f8"];
 import ColorSelection from "../../../Common/ColorSelection";
 import ImageInput from "./Parts/ImageInput";
-import MultilingualInput from "./Parts/MultilingualInput";
-import Editor from "./Parts/Editor";
+import CkEditor from "./../../../Common/CkEditor/CkEditorClassic";
 export default {
   components: {
     ColorSelection,
     ImageInput,
-    MultilingualInput,
-    Editor
+    CkEditor
   },
   props: {
     value: Object,
@@ -95,6 +105,16 @@ export default {
       return this.value && this.value[name] !== undefined
         ? this.value[name]
         : null;
+    },
+    getValueMultilang(name, lang) {
+      let input = this.value[name] || {};
+      return input[lang] || null;
+    },
+    setValueMultilang(name, lang, value) {
+      this.$emit("input", {
+        ...this.value,
+        [name]: { ...this.value[name], [lang]: value }
+      });
     }
   }
 };

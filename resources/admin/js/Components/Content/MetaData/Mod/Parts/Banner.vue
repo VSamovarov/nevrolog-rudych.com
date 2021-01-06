@@ -11,45 +11,58 @@
         ></ImageInput>
       </div>
       <div class="col-md-8">
-        <p class="text-black-50 small">Заглавие</p>
-        <MultilingualInput
-          :locales="locales"
-          :value="getValue('title') || {}"
-          @input="$emit('input', { ...value, title: $event })"
-        ></MultilingualInput>
+        <b-tabs small>
+          <b-tab
+            class="py-2"
+            v-for="(langData, lang) in locales"
+            :key="lang"
+            :title="lang"
+          >
+            <p class="text-black-50 small">Заглавие</p>
+            <b-form-group>
+              <b-form-input
+                trim
+                :value="getValueMultilang('title', lang)"
+                @input="setValueMultilang('title', lang, $event)"
+              ></b-form-input>
+            </b-form-group>
+            <p class="text-black-50 small">Текст</p>
+            <b-form-group>
+              <b-form-textarea
+                :value="getValueMultilang('text', lang)"
+                @input="setValueMultilang('text', lang, $event)"
+                rows="3"
+                max-rows="6"
+                trim
+              ></b-form-textarea>
+            </b-form-group>
+            <p class="text-black-50 small">Ссылка</p>
+            <b-form-group>
+              <b-form-input
+                trim
+                :value="getValueMultilang('link', lang)"
+                @input="setValueMultilang('link', lang, $event)"
+              ></b-form-input>
+            </b-form-group>
 
-        <p class="text-black-50 small">Текст</p>
-        <MultilingualTextarea
-          :locales="locales"
-          :value="getValue('text') || {}"
-          @input="$emit('input', { ...value, text: $event })"
-        ></MultilingualTextarea>
-        <p class="text-black-50 small">Ссылка</p>
-        <b-form-group>
-          <b-form-input
-            :value="getValue('link') || ''"
-            @input="$emit('input', { ...value, link: $event })"
-            trim
-          ></b-form-input>
-        </b-form-group>
-        <p class="text-black-50 small">Текст кнопки</p>
-        <MultilingualInput
-          :locales="locales"
-          :value="getValue('action_name') || {}"
-          @input="$emit('input', { ...value, action_name: $event })"
-        ></MultilingualInput>
+            <p class="text-black-50 small">Текст кнопки</p>
+            <b-form-group>
+              <b-form-input
+                trim
+                :value="getValueMultilang('action_name', lang)"
+                @input="setValueMultilang('action_name', lang, $event)"
+              ></b-form-input>
+            </b-form-group>
+          </b-tab>
+        </b-tabs>
       </div>
     </div>
   </div>
 </template>
 <script>
-import MultilingualInput from "./MultilingualInput";
-import MultilingualTextarea from "./MultilingualTextarea";
 import ImageInput from "./ImageInput";
 export default {
   components: {
-    MultilingualInput,
-    MultilingualTextarea,
     ImageInput
   },
   props: {
@@ -63,6 +76,16 @@ export default {
       return this.value && this.value[name] !== undefined
         ? this.value[name]
         : null;
+    },
+    getValueMultilang(name, lang) {
+      let input = this.value[name] || {};
+      return input[lang] || null;
+    },
+    setValueMultilang(name, lang, value) {
+      this.$emit("input", {
+        ...this.value,
+        [name]: { ...this.value[name], [lang]: value }
+      });
     }
   }
 };

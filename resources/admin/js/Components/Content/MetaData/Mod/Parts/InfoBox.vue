@@ -10,43 +10,53 @@
         </b-form-group>
       </div>
     </div>
-    <div v-show="showtitle">
-      <p class="text-black-50 small">Заглавие</p>
-      <MultilingualInput
-        :locales="locales"
-        :value="getValue('title') || {}"
-        @input="$emit('input', { ...value, title: $event })"
-      ></MultilingualInput>
-    </div>
-    <div v-show="showtext">
-      <p class="text-black-50 small">Текст</p>
-      <MultilingualTextarea
-        :locales="locales"
-        :value="getValue('text') || {}"
-        @input="$emit('input', { ...value, text: $event })"
-      ></MultilingualTextarea>
-    </div>
-    <div v-show="showlink">
-      <p class="text-black-50 small">Ссылка</p>
-      <b-form-group>
-        <b-form-input
-          :value="getValue('link') || ''"
-          @input="$emit('input', { ...value, link: $event })"
-          trim
-        ></b-form-input>
-      </b-form-group>
-    </div>
+    <b-tabs small>
+      <b-tab
+        class="py-2"
+        v-for="(langData, lang) in locales"
+        :key="lang"
+        :title="lang"
+      >
+        <div v-show="showtitle">
+          <p class="text-black-50 small">Заглавие</p>
+          <b-form-group>
+            <b-form-input
+              trim
+              :value="getValueMultilang('title', lang)"
+              @input="setValueMultilang('title', lang, $event)"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+        <div v-show="showtext">
+          <p class="text-black-50 small">Текст</p>
+          <b-form-group>
+            <b-form-textarea
+              :value="getValueMultilang('text', lang)"
+              @input="setValueMultilang('text', lang, $event)"
+              rows="3"
+              max-rows="6"
+              trim
+            ></b-form-textarea>
+          </b-form-group>
+        </div>
+        <div v-show="showlink">
+          <p class="text-black-50 small">Ссылка</p>
+          <b-form-group>
+            <b-form-input
+              trim
+              :value="getValueMultilang('link', lang)"
+              @input="setValueMultilang('link', lang, $event)"
+            ></b-form-input>
+          </b-form-group>
+        </div>
+      </b-tab>
+    </b-tabs>
   </div>
 </template>
 
 <script>
-import MultilingualInput from "./MultilingualInput";
-import MultilingualTextarea from "./MultilingualTextarea";
 export default {
-  components: {
-    MultilingualInput,
-    MultilingualTextarea
-  },
+  components: {},
   props: {
     value: Object,
     locales: Object,
@@ -62,14 +72,24 @@ export default {
     };
   },
   methods: {
+    setIcone(icone) {
+      this.preview = icone;
+      this.$emit("input", { ...this.value, icone });
+    },
     getValue(name) {
       return this.value && this.value[name] !== undefined
         ? this.value[name]
         : null;
     },
-    setIcone(icone) {
-      this.preview = icone;
-      this.$emit("input", { ...this.value, icone });
+    getValueMultilang(name, lang) {
+      let input = this.value[name] || {};
+      return input[lang] || null;
+    },
+    setValueMultilang(name, lang, value) {
+      this.$emit("input", {
+        ...this.value,
+        [name]: { ...this.value[name], [lang]: value }
+      });
     }
   }
 };

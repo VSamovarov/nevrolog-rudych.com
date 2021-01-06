@@ -1,16 +1,19 @@
 <template>
   <ul class="menu">
     <template v-for="(menu, id) of menuData">
-      <SidebarMenuItem :class="{active:menu.active}" :key="id">
+      <SidebarMenuItem :class="{ active: menu.active }" :key="id">
         <LinkMenu :href="menu.submenu ? '' : menu.href">
-            <Icon class="item-menu-icon" :icon="menu.icon"></Icon>
-            <span class="item-menu-text">{{ menu.title }}</span>
+          <Icon class="item-menu-icon" :icon="menu.icon"></Icon>
+          <span class="item-menu-text">{{ menu.title }}</span>
         </LinkMenu>
         <ul v-if="menu.submenu" class="sub-menu">
           <template v-for="(submenu, id_submenu) of menu.submenu">
-            <SidebarMenuItem :class="{active:menu.active}" :key="`${id}-${id_submenu}`">
+            <SidebarMenuItem
+              :class="{ active: menu.active }"
+              :key="`${id}-${id_submenu}`"
+            >
               <LinkMenu :href="submenu.href">
-                  <span class="item-menu-text">{{ submenu.title }}</span>
+                <span class="item-menu-text">{{ submenu.title }}</span>
               </LinkMenu>
             </SidebarMenuItem>
           </template>
@@ -51,16 +54,16 @@ export default {
   components: {
     SidebarMenuItem,
     LinkMenu,
-    Icon,
+    Icon
   },
   data() {
     return {};
   },
   props: {
     menuData: {
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
@@ -89,7 +92,7 @@ export default {
   white-space: normal;
 }
 .menu {
-  font-size: 1.1rem;
+  font-size: 1rem;
   padding-left: 1.4em;
 }
 .item-menu-icon {

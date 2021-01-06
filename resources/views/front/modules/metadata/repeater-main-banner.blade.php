@@ -14,7 +14,7 @@
             </div>
             <div class="main-banner__action">
               @if (!empty($item['link']) && !empty($item['action_name']))
-              <a class="btn btn-primary" href="{{$item['link']}}">
+              <a class="btn btn-primary" href="{{App\Services\Helper::getLocalized($item['link'])}}">
                 {{ App\Services\Helper::getLocalized($item['action_name']) }}
               </a>
               @endif
