@@ -5,7 +5,7 @@
           <div class="col-md-6 image-and-text-two-rows__image">
             <img src="{{ $data['image']['src'] }}"/>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 editor">
             {!! App\Services\Helper::getLocalized($data['text']) !!}
           </div>
         </div>

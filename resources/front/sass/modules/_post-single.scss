@@ -37,21 +37,4 @@
     margin-bottom: 1.4rem;
     margin-top: 1.4rem;
   }
-
-  figure.image {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-    align-items: center;
-  }
-  figure.image.image-style-align-left {
-    display: inline;
-    float: left;
-  }
-  figure.image.image-style-align-right {
-    display: inline;
-    float: right;
-  }
 }

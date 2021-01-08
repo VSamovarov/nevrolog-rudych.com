@@ -11,6 +11,7 @@ require("./forms");
 require("./imask");
 require("./button-back-up");
 require("./accordion");
+require("./oembed");
 // require("./popup.js");
 // require("./feedback-popup.js");
 

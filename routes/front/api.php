@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Feedback\FeedbackSubmitController;
+use App\Http\Controllers\OembedApiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('feedback-form', FeedbackSubmitController::class);
+Route::get('oembed', OembedApiController::class);

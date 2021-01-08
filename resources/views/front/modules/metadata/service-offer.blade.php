@@ -18,7 +18,7 @@
                 <span class="linearicons-tag"></span>&nbsp;@lang('content.cost'): {{$data['price']}}&nbsp;₴
               </div>
             </div>
-            <div class="service-offer__text">
+            <div class="service-offer__text editor">
               {!! App\Services\Helper::getLocalized($data['text']) !!}
             </div>
           </div>

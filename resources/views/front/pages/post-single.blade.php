@@ -26,7 +26,7 @@
         </li>
       </ul>
 
-      <div class="post-single__content">
+      <div class="post-single__content editor">
         {!! $main->translateOrDefault()->content !!}
       </div>
     </div>

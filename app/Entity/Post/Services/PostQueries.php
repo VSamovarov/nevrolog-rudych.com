@@ -59,7 +59,7 @@ final class PostQueries implements ServiceQueries
     } else {
       $builder = $this->model::filter($values);
     }
-    return $builder->type($values['type']);
+    return $builder->type($values['type'])->orderBy('created_at','desc');;
   }
 
   /**

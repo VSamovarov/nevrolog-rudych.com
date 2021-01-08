@@ -8,7 +8,7 @@
     <div class="row">
       @foreach ($data["repeat"] as $item)
       <div class="col">
-        <div>
+        <div class="editor">
           {!! App\Services\Helper::getLocalized($item??'') !!}
         </div>
       </div>
