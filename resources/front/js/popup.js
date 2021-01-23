@@ -5,6 +5,7 @@
  *
  *
  */
+import delegate from "delegate";
 const bodyScrollLock = require("body-scroll-lock");
 
 export default class PopUp {
@@ -28,13 +29,26 @@ export default class PopUp {
         <div class="hystmodal__window" role="dialog" aria-modal="true">
           <button class="hystmodal__close" data-hystclose="">&times;</button>
           <div class="hystmodal__content">
-          ffffffffffffffffffffffffffffffff
-          fffffffffffffffffffffffffffffff
-          fffff
           </div>
         </div>
       </div>
       `;
+    // popUpHtml.querySelector(".hystmodal__close").addEventListener('click', this.close.bind(this));
+    delegate(
+      "#pop-up-modal",
+      "click",
+      (function(e) {
+        e.preventDefault();
+        if(
+          e.target.classList.contains('hystmodal__close') ||
+          e.target.classList.contains('hystmodal__wrap')
+        ) {
+          this.close()
+        }
+      }).bind(this),
+      false
+    );
+
     document.body.prepend(popUpHtml);
     return popUpHtml;
   }
@@ -42,9 +56,19 @@ export default class PopUp {
     bodyScrollLock.disableBodyScroll(document.body);
     bodyScrollLock.enableBodyScroll(this._popup);
     this._popup.classList.add("hystmodal--active");
+    this.putContent(content)
   }
   close() {
+    console.log(this._popup);
     this._popup.classList.remove("hystmodal--active");
     bodyScrollLock.clearAllBodyScrollLocks();
+  }
+
+  putContent(content) {
+    this._popup.querySelector(".hystmodal__content").innerHTML = content;
+  }
+
+  clearContent(content) {
+    this.putContent('')
   }
 }

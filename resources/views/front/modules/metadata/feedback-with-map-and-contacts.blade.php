@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-6 pr-5 py-5">
         <h2>@lang('feedback.feedback_text')</h2>
-        @include('front.forms.call-back-form')
+        @include('front.forms.feed-back-form')
       </div>
       <div class="col-md-6 google-maps">
 

@@ -43,6 +43,11 @@
                       </a>
                     </p>
                     @endif
+                    <p>
+                      <a class="call-me-back-form text-nowrap" href="#">
+                        Перезвонить вам
+                      </a>
+                    </p>
                 </div>
             </div>
 
