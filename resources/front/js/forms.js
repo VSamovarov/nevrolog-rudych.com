@@ -4,9 +4,8 @@ import Preloader from "./preloader";
 const borderDangerClass = "border-danger";
 const invalidFeedbackClass = "invalid-feedback";
 
-delegate(document.body, "form[data-form-name=feedback-form]", "submit", e => {
-  e.preventDefault();
-  const form = e.target;
+delegate(document.body, "form[data-form-type=ajax] button", "click", e => {
+  const form = event.target.closest('form');
   const formData = new FormData(form);
   let preloader = new Preloader(form);
   axios
@@ -30,7 +29,7 @@ delegate(document.body, "form[data-form-name=feedback-form]", "submit", e => {
       preloader.remove(form);
       preloader = null;
     });
-});
+})
 
 function insertSuccessMessage(form, message) {
   const div = document.createElement("div");

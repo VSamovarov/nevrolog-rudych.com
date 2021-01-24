@@ -59,16 +59,17 @@ export default class PopUp {
     this.putContent(content)
   }
   close() {
-    console.log(this._popup);
     this._popup.classList.remove("hystmodal--active");
     bodyScrollLock.clearAllBodyScrollLocks();
   }
 
   putContent(content) {
-    this._popup.querySelector(".hystmodal__content").innerHTML = content;
+    this.clearContent();
+    const wrapper = this._popup.querySelector(".hystmodal__content");
+    wrapper.append(content)
   }
 
-  clearContent(content) {
-    this.putContent('')
+  clearContent() {
+    this._popup.querySelector(".hystmodal__content").innerHTML = '';
   }
 }

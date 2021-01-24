@@ -7,7 +7,6 @@ const route = "/api/oembed";
     .get(route, { params: { url } })
     .then(function(response) {
       const { data } = response;
-      console.log(data);
       const div = document.createElement("div");
       div.classList.add(data.providerName);
       div.innerHTML = data.html;

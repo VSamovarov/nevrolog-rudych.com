@@ -1,4 +1,4 @@
-  <form class="feed-back-form" id="feedBackForm" data-action="" data-form-name="feedback-form">
+  <form class="feed-back-form" data-form-type="ajax" data-form-name="feedback">
     <div class="form-group">
       <label>@lang('feedback.name')*
         <input type="text" name="name" class="form-control">

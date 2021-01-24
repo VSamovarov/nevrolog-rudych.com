@@ -22,6 +22,11 @@
             <div class="contacts">
                 <div class="contacts__icon"><span class="linearicons-telephone2"></span></div>
                 <div class="contacts__content">
+                    <p>
+                      <a href="#" data-call-form="call-me-back" class="badge badge-danger text-nowrap text-white">
+                        @lang('feedback.callback_text')
+                      </a>
+                    </p>
                     @if (settings()->get('site-phone-first',''))
                       <p>
                         <a class="text-nowrap" href="tel:+8{{ App\Services\Helper::clearPhone(settings()->get('site-phone-first','')) }}">
@@ -43,11 +48,6 @@
                       </a>
                     </p>
                     @endif
-                    <p>
-                      <a class="call-me-back-form text-nowrap" href="#">
-                        Перезвонить вам
-                      </a>
-                    </p>
                 </div>
             </div>
 

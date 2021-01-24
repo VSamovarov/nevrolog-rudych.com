@@ -7,13 +7,13 @@ window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 require("./lazysizes");
 require("./menus");
 require("./gallery");
+require("./feedback-popup.js");
 require("./forms");
 require("./imask");
 require("./button-back-up");
 require("./accordion");
 require("./oembed");
 require("./popup.js");
-require("./feedback-popup.js");
 
 // require("./global-coverage-layer");
 
